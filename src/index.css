@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+input{
+    padding: 4px;
+    outline: none;
+    border: none;
+}
+
+input::placeholder{
+    text-transform: capitalize;
+}
