@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { loginUserAsync, registerUserAsync, selectLoginUser, selectStatus } from '../userSlice';
+import { loginUserAsync, registerUserAsync, selectLoggedInUser, selectStatus } from '../userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, useNavigate } from 'react-router-dom'
 import { useForm } from "react-hook-form"
@@ -28,7 +28,7 @@ const Login = () => {
 
   const dispatch = useDispatch();
   const status = useSelector(selectStatus);
-  const user = useSelector(selectLoginUser)
+  const user = useSelector(selectLoggedInUser)
 
   console.log(status);
 

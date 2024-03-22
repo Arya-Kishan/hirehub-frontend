@@ -14,6 +14,9 @@ import JobForm from './Pages/Forms/component/JobForm'
 import Protected from './Features/Protected'
 import CommunityHome from './Pages/Community/component/CommunityHome'
 import Application from './Pages/Application/component/Application'
+import Drawer from './Features/Drawer'
+import LikeDrawer from './Features/Drawer/LikeDrawer'
+import CommentDrawer from './Features/Drawer/CommentDrawer'
 
 function App() {
 
@@ -24,7 +27,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Protected><HomePage /></Protected>} />
           <Route path='/login' element={<Login />} />
-          <Route path='/profile' element={<Profile />} />
+          <Route path='/profile/:userId' element={<Profile />} />
           <Route path='/job' element={<Job />} />
           <Route path='/jobDetails/:id' element={<JobDetails />} />
           <Route path='/multiform/:type' element={<MultiForm />} />
@@ -34,6 +37,9 @@ function App() {
           <Route path='/community' element={<CommunityHome />} />
           <Route path='/application' element={<Application />} />
         </Routes>
+        <Drawer />
+        <LikeDrawer />
+        <CommentDrawer />
       </BrowserRouter>
     </>
   )

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { loginUser } from './profileApi';
+// import { loginUser } from './profileApi';
 
 const initialState = {
   status: 'idle',
@@ -9,7 +9,7 @@ const initialState = {
 export const loginUserAsync = createAsyncThunk(
   'auth/loginUser',
   async (user) => {
-    const response = await loginUser(user);
+    // const response = await loginUser(user);
     return response.data;
   }
 );

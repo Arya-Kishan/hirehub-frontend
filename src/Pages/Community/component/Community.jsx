@@ -17,9 +17,6 @@ const Community = () => {
   const postArr = useSelector(selectUserPosts)
   const [showSearch, setShowSearch] = useState(null)
 
-
-  console.log(postArr);
-
   const handleCreatePost = () => {
     navigate("/postForm")
   }
@@ -27,6 +24,8 @@ const Community = () => {
   useEffect(() => {
     dispatch(fetchPostAsync())
   }, [])
+
+  console.log(postArr);
 
   return (
     <div className='w-full min-h-[100vh] flex flex-col justify-center items-center py-5'>
@@ -49,7 +48,7 @@ const Community = () => {
       </div>
 
       {/* third Row */}
-      <div className='w-full min-h-[80vh] flex flex-wrap items-start justify-center gap-10 p-5'>
+      <div className='w-full min-h-[80vh] flex flex-wrap items-start justify-start gap-10 px-5 py-10'>
 
         {postArr ? postArr?.map((e, i) => (
           <div key={i}>

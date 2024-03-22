@@ -119,3 +119,15 @@ export function axiosSearch({ endPoint, query}) {
         }
     });
 }
+
+
+export function axiosAddRemoveLikeComment({ endPoint, query}) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const { data } = await axios.post(`/${endPoint}?${query.query}`)
+            resolve({ data })
+        } catch (error) {
+            reject({ data: null })
+        }
+    });
+}

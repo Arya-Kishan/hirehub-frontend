@@ -4,6 +4,8 @@ import { axiosGetAll } from '../../Helper/AxiosCall';
 const initialState = {
     status: 'idle',
     employerId: null,
+    drawer: false,
+    drawerData: null,
 };
 
 
@@ -28,6 +30,12 @@ export const formSlice = createSlice({
         setEmployerId: (state, action) => {
             state.employerId = action.payload;
         },
+        setDrawer: (state, action) => {
+            state.drawer = action.payload;
+        },
+        setDrawerData: (state, action) => {
+            state.drawerData = action.payload;
+        },
     },
 
     extraReducers: (builder) => {
@@ -41,9 +49,11 @@ export const formSlice = createSlice({
     },
 });
 
-export const { setEmployerId } = formSlice.actions;
+export const { setEmployerId, setDrawerData, setDrawer } = formSlice.actions;
 
 export const selectStatus = (state) => state.job.status;
 export const selectEmployerId = (state) => state.form.employerId;
+export const selectDrawer = (state) => state.form.drawer;
+export const selectDrawerData = (state) => state.form.drawerData;
 
 export default formSlice.reducer;
