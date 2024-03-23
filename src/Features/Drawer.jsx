@@ -60,7 +60,7 @@ const Drawer = () => {
 
     }, [drawer])
 
-    console.log(drawerData);
+    // console.log(drawerData);
 
 
     return (

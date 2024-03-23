@@ -50,8 +50,8 @@ const CommentDrawer = () => {
 
     }, [commentDrawer])
 
-    console.log(commentDrawerData);
-    console.log(commentDrawerData?.comments);
+    // console.log(commentDrawerData);
+    // console.log(commentDrawerData?.comments);
 
     return (
         <motion.div

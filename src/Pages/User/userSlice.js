@@ -3,12 +3,24 @@ import { axiosGetById, axiosPost } from '../../Helper/AxiosCall';
 
 const initialState = {
   status: 'idle',
-  loggedInUser:null,
+  loggedInUser: null,
   userId: null,
-  otherUserDetail:null,
+  otherUserDetail: null,
+  preCheckUser: false,
 };
 
 
+export const checkUserWithJwtAsync = createAsyncThunk(
+  'auth/checkUserJwt',
+  async (jwtToken, { rejectWithValue }) => {
+    try {
+      const response = await axiosGetById({ endPoint: "user/checkUserWithJwt", query: "checkUserWithJwt", id: jwtToken });
+      return response.data;
+    } catch (error) {
+      return response.data;
+    }
+  }
+);
 
 export const registerUserAsync = createAsyncThunk(
   'auth/registerUser',
@@ -30,7 +42,7 @@ export const loginUserAsync = createAsyncThunk(
 export const getOtherUserDetailAsync = createAsyncThunk(
   'auth/getUserDetail',
   async (userId) => {
-    const response = await axiosGetById({endPoint: "user",query:"userId",id:userId });
+    const response = await axiosGetById({ endPoint: "user", query: "userId", id: userId });
     return response.data;
   }
 );
@@ -45,12 +57,28 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     logoutUser: (state) => {
-      state.status = "idle";
+      state.loggedInUser = null;
     },
   },
 
   extraReducers: (builder) => {
     builder
+      // CHECKING USER WITH JWT TOKEN
+      .addCase(checkUserWithJwtAsync.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(checkUserWithJwtAsync.fulfilled, (state, action) => {
+        state.status = 'idle';
+        state.preCheckUser = true;
+        state.loggedInUser = action.payload;
+        state.userId = action.payload._id;
+      })
+      .addCase(checkUserWithJwtAsync.rejected, (state, action) => {
+        state.status = 'idle';
+        state.preCheckUser = true;
+        state.loggedInUser = null;
+      })
+      // RESITERING USER
       .addCase(registerUserAsync.pending, (state) => {
         state.status = 'loading';
       })
@@ -58,6 +86,7 @@ export const userSlice = createSlice({
         state.status = 'idle';
         state.loggedInUser = action.payload;
       })
+      // LOGIN USER
       .addCase(loginUserAsync.pending, (state) => {
         state.status = 'loading';
       })
@@ -65,6 +94,7 @@ export const userSlice = createSlice({
         state.loggedInUser = action.payload;
         state.userId = action.payload._id;
       })
+      // GETTING OTHER USER DETAIL FOR SHOWING IN PROFILE PAGE
       .addCase(getOtherUserDetailAsync.pending, (state) => {
         state.status = 'loading';
       })
@@ -79,6 +109,7 @@ export const { logoutUser } = userSlice.actions;
 export const selectStatus = (state) => state.user.status;
 export const selectLoggedInUser = (state) => state.user.loggedInUser;
 export const selectUserId = (state) => state.user.userId;
+export const selectPreCheckUser = (state) => state.user.preCheckUser;
 export const selectOtherUserDetail = (state) => state.user.otherUserDetail;
 
 export default userSlice.reducer;

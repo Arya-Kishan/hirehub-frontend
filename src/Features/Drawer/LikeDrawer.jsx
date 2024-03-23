@@ -23,7 +23,7 @@ const LikeDrawer = () => {
         dispatch(setLikeDrawer(false))
     }
 
-    console.log(likeDrawerData);
+    // console.log(likeDrawerData);
 
 
     useEffect(() => {
@@ -36,7 +36,7 @@ const LikeDrawer = () => {
 
     }, [likeDrawer])
 
-    console.log(likeDrawer);
+    // console.log(likeDrawer);
 
     return (
         <motion.div

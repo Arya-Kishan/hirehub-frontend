@@ -8,13 +8,19 @@ import community from "../../../assets/community.svg"
 import application from "../../../assets/application.svg"
 import cross from "../../../assets/cross.svg"
 import { Link, useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import { selectUserId } from '../../User/userSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { logoutUser, selectUserId } from '../../User/userSlice'
 
 const Navbar = () => {
 
   const navRef = useRef(null)
   const loggedInUserId = useSelector(selectUserId)
+  const dispatch = useDispatch()
+
+  const handleLogout = () =>{
+    localStorage.setItem("x-jwt-routes",null)
+    dispatch(logoutUser())
+  }
 
 
   return (
@@ -32,16 +38,18 @@ const Navbar = () => {
         <Link to={'/application'} className='list cursor-pointer'>My Applications</Link>
         <Link to={'/community'} className='list cursor-pointer'>Community</Link>
         <Link to={`/profile/${loggedInUserId}`} className='list cursor-pointer'><img className='w-[30px]' src={profile} alt="" /></Link>
+        <li onClick={handleLogout}>Logout</li>
       </ul>
 
       {/* FOR MOBILE DEVICE */}
       <div
         className='w-full flex justify-evenly md:hidden fixed bottom-0 right-0 bg-teal-500 p-2'>
-        <Link to={'/'} className='list cursor-pointer'><img className='w-[25px]' src={home} alt="" srcset="" /></Link>
-        <Link to={'/job'} className='list cursor-pointer'><img className='w-[25px]' src={job} alt="" srcset="" /></Link>
-        <Link to={'/application'} className='list cursor-pointer'><img className='w-[25px]' src={application} alt="" srcset="" /></Link>
-        <Link to={'/community'} className='list cursor-pointer'><img className='w-[25px]' src={community} alt="" srcset="" /></Link>
+        <Link to={'/'} className='list cursor-pointer'><img className='w-[25px]' src={home} alt="" srcSet="" /></Link>
+        <Link to={'/job'} className='list cursor-pointer'><img className='w-[25px]' src={job} alt="" srcSet="" /></Link>
+        <Link to={'/application'} className='list cursor-pointer'><img className='w-[25px]' src={application} alt="" srcSet="" /></Link>
+        <Link to={'/community'} className='list cursor-pointer'><img className='w-[25px]' src={community} alt="" srcSet="" /></Link>
         <Link to={`/profile/${loggedInUserId}`} className='list cursor-pointer'><img className='w-[30px]' src={profile} alt="" /></Link>
+        <li onClick={handleLogout}>Logout</li>
       </div>
 
     </div>

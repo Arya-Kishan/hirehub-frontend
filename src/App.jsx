@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
+import axios from "axios"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import HomePage from './Pages/HomePage'
 import Profile from './Pages/Profile/component/Profile'
@@ -17,30 +18,49 @@ import Application from './Pages/Application/component/Application'
 import Drawer from './Features/Drawer'
 import LikeDrawer from './Features/Drawer/LikeDrawer'
 import CommentDrawer from './Features/Drawer/CommentDrawer'
+import { useDispatch, useSelector } from 'react-redux'
+import { checkUserWithJwtAsync, selectLoggedInUser, selectPreCheckUser } from './Pages/User/userSlice'
 
 function App() {
 
+  // BELOW CODE SETS THE AXIOS HEADER
+  axios.defaults.headers.common["x-jwt-routes"] = `${localStorage.getItem("x-jwt-routes")}`
+
+  const dispatch = useDispatch()
+
+
+  const loggedInUser = useSelector(selectLoggedInUser)
+  const preCheckUser = useSelector(selectPreCheckUser)
+
+  useEffect(() => {
+    dispatch(checkUserWithJwtAsync(localStorage.getItem("x-jwt-routes")))
+  }, [])
+
+
   return (
     <>
-      <BrowserRouter>
-        <Navbar />
-        <Routes>
-          <Route path='/' element={<Protected><HomePage /></Protected>} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/profile/:userId' element={<Profile />} />
-          <Route path='/job' element={<Job />} />
-          <Route path='/jobDetails/:id' element={<JobDetails />} />
-          <Route path='/multiform/:type' element={<MultiForm />} />
-          <Route path='/applicationForm' element={<ApplicationForm />} />
-          <Route path='/jobForm' element={<JobForm />} />
-          <Route path='/postForm' element={<PostForm />} />
-          <Route path='/community' element={<CommunityHome />} />
-          <Route path='/application' element={<Application />} />
-        </Routes>
-        <Drawer />
-        <LikeDrawer />
-        <CommentDrawer />
-      </BrowserRouter>
+      {preCheckUser &&
+
+        <BrowserRouter>
+          <Navbar />
+          <Routes>
+            <Route path='/' element={<Protected><HomePage /></Protected>} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/profile/:userId' element={<Protected><Profile /></Protected>} />
+            <Route path='/job' element={<Protected><Job /></Protected>} />
+            <Route path='/jobDetails/:id' element={<Protected><JobDetails /></Protected>} />
+            <Route path='/multiform/:type' element={<Protected><MultiForm /></Protected>} />
+            <Route path='/applicationForm' element={<Protected><ApplicationForm /></Protected>} />
+            <Route path='/jobForm' element={<Protected><JobForm /></Protected>} />
+            <Route path='/postForm' element={<Protected><PostForm /></Protected>} />
+            <Route path='/community' element={<Protected><CommunityHome /></Protected>} />
+            <Route path='/application' element={<Protected><Application /></Protected>} />
+          </Routes>
+          <Drawer />
+          <LikeDrawer />
+          <CommentDrawer />
+        </BrowserRouter>
+      }
     </>
   )
 }

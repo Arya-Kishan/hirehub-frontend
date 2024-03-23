@@ -1,5 +1,6 @@
 import axios from "axios";
 import { toast } from 'react-toastify';
+const myHeader = new Headers();
 
 
 export const axiosPost = ({ data, endPoint, errorMessage, successMessage }) => {
@@ -14,6 +15,9 @@ export const axiosPost = ({ data, endPoint, errorMessage, successMessage }) => {
             }
 
             const res = await axios.post(`/${endPoint}`, data, { headers: config })
+            console.log(res.headers);
+            console.log(res.headers?.["x-jwt-routes"]);
+            localStorage.setItem("x-jwt-routes", res.headers?.["x-jwt-routes"])
             toast(`${successMessage}`)
             resolve({ data: res.data })
 
@@ -56,7 +60,7 @@ export function axiosGetById({ endPoint, query, id }) {
 
 
 
-export function axiosUpdateById({ data, endPoint,query, id, errorMessage, successMessage }) {
+export function axiosUpdateById({ data, endPoint, query, id, errorMessage, successMessage }) {
     return new Promise(async (resolve, reject) => {
 
         try {
@@ -71,7 +75,7 @@ export function axiosUpdateById({ data, endPoint,query, id, errorMessage, succes
     });
 }
 
-export function axiosDeleteById({endPoint,query, id, errorMessage, successMessage }) {
+export function axiosDeleteById({ endPoint, query, id, errorMessage, successMessage }) {
     return new Promise(async (resolve, reject) => {
 
         try {
@@ -93,6 +97,7 @@ export const loginUser = ({ data, endPoint, errorMessage, successMessage }) => {
         try {
 
             const res = await axios.post(`/${endPoint}`, data)
+            localStorage.setItem("x-jwt-routes", res.headers?.["x-jwt-routes"])
             toast(`${successMessage}`)
             resolve({ data: res.data })
 
@@ -109,7 +114,7 @@ export const loginUser = ({ data, endPoint, errorMessage, successMessage }) => {
 
 
 /* SEARCH FUNCTIONALITY USER,JOBS ETC... */
-export function axiosSearch({ endPoint, query}) {
+export function axiosSearch({ endPoint, query }) {
     return new Promise(async (resolve, reject) => {
         try {
             const { data } = await axios.get(`/${endPoint}?${query}`)
@@ -120,8 +125,8 @@ export function axiosSearch({ endPoint, query}) {
     });
 }
 
-
-export function axiosAddRemoveLikeComment({ endPoint, query}) {
+// ADD REMOVE LIKE AND COMMENT
+export function axiosAddRemoveLikeComment({ endPoint, query }) {
     return new Promise(async (resolve, reject) => {
         try {
             const { data } = await axios.post(`/${endPoint}?${query.query}`)
