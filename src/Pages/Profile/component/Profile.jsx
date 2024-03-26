@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import dp from "../../../assets/dp.svg"
 import heart from "../../../assets/heart.svg"
 import comment from "../../../assets/comment.svg"
@@ -29,10 +29,10 @@ const Profile = () => {
   }, [paramUserId])
 
 
-  console.log(paramUserIdDetails);
-  console.log(myPosts);
-  console.log("--------------Notification--------------");
-  console.log(myNotifications);
+  // console.log(paramUserIdDetails);
+  // console.log(myPosts);
+  // console.log("--------------Notification--------------");
+  // console.log(myNotifications);
 
   const handleGetTotalLikes = () => {
     let count = 0;
@@ -52,18 +52,6 @@ const Profile = () => {
     formData.append("receiverId", senderId)
     dispatch(sendFriendRequestAsync(formData));
 
-  }
-
-  const handleFriendRequest = (requestResult, notificationId) => {
-
-    if (requestResult == "accept") {
-      console.log("accepted");
-      dispatch(handleRequestAsync({ query: `requestResult=accept&notificationId`, notificationId: notificationId }))
-    } else {
-      console.log("rejected");
-      dispatch(handleRequestAsync({ query: `requestResult=reject&notificationId`, notificationId: notificationId }))
-
-    }
   }
 
   useEffect(() => {
@@ -135,31 +123,8 @@ const Profile = () => {
 
       </> : ""}
 
-
-      {/* THIRD ROW FOR NOTIFICATION */}
-      <div className='p-2 flex flex-col justify-start items-start gap-4'>
-        <h1 className='text-3xl'>Notification :</h1>
-        {myNotifications?.length > 0 ? myNotifications?.map((e) => (
-          <>
-            {e.senderId.name && <div className='pl-5 flex flex-col items-start justify-start gap-2'>
-
-              <p className='text-xl'>{e.senderId.name} send friend request</p>
-
-              <div className='flex justify-between items-center gap-2'>
-
-                <button onClick={() => handleFriendRequest("accept", e._id)} className='bg-teal-500 px-2 py-1'>Accept</button>
-                <button onClick={() => handleFriendRequest("reject", e._id)} className='bg-teal-500 px-2 py-1'>Reject</button>
-
-              </div>
-
-            </div>}
-
-          </>
-        )) : "No Notification"}
-      </div>
-
     </div>
   )
 }
 
-export default Profile
+export default memo(Profile)

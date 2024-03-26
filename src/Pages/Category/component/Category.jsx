@@ -14,7 +14,7 @@ const companyArr = [{ pic: facebook, title: 'Facebook' }, { pic: apple, title: '
 
 const Category = () => {
   return (
-    <div className='w-full h-[100vh]'>
+    <div className='w-full min-h-[100vh]'>
 
       <div className='w-full h-[20vh] flex items-center justify-around gap-2'>
 

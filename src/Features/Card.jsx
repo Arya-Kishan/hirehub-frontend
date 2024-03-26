@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { memo, useState } from 'react'
 import heart1 from '../assets/heart.svg'
 import heart2 from '../assets/heart2.svg'
 import comment from '../assets/comment.svg'
 import dp from '../assets/dp.svg'
 import { useDispatch, useSelector } from "react-redux"
-import { addRemoveLikeAsync, setCommentDrawer, setCommentDrawerData, setLikeDrawer, setLikeDrawerData } from '../Pages/Community/communitySlice'
+import { addRemoveLikeAsync, setCommentDrawer, setCommentDrawerData, setLikeDrawer, setLikeDrawerData, setPostDrawer } from '../Pages/Community/communitySlice'
 import { selectDrawer, selectDrawerData, setDrawer, setDrawerData } from '../Pages/Forms/formsSlice'
 import { selectUserId } from '../Pages/User/userSlice'
 import { useNavigate } from "react-router-dom"
@@ -23,31 +23,27 @@ const Card = ({ card }) => {
         dispatch(addRemoveLikeAsync({ query: `purpose=add&type=like&userId=${userId}&postId=${postId}` }))
     }
 
-    const handleRemoveLike = (postUserId, postId) => {
+    const handleRemoveLike = (postUserId,postId) => {
         setShowLiked(true)
         dispatch(addRemoveLikeAsync({ query: `purpose=delete&type=like&userId=${userId}&postId=${postId}` }))
     }
 
-    const handleShowComments = (postUserId, postId) => {
-        // dispatch(setDrawer(true))
-        // dispatch(setDrawerData({ type: "comment", data: card.comments, postId: postId, postUserId:postUserId }))
+    const handleShowComments = () => {
         dispatch(setCommentDrawer(true))
         dispatch(setCommentDrawerData(card))
     }
 
-    const handleShowLikes = (postUserId, postId) => {
-        // dispatch(setDrawer(true))
-        // dispatch(setDrawerData({ type: "like", data: card.likes, postId: null }))
+    const handleShowLikes = () => {
         dispatch(setLikeDrawer(true))
         dispatch(setLikeDrawerData(card))
     }
 
-    console.log("-------card-----");
+    // console.log("-------card-----");
     
     return (
-        <div className='w-[70vw] h-[350px] md:w-[30vw] md:h-[350px] bg-white shadow-2xl flex flex-col gap-1 justify-evenly items-start p-3'>
+        <div className='w-[80vw] md:w-[25vw] lg:w-[30vw] h-[350px] md:h-[350px] bg-white shadow-2xl flex flex-col gap-1 justify-evenly items-start p-3'>
 
-            <img className='w-full h-[60%] bg-teal-500' src={card.picUrl} alt="" srcSet="" />
+            <img onClick={()=>dispatch(setPostDrawer({data:card,show:true}))} loading='lazy' className='w-full h-[60%] bg-teal-500' src={card.picUrl} alt="" srcSet="" />
 
             <div className='w-full flex items-center justify-between'>
 
@@ -80,4 +76,4 @@ const Card = ({ card }) => {
     )
 }
 
-export default Card
+export default memo(Card)

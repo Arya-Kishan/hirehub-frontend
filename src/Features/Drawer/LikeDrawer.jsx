@@ -42,7 +42,7 @@ const LikeDrawer = () => {
         <motion.div
             initial={{ x: 0 }}
             animate={{ x: width }}
-            className='w-full h-[100vh] bg-gradient-to-r from-black fixed top-0 left-[100vw] flex items-center justify-end pt-[60px]'
+            className='w-full h-[100vh] fixed top-0 left-[100vw] flex items-center justify-end pt-[60px]'
             onClick={handleHideDrawer}
         >
 

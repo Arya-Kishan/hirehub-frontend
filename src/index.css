@@ -12,6 +12,6 @@ input::placeholder{
     text-transform: capitalize;
 }
 
-.bringUp{
-    transform: translateY(50px);
+::-webkit-scrollbar{
+    display: none;
 }

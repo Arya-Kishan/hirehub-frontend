@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import filter from '../../../assets/filter.svg'
 import search from '../../../assets/search.svg'
 import dp from '../../../assets/dp.svg'
@@ -25,7 +25,7 @@ const Community = () => {
     dispatch(fetchPostAsync())
   }, [])
 
-  console.log(postArr);
+  // console.log(postArr);
 
   return (
     <div className='w-full min-h-[100vh] flex flex-col justify-center items-center py-5'>
@@ -48,7 +48,7 @@ const Community = () => {
       </div>
 
       {/* third Row */}
-      <div className='w-full min-h-[80vh] flex flex-wrap items-start justify-start gap-10 px-5 py-10'>
+      <div className='w-full min-h-[80vh] flex flex-wrap items-start justify-center md:justify-start gap-10 px-5 py-10'>
 
         {postArr ? postArr?.map((e, i) => (
           <div key={i}>
@@ -78,4 +78,4 @@ const Community = () => {
   )
 }
 
-export default Community
+export default memo(Community)

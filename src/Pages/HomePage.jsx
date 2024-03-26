@@ -3,6 +3,7 @@ import Banner from './Banner/component/Banner'
 import Category from './Category/component/Category'
 import Community from './Community/component/Community'
 import axios from "axios"
+import Footer from './Footer/Footer'
 
 const HomePage = () => {
 
@@ -12,6 +13,7 @@ const HomePage = () => {
       <Banner />
       <Category />
       <Community />
+      <Footer/>
     </>
   )
 }

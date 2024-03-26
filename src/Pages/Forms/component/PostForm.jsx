@@ -1,9 +1,10 @@
-import React, { memo, useEffect, useState } from 'react'
+import React, { memo, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux'
 import { selectEmployerId } from '../formsSlice';
 import { selectUserId } from '../../User/userSlice';
 import { addPostAsync } from '../../Community/communitySlice';
+import { toast } from 'react-toastify';
 
 const PostForm = () => {
 
@@ -17,6 +18,7 @@ const PostForm = () => {
   const employerId = useSelector(selectEmployerId);
   const userId = useSelector(selectUserId);
   const [image, setImage] = useState(null);
+  const imageRef = useRef(null)
 
   const handleForm = (data) => {
 
@@ -39,12 +41,25 @@ const PostForm = () => {
   }
 
   const handleImage = (e) => {
-    setImage(URL.createObjectURL(e.target.files[0]))
+
+    const img = new Image();
+    img.src = URL.createObjectURL(e.target.files[0]);
+
+    if (Math.round(e.target?.files[0].size / 1024) > 100) {
+      toast("PLEASE UPLOAD IMAGE OF LESSER THAN 100KB")
+      return 0;
+    }
+
+    img.onload = () => {
+      if ((img.width / img.height).toFixed(1) < 1.3) {
+        toast("PLEASE UPLOAD IMAGE OF WIDER RESOLUTION")
+      } else {
+        setImage(URL.createObjectURL(e.target.files[0]))
+      }
+
+    };
+
   }
-
-  useEffect(() => {
-
-  }, [])
 
   return (
     <div className='w-full min-h-[100vh] flex flex-col items-center justify-start gap-2 pt-70px p-10'>
@@ -52,7 +67,7 @@ const PostForm = () => {
       <h1 className='w-full h-[10vh] text-center'>POST FORM</h1>
 
       <div className='w-full h-[40vh] bg-gray-300 flex items-center justify-center'>
-        {image && <img className='object-contain h-[40vh]' src={image} alt="" />}
+        {image && <img ref={imageRef} className='object-contain h-[40vh]' src={image} alt="" />}
       </div>
 
       <form onSubmit={handleSubmit(handleForm)} className='w-[60%] min-h-[50vh] flex flex-col justify-start items-center gap-10' >

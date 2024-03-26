@@ -35,7 +35,7 @@ const Search = ({ type = "user", hide }) => {
             <div onClick={e => e.stopPropagation()} className='w-[70%] h-[70%] flex flex-col justify-start items-center gap-2 p-1'>
 
                 <div className='w-full flex items-center justify-start bg-white'>
-                    <input onChange={handleDebounce} ref={inputRef} className='w-[90%]' type="text" />
+                    <input onChange={handleDebounce} ref={inputRef} className='w-[96%]' type="text" placeholder='Search...' />
                     <img className='w-[30px]' src={search} alt="seae" srcSet="" />
                 </div>
 

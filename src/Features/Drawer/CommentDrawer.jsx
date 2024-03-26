@@ -57,12 +57,12 @@ const CommentDrawer = () => {
         <motion.div
             initial={{ y: 0 }}
             animate={{ y: height }}
-            className='w-full h-[100vh] bg-gradient-to-b from-black fixed top-[100vh] left-0 flex flex-col items-start justify-end pt-[60px]'
+            className='w-full h-[100vh] fixed top-[100vh] left-0 flex flex-col items-start justify-end pt-[60px]'
             onClick={handleHideDrawer}
         >
 
             {/* DOWN ARROW ICON */}
-            <div onClick={handleHideDrawer} className='w-full h-[7vh] flex justify-center items-center rotate-90'><img className='w-[40px] p-1 bg-white rounded-lg' src={arrow} alt="" srcSet="" /></div>
+            <div onClick={handleHideDrawer} className='w-full h-[7vh] flex justify-center items-center rotate-90'><img className='w-[40px] p-1 bg-teal-500 rounded-lg' src={arrow} alt="" srcSet="" /></div>
 
             {/* COMMENTS DATA TO MAP */}
             {commentDrawerData?.comments.length > 0 ? <div onClick={e => e.stopPropagation()} className='w-full h-[40vh] overflow-y-scroll bg-teal-500 pb-[10px]'>
@@ -92,7 +92,7 @@ const CommentDrawer = () => {
 
             {/* INPUT BOX FOR COMMENTING ON POST */}
             <div onClick={e => e.stopPropagation()} className='w-full flex items-center justify-start bg-teal-500'>
-                <input ref={commentInputRef} className='w-[90%] outline-none border-none' type="text" name="" id="" />
+                <input ref={commentInputRef} className='w-[98%] outline-none border-none' type="text" name="" id="" />
                 <img onClick={handleAddComment} className='w-[40px] p-1' src={send2} alt="" srcSet="" />
             </div>
 

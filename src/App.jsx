@@ -1,25 +1,29 @@
-import { useEffect, useState } from 'react'
+import { Suspense, lazy, useEffect, useState } from 'react'
 import './App.css'
 import axios from "axios"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import HomePage from './Pages/HomePage'
-import Profile from './Pages/Profile/component/Profile'
-import Login from './Pages/User/component/Login'
-import Navbar from './Pages/Navbar/component/Navbar'
-import Job from './Pages/Job/component/Job'
-import JobDetails from './Pages/Job/component/JobDetails'
-import MultiForm from './Features/MultiForm'
-import ApplicationForm from './Pages/Forms/component/ApplicationForm'
-import PostForm from './Pages/Forms/component/PostForm'
-import JobForm from './Pages/Forms/component/JobForm'
-import Protected from './Features/Protected'
-import CommunityHome from './Pages/Community/component/CommunityHome'
-import Application from './Pages/Application/component/Application'
-import Drawer from './Features/Drawer'
-import LikeDrawer from './Features/Drawer/LikeDrawer'
-import CommentDrawer from './Features/Drawer/CommentDrawer'
+
+const HomePage = lazy(() => import("./Pages/HomePage"))
+const Profile = lazy(() => import('./Pages/Profile/component/Profile'))
+const Login = lazy(() => import('./Pages/User/component/Login'))
+const Job = lazy(() => import('./Pages/Job/component/Job'))
+const JobDetails = lazy(() => import('./Pages/Job/component/JobDetails'))
+const MultiForm = lazy(() => import('./Features/MultiForm'))
+const ApplicationForm = lazy(() => import('./Pages/Forms/component/ApplicationForm'))
+const PostForm = lazy(() => import('./Pages/Forms/component/PostForm'))
+const JobForm = lazy(() => import('./Pages/Forms/component/JobForm'))
+const Protected = lazy(() => import('./Features/Protected'))
+const CommunityHome = lazy(() => import('./Pages/Community/component/CommunityHome'))
+const Application = lazy(() => import('./Pages/Application/component/Application'))
+
+import Navbar from "./Pages/Navbar/component/Navbar"
+import LikeDrawer from "./Features/Drawer/LikeDrawer"
+import CommentDrawer from "./Features/Drawer/CommentDrawer"
+
 import { useDispatch, useSelector } from 'react-redux'
 import { checkUserWithJwtAsync, selectLoggedInUser, selectPreCheckUser } from './Pages/User/userSlice'
+import Loader from './Features/Loader'
+import PostDrawer from './Features/Drawer/PostDrawer'
 
 function App() {
 
@@ -42,23 +46,27 @@ function App() {
       {preCheckUser &&
 
         <BrowserRouter>
-          <Navbar />
-          <Routes>
-            <Route path='/' element={<Protected><HomePage /></Protected>} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/profile/:userId' element={<Protected><Profile /></Protected>} />
-            <Route path='/job' element={<Protected><Job /></Protected>} />
-            <Route path='/jobDetails/:id' element={<Protected><JobDetails /></Protected>} />
-            <Route path='/multiform/:type' element={<Protected><MultiForm /></Protected>} />
-            <Route path='/applicationForm' element={<Protected><ApplicationForm /></Protected>} />
-            <Route path='/jobForm' element={<Protected><JobForm /></Protected>} />
-            <Route path='/postForm' element={<Protected><PostForm /></Protected>} />
-            <Route path='/community' element={<Protected><CommunityHome /></Protected>} />
-            <Route path='/application' element={<Protected><Application /></Protected>} />
-          </Routes>
-          <Drawer />
-          <LikeDrawer />
-          <CommentDrawer />
+          {loggedInUser && <Navbar />}
+          <Suspense fallback={<Loader />} >
+            <Routes>
+              <Route path='/' element={<Protected><HomePage /></Protected>} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/profile/:userId' element={<Protected><Profile /></Protected>} />
+              <Route path='/job' element={<Protected><Job /></Protected>} />
+              <Route path='/jobDetails/:id' element={<Protected><JobDetails /></Protected>} />
+              <Route path='/multiform/:type' element={<Protected><MultiForm /></Protected>} />
+              <Route path='/applicationForm' element={<Protected><ApplicationForm /></Protected>} />
+              <Route path='/jobForm' element={<Protected><JobForm /></Protected>} />
+              <Route path='/postForm' element={<Protected><PostForm /></Protected>} />
+              <Route path='/community' element={<Protected><CommunityHome /></Protected>} />
+              <Route path='/application' element={<Protected><Application /></Protected>} />
+            </Routes>
+          </Suspense>
+          {loggedInUser && <>
+            <LikeDrawer />
+            <CommentDrawer />
+            <PostDrawer/>
+            </>}
         </BrowserRouter>
       }
     </>

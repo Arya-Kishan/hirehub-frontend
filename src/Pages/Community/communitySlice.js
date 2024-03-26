@@ -10,6 +10,7 @@ const initialState = {
   likeDrawerData: null,
   commentDrawer: false,
   commentDrawerData: null,
+  postDrawer: null,
 };
 
 
@@ -113,6 +114,9 @@ export const communitySlice = createSlice({
     setCommentDrawerData: (state, action) => {
       state.commentDrawerData = action.payload;
     },
+    setPostDrawer: (state, action) => {
+      state.postDrawer = action.payload;
+    },
   },
 
   extraReducers: (builder) => {
@@ -152,6 +156,7 @@ export const communitySlice = createSlice({
       .addCase(addRemoveCommentAsync.fulfilled, (state, action) => {
         state.status = 'idle';
         state.commentDrawerData = action.payload;
+        state.postDrawer = { data: action.payload, show: true };
         let index = state.userPosts.findIndex((e) => e._id === action.payload._id);
         state.userPosts.splice(index, 1, action.payload);
       })
@@ -180,7 +185,7 @@ export const communitySlice = createSlice({
   },
 });
 
-export const { logoutUser, setCommentDrawer, setLikeDrawer, setCommentDrawerData, setLikeDrawerData } = communitySlice.actions;
+export const { logoutUser, setCommentDrawer, setLikeDrawer, setCommentDrawerData, setLikeDrawerData, setPostDrawer } = communitySlice.actions;
 
 export const selectStatus = (state) => state.community.status;
 export const selectUserPosts = (state) => state.community.userPosts;
@@ -190,5 +195,7 @@ export const selectLikeDrawerData = (state) => state.community.likeDrawerData;
 export const selectCommentDrawer = (state) => state.community.commentDrawer;
 export const selectCommentDrawerData = (state) => state.community.commentDrawerData;
 export const selectMyNotification = (state) => state.community.myNotifications;
+export const selectPostDrawer = (state) => state.community.postDrawer;
+
 
 export default communitySlice.reducer;

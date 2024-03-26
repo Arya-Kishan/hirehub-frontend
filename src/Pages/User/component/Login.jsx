@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { loginUserAsync, registerUserAsync, selectLoggedInUser, selectStatus } from '../userSlice';
+import { loginGuestUserAsync, loginUserAsync, registerUserAsync, selectLoggedInUser, selectStatus } from '../userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, useNavigate } from 'react-router-dom'
 import { useForm } from "react-hook-form"
@@ -32,6 +32,10 @@ const Login = () => {
 
   console.log(status);
 
+  const handleLoginAsGuest = () =>{
+    dispatch(loginGuestUserAsync())
+  }
+
   const handleForm = (data) => {
     console.log(data);
     if (data.email && data.name) {
@@ -47,7 +51,7 @@ const Login = () => {
     <div className='w-full h-[100vh] flex flex-wrap'>
       {user && <Navigate to='/' />}
 
-      <div className='w-[100vw] h-[100vh] lg:w-[50vw] lg:h-[100vh] bg-teal-800 flex flex-col gap-5 justify-center items-center'>
+      <div className='w-[100vw] h-[100vh] lg:w-[50vw] lg:h-[100vh] bg-teal-800 flex flex-col gap-5 justify-center items-center relative'>
 
         <div>
           <img src={logo} alt="" srcSet="" />
@@ -199,9 +203,13 @@ const Login = () => {
 
         </form>
 
+        <button onClick={handleLoginAsGuest} className='absolute bottom-0 left-[50%] -translate-x-[50%] -translate-y-[50%] text-white'>
+          Log In As Guest
+        </button>
+
       </div>
 
-      <div className='hidden w-[100vw] lg:w-[50vw] lg:h-[100vh] bg-yellow-500 lg:flex justify-center items-center'>
+      <div className='hidden w-[100vw] lg:w-[50vw] lg:h-[100vh] bg-teal-800 lg:flex justify-center items-center'>
         <img className='w-[10%] lg:w-[60%]' src={authImg} alt="Img" srcSet="" />
       </div>
 

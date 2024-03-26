@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addApplicationAsync } from '../../Application/applicationSlice';
 import { selectEmployerId } from '../formsSlice';
 import { selectUserId } from '../../User/userSlice';
+import { toast } from 'react-toastify';
 
 const ApplicationForm = () => {
 
@@ -21,19 +22,26 @@ const ApplicationForm = () => {
 
     let formData = new FormData();
 
-    formData.append('name', data.name)
-    formData.append('email', data.email)
-    formData.append('phone', data.phone)
-    formData.append('coverLetter', data.coverLetter)
-    formData.append('resume', data.resume[0])
-    formData.append('applicantId', userId)
-    formData.append('employerId', employerId)
+    if (data.resume[0].size / 1024 > 50) {
+      toast("UPLOAD IMAGE BELOW 50KB")
+      return 0;
+    } else {
 
-    Object.keys(data).forEach((e) => {
-      console.log(formData.get(e));
-    })
+      formData.append('name', data.name)
+      formData.append('email', data.email)
+      formData.append('phone', data.phone)
+      formData.append('coverLetter', data.coverLetter)
+      formData.append('resume', data.resume[0])
+      formData.append('applicantId', userId)
+      formData.append('employerId', employerId)
 
-    dispatch(addApplicationAsync(formData))
+      Object.keys(data).forEach((e) => {
+        console.log(formData.get(e));
+      })
+
+      dispatch(addApplicationAsync(formData))
+
+    }
 
 
   }

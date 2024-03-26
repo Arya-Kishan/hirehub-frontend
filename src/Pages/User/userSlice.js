@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { axiosGetById, axiosPost } from '../../Helper/AxiosCall';
+import axios from 'axios';
 
 const initialState = {
   status: 'idle',
@@ -8,6 +9,22 @@ const initialState = {
   otherUserDetail: null,
   preCheckUser: false,
 };
+
+
+export const loginGuestUserAsync = createAsyncThunk(
+  'auth/loginGuestUser',
+  async () => {
+    try {
+      console.log("login as guest");
+      const response = await axios("/user/guest");
+      localStorage.setItem("x-jwt-routes", response.headers?.["x-jwt-routes"])
+      console.log("asd");
+      return response.data;
+    } catch (error) {
+      return response.data;
+    }
+  }
+);
 
 
 export const checkUserWithJwtAsync = createAsyncThunk(
@@ -63,6 +80,15 @@ export const userSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
+      // GUEST USER LOGIN
+      .addCase(loginGuestUserAsync.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(loginGuestUserAsync.fulfilled, (state, action) => {
+        state.status = 'idle';
+        state.userId = action.payload._id;
+        state.loggedInUser = action.payload;
+      })
       // CHECKING USER WITH JWT TOKEN
       .addCase(checkUserWithJwtAsync.pending, (state) => {
         state.status = 'loading';
@@ -84,6 +110,7 @@ export const userSlice = createSlice({
       })
       .addCase(registerUserAsync.fulfilled, (state, action) => {
         state.status = 'idle';
+        state.userId = action.payload._id;
         state.loggedInUser = action.payload;
       })
       // LOGIN USER
