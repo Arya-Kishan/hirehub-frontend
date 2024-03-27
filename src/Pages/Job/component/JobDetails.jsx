@@ -76,7 +76,7 @@ const JobDetails = () => {
 
 
             {/* APPLY */}
-            <div onClick={handleApply} className='fixed bottom-5 right-10 bg-teal-500 px-4 py-2 rounded-lg shadow-lg cursor-pointer' >Apply</div>
+            <div onClick={handleApply} className='fixed bottom-16 right-10 bg-black text-white px-4 py-2 rounded-lg shadow-lg cursor-pointer' >Apply</div>
 
         </div>
     )

@@ -28,7 +28,7 @@ const Banner = () => {
 
                     <div className='w-[100%] lg:w-[60%] flex bg-white rounded-lg border-4 border-solid border-teal-500'>
 
-                        <input ref={inputRef} className='w-[85%]' type="text" placeholder='Search...' onFocus={() => setShowSearch(true)} onChange={handleDebounceJobSearch} />
+                        <input ref={inputRef} className='w-[85%] rounded-lg' type="text" placeholder='Search...' onFocus={() => setShowSearch(true)} onChange={handleDebounceJobSearch} />
 
                         <img onClick={handleSearchJob} className='w-[15%] bg-teal-500 p-1' src={search} alt="" srcSet="" />
 

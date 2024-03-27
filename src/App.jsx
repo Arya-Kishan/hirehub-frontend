@@ -24,6 +24,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { checkUserWithJwtAsync, selectLoggedInUser, selectPreCheckUser } from './Pages/User/userSlice'
 import Loader from './Features/Loader'
 import PostDrawer from './Features/Drawer/PostDrawer'
+import Dialog from './Features/Dialog/Dialog'
+import BlogDrawer from './Features/Drawer/BlogDrawer'
 
 function App() {
 
@@ -65,8 +67,10 @@ function App() {
           {loggedInUser && <>
             <LikeDrawer />
             <CommentDrawer />
-            <PostDrawer/>
-            </>}
+            <PostDrawer />
+            <Dialog />
+            <BlogDrawer />
+          </>}
         </BrowserRouter>
       }
     </>

@@ -12,6 +12,7 @@ import authImg from '../../../assets/authImg.svg'
 import logo from '../../../assets/logo.svg'
 import show from '../../../assets/show.svg'
 import hide from '../../../assets/hide.svg'
+import loader from '../../../assets/loader.svg'
 
 const Login = () => {
 
@@ -32,7 +33,7 @@ const Login = () => {
 
   console.log(status);
 
-  const handleLoginAsGuest = () =>{
+  const handleLoginAsGuest = () => {
     dispatch(loginGuestUserAsync())
   }
 
@@ -189,17 +190,25 @@ const Login = () => {
           </div>
 
           {toggle
-            ? <><button type='submit' className='w-[100%] h-[30px] text-white bg-teal-500 rounded-lg'>Register</button>
+            ? <>
+
+              <button type='submit' className='w-[100%] h-[30px] text-white bg-teal-500 rounded-lg'>Register</button>
 
               <h1 className='text-center text-white'>OR</h1>
 
-              <button type='button' onClick={() => setToggle(false)} className='w-[100%] h-[30px] text-white border-solid border-2 border-white rounded-lg'>Login</button></>
+              <button type='button' onClick={() => setToggle(false)} className='w-[100%] h-[30px] text-white border-solid border-2 border-white rounded-lg'>Login</button>
+
+            </>
             :
-            <><button type='submit' className='w-[100%] h-[30px] text-white bg-teal-500 rounded-lg'>Login</button>
+            <>
+
+              <button type='submit' className='w-[100%] h-[30px] text-white bg-teal-500 rounded-lg'>Login</button>
 
               <h1 className='text-center text-white'>OR</h1>
 
-              <button type='button' onClick={() => setToggle(true)} className='w-[100%] h-[30px] text-white border-solid border-2 border-white rounded-lg'>Register</button></>}
+              <button type='button' onClick={() => setToggle(true)} className='w-[100%] h-[30px] text-white border-solid border-2 border-white rounded-lg'>Register</button>
+
+            </>}
 
         </form>
 
@@ -212,6 +221,8 @@ const Login = () => {
       <div className='hidden w-[100vw] lg:w-[50vw] lg:h-[100vh] bg-teal-800 lg:flex justify-center items-center'>
         <img className='w-[10%] lg:w-[60%]' src={authImg} alt="Img" srcSet="" />
       </div>
+
+      {status == "loading" ? <img className='w-[50px] fixed top-[10%] left-[50%] -translate-x-[50%]' src={loader} alt="" srcset="" /> : ""}
 
     </div>
   )

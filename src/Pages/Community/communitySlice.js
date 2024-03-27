@@ -11,6 +11,7 @@ const initialState = {
   commentDrawer: false,
   commentDrawerData: null,
   postDrawer: null,
+  dialog:{show:false,type:"",id:0},
 };
 
 
@@ -90,6 +91,19 @@ export const addRemoveCommentAsync = createAsyncThunk(
 );
 
 
+export const handleDeletePostAsync = createAsyncThunk(
+  'community/ handleDeletePost',
+  async (postId) => {
+    const response = await axiosDeleteById({ endPoint: "post", query: "postId", id: postId,successMessage:"DELETED",errorMessage:"NOT DELETED" });
+    return response.data;
+  }
+);
+
+
+
+
+
+
 
 
 
@@ -116,6 +130,12 @@ export const communitySlice = createSlice({
     },
     setPostDrawer: (state, action) => {
       state.postDrawer = action.payload;
+    },
+    setMyPost: (state, action) => {
+      state.myPosts = null;
+    },
+    setDialog: (state, action) => {
+      state.dialog = action.payload;
     },
   },
 
@@ -156,7 +176,7 @@ export const communitySlice = createSlice({
       .addCase(addRemoveCommentAsync.fulfilled, (state, action) => {
         state.status = 'idle';
         state.commentDrawerData = action.payload;
-        state.postDrawer = { data: action.payload, show: true };
+        state.postDrawer = { data: action.payload, show: state.postDrawer.show };
         let index = state.userPosts.findIndex((e) => e._id === action.payload._id);
         state.userPosts.splice(index, 1, action.payload);
       })
@@ -182,10 +202,18 @@ export const communitySlice = createSlice({
         let index = state.myNotifications.findIndex((e) => e._id == action.payload._id)
         state.myNotifications.splice(index, 1, action.payload)
       })
+      .addCase(handleDeletePostAsync.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(handleDeletePostAsync.fulfilled, (state, action) => {
+        state.status = 'idle';
+        let index = state.myPosts.findIndex((e) => e._id == action.payload._id)
+        state.myPosts.splice(index, 1)
+      })
   },
 });
 
-export const { logoutUser, setCommentDrawer, setLikeDrawer, setCommentDrawerData, setLikeDrawerData, setPostDrawer } = communitySlice.actions;
+export const { logoutUser, setCommentDrawer, setLikeDrawer, setCommentDrawerData, setLikeDrawerData, setPostDrawer, setMyPost, setDialog } = communitySlice.actions;
 
 export const selectStatus = (state) => state.community.status;
 export const selectUserPosts = (state) => state.community.userPosts;
@@ -196,6 +224,7 @@ export const selectCommentDrawer = (state) => state.community.commentDrawer;
 export const selectCommentDrawerData = (state) => state.community.commentDrawerData;
 export const selectMyNotification = (state) => state.community.myNotifications;
 export const selectPostDrawer = (state) => state.community.postDrawer;
+export const selectDialog = (state) => state.community.dialog;
 
 
 export default communitySlice.reducer;

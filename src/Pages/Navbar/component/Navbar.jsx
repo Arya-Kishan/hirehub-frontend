@@ -111,8 +111,8 @@ const Navbar = () => {
       {/* BELOW DIV USED FOR SHOWING PROFILE BAR OPTIONS */}
       {toggle1 && <div onClick={() => setToggle1(false)} className='w-full h-[calc(100vh-100px)] fixed top-[60px] left-0'>
 
-        <div onClick={e => e.stopPropagation()} className='absolute bottom-[10px] md:top-[10px] right-2 h-[100px] bg-teal-500 px-5 py-2 text-xl text-white font-bold'>
-          <Link to={`/profile/${loggedInUserId}`}>Profile</Link>
+        <div onClick={e => e.stopPropagation()} className='absolute bottom-[10px] md:top-[10px] right-2 h-[100px] bg-teal-500 px-5 py-2 text-xl text-white font-bold rounded-lg'>
+          <Link onClick={()=>setToggle1(false)} to={`/profile/${loggedInUserId}`}>Profile</Link>
           <p onClick={handleLogout}>Logout</p>
           <p onClick={handleNotification}>Notification</p>
         </div>

@@ -21,7 +21,7 @@ const Search = ({ type = "user", hide }) => {
             }
         }
 
-    }, 1000)
+    }, 500)
 
     useEffect(() => {
 
@@ -30,7 +30,7 @@ const Search = ({ type = "user", hide }) => {
     console.log(searchResult);
 
     return (
-        <div onClick={() => hide()} className='w-full h-[100vh] bg-gradient-to-r from-teal-500 flex justify-center items-center fixed top-0 left-0'>
+        <div onClick={() => hide()} className='w-full h-[100vh] bg-gradient-to-r from-teal-500 flex justify-center items-center fixed top-0 left-0 z-10'>
 
             <div onClick={e => e.stopPropagation()} className='w-[70%] h-[70%] flex flex-col justify-start items-center gap-2 p-1'>
 

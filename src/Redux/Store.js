@@ -4,6 +4,7 @@ import jobReducer from '../Pages/Job/jobSlice'
 import formReducer from '../Pages/Forms/formsSlice'
 import communityReducer from '../Pages/Community/communitySlice'
 import searchReducer from '../Pages/Search/searchSlice'
+import blogReducer from '../Pages/Blogs/blogsSlice'
 import applicationReducer from '../Pages/Application/applicationSlice'
 
 export const store = configureStore({
@@ -11,6 +12,7 @@ export const store = configureStore({
         user: userReducer,
         job: jobReducer,
         form: formReducer,
+        blog: blogReducer,
         search: searchReducer,
         community: communityReducer,
         application: applicationReducer,

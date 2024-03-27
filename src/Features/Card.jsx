@@ -3,11 +3,12 @@ import heart1 from '../assets/heart.svg'
 import heart2 from '../assets/heart2.svg'
 import comment from '../assets/comment.svg'
 import dp from '../assets/dp.svg'
+import remove from '../assets/delete.svg'
 import { useDispatch, useSelector } from "react-redux"
-import { addRemoveLikeAsync, setCommentDrawer, setCommentDrawerData, setLikeDrawer, setLikeDrawerData, setPostDrawer } from '../Pages/Community/communitySlice'
+import { addRemoveLikeAsync, handleDeletePostAsync, setCommentDrawer, setCommentDrawerData, setDialog, setLikeDrawer, setLikeDrawerData, setMyPost, setPostDrawer } from '../Pages/Community/communitySlice'
 import { selectDrawer, selectDrawerData, setDrawer, setDrawerData } from '../Pages/Forms/formsSlice'
-import { selectUserId } from '../Pages/User/userSlice'
-import { useNavigate } from "react-router-dom"
+import { selectUserId, setOtherUserDetail } from '../Pages/User/userSlice'
+import { useNavigate, useParams } from "react-router-dom"
 
 const Card = ({ card }) => {
 
@@ -17,13 +18,14 @@ const Card = ({ card }) => {
     const userId = useSelector(selectUserId)
     const [showLiked, setShowLiked] = useState(true)
     const navigate = useNavigate()
+    const { userId: paramsId } = useParams();
 
     const handleAddLike = (postUserId, postId) => {
         setShowLiked(false)
         dispatch(addRemoveLikeAsync({ query: `purpose=add&type=like&userId=${userId}&postId=${postId}` }))
     }
 
-    const handleRemoveLike = (postUserId,postId) => {
+    const handleRemoveLike = (postUserId, postId) => {
         setShowLiked(true)
         dispatch(addRemoveLikeAsync({ query: `purpose=delete&type=like&userId=${userId}&postId=${postId}` }))
     }
@@ -38,16 +40,29 @@ const Card = ({ card }) => {
         dispatch(setLikeDrawerData(card))
     }
 
-    // console.log("-------card-----");
-    
-    return (
-        <div className='w-[80vw] md:w-[25vw] lg:w-[30vw] h-[350px] md:h-[350px] bg-white shadow-2xl flex flex-col gap-1 justify-evenly items-start p-3'>
+    const handleDeletePost = (postId) => {
+        console.log(postId);
+        dispatch(setDialog({show:true,type:"post",id:postId}));
+    }
 
-            <img onClick={()=>dispatch(setPostDrawer({data:card,show:true}))} loading='lazy' className='w-full h-[60%] bg-teal-500' src={card.picUrl} alt="" srcSet="" />
+    const handleNavigateToOtherProfile = (otherUserId) => {
+
+        navigate(`/profile/${otherUserId}`)
+        dispatch(setOtherUserDetail())
+        dispatch(setMyPost())
+
+    }
+
+    // console.log("-------card-----");
+
+    return (
+        <div className='w-[80vw] md:w-[25vw] lg:w-[30vw] h-[350px] md:h-[350px] bg-white shadow-2xl flex flex-col gap-1 justify-evenly items-start p-3 relative border-2 border-gray-100'>
+
+            <img onClick={() => dispatch(setPostDrawer({ data: card, show: true }))} loading='lazy' className='w-full h-[60%] bg-teal-500' src={card.picUrl} alt="" srcSet="" />
 
             <div className='w-full flex items-center justify-between'>
 
-                <div onClick={() => navigate(`/profile/${card.userId._id}`)} className='flex gap-1 items-center justify-start cursor-pointer'>
+                <div onClick={() => handleNavigateToOtherProfile(card.userId._id)} className='flex gap-1 items-center justify-start cursor-pointer'>
                     <img className='w-[45px]' src={dp} alt="" srcSet="" />
                     <p className='text-[14px]'>{card?.userId?.name}</p>
                 </div>
@@ -71,6 +86,8 @@ const Card = ({ card }) => {
             <p className='mt-2 text-teal-600'>{card.hashtags?.map((hashtag, i) => <span key={i}>{hashtag}</span>)}</p>
 
             <p className='text-[14px] text-black'>{card.description}</p>
+
+            {window.location.pathname.includes("profile") && paramsId == userId && <img onClick={() => handleDeletePost(card._id)} className='w-[20px] absolute top-6 right-4' src={remove} alt="" srcset="" />}
 
         </div>
     )
