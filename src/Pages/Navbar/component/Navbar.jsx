@@ -67,8 +67,8 @@ const Navbar = () => {
 
           <h1 className='w-full text-center text-2xl'>Notification :</h1>
 
-          {myNotifications?.length > 0 ? myNotifications?.map((e) => (
-            <>
+          {myNotifications?.length > 0 ? myNotifications?.map((e,i) => (
+            <div key={i}>
               {e.senderId.name && <div className='flex flex-col items-start justify-start gap-2 pl-5'>
 
                 <p className='text-1xl text-white'> * {e.senderId.name} send friend request</p>
@@ -82,7 +82,7 @@ const Navbar = () => {
 
               </div>}
 
-            </>
+            </div>
           )) : <p className='text-white pl-2'>No Notification</p>}
 
         </div>

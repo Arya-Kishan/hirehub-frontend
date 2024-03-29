@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { memo, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import search from "../../../assets/search.svg"
@@ -8,10 +8,8 @@ import Loader from '../../../Features/Loader'
 import { fetchPostAsync, selectUserPosts } from '../communitySlice'
 import Search from '../../Search/component/Search'
 import Blogs from '../../Blogs/Blogs'
-import { Swiper, SwiperSlide } from 'swiper/react';
 
 
-import 'swiper/css';
 import { getAllBlogAsync, selectBlogs } from '../../Blogs/blogsSlice'
 
 
@@ -19,9 +17,25 @@ const CommunityHome = () => {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
+
     const posts = useSelector(selectUserPosts)
     const blogs = useSelector(selectBlogs)
+
     const [showSearch, setShowSearch] = useState(null)
+
+    const blogRef = useRef(null)
+
+    const handleSlideBlogRight = (e) => {
+
+        let side = (e.target.getAttribute('data-arya'));
+
+        if (side == "next") {
+            blogRef.current.scrollBy({ left: blogRef.current.clientWidth })
+        } else {
+            blogRef.current.scrollBy({ left: -blogRef.current.clientWidth })
+        }
+
+    }
 
     useEffect(() => {
         dispatch(fetchPostAsync())
@@ -44,16 +58,25 @@ const CommunityHome = () => {
             </div>
 
             {/* Blogs */}
+            <div className='w-full h-fit overflow-scroll relative px-8'>
 
-            <Swiper
-                slidesPerView={window.innerWidth > '500' ? 4 : 1.5}
-                spaceBetween={10}
-                className="w-full h-full"
-            >
-                {blogs?.map((e) => (
-                    <SwiperSlide key={e._id}><Blogs blog={e} /></SwiperSlide>
-                ))}
-            </Swiper>
+                <div ref={blogRef} className='w-full h-[20vh] md:h-[30vh] flex items-center justify-start gap-2 overflow-x-scroll select-none scroll-smooth'>
+
+                    {blogs?.map((e) => (
+
+                        <div className='w-full h-full' key={e._id}>
+                            <Blogs blog={e} />
+                        </div>
+
+                    ))}
+
+                </div>
+
+                <span onClick={handleSlideBlogRight} data-arya="previous" className='cursor-pointer hover:text-teal-500 p-1 absolute top-[50%] left-0 -translate-y-[50%]'>&lt;</span>
+
+                <span onClick={handleSlideBlogRight} data-arya="next" className='cursor-pointer hover:text-teal-500 p-1 absolute top-[50%] right-0  -translate-y-[50%]'>&gt;</span>
+
+            </div>
 
             {/* CARDS OR POSTS */}
             <div className='w-full min-h-[90vh] flex flex-wrap justify-center items-center gap-6'>
@@ -75,4 +98,4 @@ const CommunityHome = () => {
     )
 }
 
-export default CommunityHome
+export default memo(CommunityHome)

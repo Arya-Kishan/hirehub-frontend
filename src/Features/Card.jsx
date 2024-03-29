@@ -42,23 +42,27 @@ const Card = ({ card }) => {
 
     const handleDeletePost = (postId) => {
         console.log(postId);
-        dispatch(setDialog({show:true,type:"post",id:postId}));
+        dispatch(setDialog({ show: true, type: "post", id: postId }));
     }
 
     const handleNavigateToOtherProfile = (otherUserId) => {
 
-        navigate(`/profile/${otherUserId}`)
-        dispatch(setOtherUserDetail())
-        dispatch(setMyPost())
+        if (window.location.pathname.includes("profile")) {
+            return;
+        } else {
+            navigate(`/profile/${otherUserId}`)
+            dispatch(setOtherUserDetail())
+            dispatch(setMyPost())
+        }
 
     }
 
     // console.log("-------card-----");
 
     return (
-        <div className='w-[80vw] md:w-[25vw] lg:w-[30vw] h-[350px] md:h-[350px] bg-white shadow-2xl flex flex-col gap-1 justify-evenly items-start p-3 relative border-2 border-gray-100'>
+        <div className='w-[80vw] md:w-[25vw] lg:w-[30vw] h-[350px] md:h-[350px] bg-white shadow-2xl flex flex-col gap-1 justify-evenly items-start p-3 relative border-2 border-gray-100 select-none'>
 
-            <img onClick={() => dispatch(setPostDrawer({ data: card, show: true }))} loading='lazy' className='w-full h-[60%] bg-teal-500' src={card.picUrl} alt="" srcSet="" />
+            <img onClick={() => dispatch(setPostDrawer({ data: card, show: true }))} loading='lazy' className='w-full h-[60%] bg-teal-500' src={card.picUrl} alt="" srcSet="" draggable="false" />
 
             <div className='w-full flex items-center justify-between'>
 
@@ -87,7 +91,7 @@ const Card = ({ card }) => {
 
             <p className='text-[14px] text-black'>{card.description}</p>
 
-            {window.location.pathname.includes("profile") && paramsId == userId && <img onClick={() => handleDeletePost(card._id)} className='w-[20px] absolute top-6 right-4' src={remove} alt="" srcset="" />}
+            {window.location.pathname.includes("profile") && paramsId == userId && <img onClick={() => handleDeletePost(card._id)} className='w-[20px] absolute top-6 right-4' src={remove} alt="" srcSet="" />}
 
         </div>
     )

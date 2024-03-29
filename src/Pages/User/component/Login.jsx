@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { loginGuestUserAsync, loginUserAsync, registerUserAsync, selectLoggedInUser, selectStatus } from '../userSlice';
+import { loginGuestUserAsync, loginUserAsync, registerUserAsync, selectLoggedInUser, selectLoginLoader, selectStatus } from '../userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, useNavigate } from 'react-router-dom'
 import { useForm } from "react-hook-form"
@@ -28,10 +28,9 @@ const Login = () => {
   const [showPassword, SetShowPassword] = useState(false)
 
   const dispatch = useDispatch();
-  const status = useSelector(selectStatus);
+  const loginLoader = useSelector(selectLoginLoader);
   const user = useSelector(selectLoggedInUser)
 
-  console.log(status);
 
   const handleLoginAsGuest = () => {
     dispatch(loginGuestUserAsync())
@@ -222,7 +221,7 @@ const Login = () => {
         <img className='w-[10%] lg:w-[60%]' src={authImg} alt="Img" srcSet="" />
       </div>
 
-      {status == "loading" ? <img className='w-[50px] fixed top-[10%] left-[50%] -translate-x-[50%]' src={loader} alt="" srcset="" /> : ""}
+      {loginLoader == "loading" ? <img className='w-[50px] fixed top-[10%] left-[50%] -translate-x-[50%]' src={loader} alt="" srcset="" /> : ""}
 
     </div>
   )

@@ -7,7 +7,7 @@ import send2 from '../../assets/send2.svg'
 import arrow from '../../assets/arrow.svg'
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { addRemoveCommentAsync, selectCommentDrawer, selectCommentDrawerData, setCommentDrawer } from '../../Pages/Community/communitySlice';
+import { addRemoveCommentAsync, selectCommentDrawer, selectCommentDrawerData, setCommentDrawer, setPostDrawer } from '../../Pages/Community/communitySlice';
 import { selectUserId } from '../../Pages/User/userSlice';
 
 const CommentDrawer = () => {
@@ -29,6 +29,7 @@ const CommentDrawer = () => {
 
     const handleAddComment = () => {
         dispatch(addRemoveCommentAsync({ query: `purpose=add&type=comment&userId=${loggedInUserId}&postId=${commentDrawerData._id}&comment=${commentInputRef.current.value}` }))
+        dispatch(setPostDrawer({show:false,data:null}))
     }
 
     const handleDeleteComment = (comment) => {
@@ -88,7 +89,7 @@ const CommentDrawer = () => {
                     </div>
                 ))}
 
-            </div> : "NO COMMENTS"}
+            </div> : <div className='w-full h-[40vh] bg-teal-500'>NO COMMENTS</div>}
 
             {/* INPUT BOX FOR COMMENTING ON POST */}
             <div onClick={e => e.stopPropagation()} className='w-full flex items-center justify-start bg-teal-500'>

@@ -1,9 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { axiosGetById, axiosPost } from '../../Helper/AxiosCall';
+import { axiosGetById, axiosPost, axiosUpdateById } from '../../Helper/AxiosCall';
 import axios from 'axios';
 
 const initialState = {
   status: 'idle',
+  loginLoader:'idle',
   loggedInUser: null,
   userId: null,
   otherUserDetail: null,
@@ -64,6 +65,16 @@ export const getOtherUserDetailAsync = createAsyncThunk(
   }
 );
 
+export const updateUserAsync = createAsyncThunk(
+  'auth/updateUser',
+  async ({ formData, userId }) => {
+    console.log("updating user");
+    const response = await axiosUpdateById({ data: formData, endPoint: "user", query: 'userId', id: userId, errorMessage: "NOT UPDATED", successMessage: "UPDATED" });
+    return response.data;
+  }
+);
+
+
 
 
 
@@ -86,9 +97,11 @@ export const userSlice = createSlice({
       // GUEST USER LOGIN
       .addCase(loginGuestUserAsync.pending, (state) => {
         state.status = 'loading';
+        state.loginLoader = 'loading';
       })
       .addCase(loginGuestUserAsync.fulfilled, (state, action) => {
         state.status = 'idle';
+        state.loginLoader = 'idle';
         state.userId = action.payload._id;
         state.loggedInUser = action.payload;
       })
@@ -110,19 +123,31 @@ export const userSlice = createSlice({
       // RESITERING USER
       .addCase(registerUserAsync.pending, (state) => {
         state.status = 'loading';
+        state.loginLoader = 'loading';
       })
       .addCase(registerUserAsync.fulfilled, (state, action) => {
         state.status = 'idle';
+        state.loginLoader = 'idle';
         state.userId = action.payload._id;
         state.loggedInUser = action.payload;
       })
       // LOGIN USER
       .addCase(loginUserAsync.pending, (state) => {
         state.status = 'loading';
+        state.loginLoader = 'loading';
       })
       .addCase(loginUserAsync.fulfilled, (state, action) => {
         state.loggedInUser = action.payload;
+        state.loginLoader = 'idle';
+        state.status = 'idle';
         state.userId = action.payload._id;
+      })
+      // UPDATE USER
+      .addCase(updateUserAsync.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(updateUserAsync.fulfilled, (state, action) => {
+        state.loggedInUser = action.payload;
       })
       // GETTING OTHER USER DETAIL FOR SHOWING IN PROFILE PAGE
       .addCase(getOtherUserDetailAsync.pending, (state) => {
@@ -137,6 +162,7 @@ export const userSlice = createSlice({
 export const { logoutUser, setOtherUserDetail } = userSlice.actions;
 
 export const selectStatus = (state) => state.user.status;
+export const selectLoginLoader = (state) => state.user.loginLoader;
 export const selectLoggedInUser = (state) => state.user.loggedInUser;
 export const selectUserId = (state) => state.user.userId;
 export const selectPreCheckUser = (state) => state.user.preCheckUser;

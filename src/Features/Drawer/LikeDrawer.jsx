@@ -36,7 +36,7 @@ const LikeDrawer = () => {
 
     }, [likeDrawer])
 
-    // console.log(likeDrawer);
+    console.log(likeDrawerData);
 
     return (
         <motion.div

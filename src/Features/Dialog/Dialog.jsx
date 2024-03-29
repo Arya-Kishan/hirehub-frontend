@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { memo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { handleDeletePostAsync, selectDialog, setDialog } from '../../Pages/Community/communitySlice'
 
@@ -41,4 +41,4 @@ const Dialog = () => {
     )
 }
 
-export default Dialog
+export default memo(Dialog)

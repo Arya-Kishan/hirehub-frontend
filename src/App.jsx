@@ -26,6 +26,7 @@ import Loader from './Features/Loader'
 import PostDrawer from './Features/Drawer/PostDrawer'
 import Dialog from './Features/Dialog/Dialog'
 import BlogDrawer from './Features/Drawer/BlogDrawer'
+import UpdateProfileForm from './Pages/Forms/component/UpdateProfileForm'
 
 function App() {
 
@@ -60,6 +61,7 @@ function App() {
               <Route path='/applicationForm' element={<Protected><ApplicationForm /></Protected>} />
               <Route path='/jobForm' element={<Protected><JobForm /></Protected>} />
               <Route path='/postForm' element={<Protected><PostForm /></Protected>} />
+              <Route path='/profileForm' element={<Protected><UpdateProfileForm /></Protected>} />
               <Route path='/community' element={<Protected><CommunityHome /></Protected>} />
               <Route path='/application' element={<Protected><Application /></Protected>} />
             </Routes>

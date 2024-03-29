@@ -7,6 +7,7 @@ import heart from "../../assets/heart.svg"
 import send from "../../assets/send2.svg"
 import { addRemoveCommentAsync } from '../../Pages/Community/communitySlice'
 import dayjs from "dayjs"
+import { useNavigate } from 'react-router-dom'
 
 const PostDrawer = () => {
 
@@ -21,6 +22,8 @@ const PostDrawer = () => {
     const [toggle, setToggle] = useState(false)
     const [toggle2, setToggle2] = useState("hidden fixed top-[50vh] left-0")
 
+    const navigate = useNavigate()
+
     // USED IN TRANSITION THE INCOMG POST PAGE WHEN WE CLICK ON POST IMAGE
     const handleTransition = useCallback(() => {
 
@@ -34,6 +37,8 @@ const PostDrawer = () => {
 
         history.pushState({}, "", "")
         document.body.style.overflow = "hidden"
+
+        console.log("ADDING ONE STATE IN HISTORY STACK -------");
 
     }, [])
 
@@ -63,6 +68,16 @@ const PostDrawer = () => {
         dispatch(addRemoveCommentAsync({ query: `purpose=delete&type=comment&userId=${loggedInUserId}&postId=${commentDrawerData._id}&comment=${comment}` }))
     }
 
+    const handleNavigate = (userId) => {
+
+        handleRemoveDrawer2()
+
+        setTimeout(() => {
+            navigate(`/profile/${userId}`)
+        }, 100);
+        
+    }
+
     // USED BELOW EVENT LISTENER TO REMOVE DRAWER WHEN EVER USER PRESS BACK BUTTON IN BROWSER
     useEffect(() => {
 
@@ -86,6 +101,8 @@ const PostDrawer = () => {
 
     }, [postDrawer])
 
+    console.log(postDrawer);
+
 
 
     return (
@@ -93,7 +110,7 @@ const PostDrawer = () => {
 
             {postDrawer?.data &&
 
-                <div onClick={handleRemoveDrawer2} className={`w-full h-[calc(100vh-106px)] lg:h-[100vh] bg-gradient-to-r from-black flex flex-col md:flex-row md:items-center md:justify-center transition-all duration-500 ${toggle2} z-8`}>
+                <div onClick={handleRemoveDrawer2} className={`w-full h-[calc(100vh-106px)] lg:h-[100vh] bg-gradient-to-r from-black flex flex-col md:flex-row md:items-center md:justify-center transition-all duration-500 ${toggle2} z-50`}>
 
                     {/* POST PIC */}
                     <div className='w-full 2xl:w-[50%] h-fit md:h-[50%] 2xl:h-full bg-transparent flex items-center justify-center'>
@@ -112,9 +129,9 @@ const PostDrawer = () => {
 
                                     <img className='w-[70px]' src={dp} alt="" srcSet="" />
 
-                                    <div className='flex flex-col items-start justify-start'>
+                                    <div className='flex flex-col items-start justify-start cursor-pointer'>
 
-                                        <p>{postDrawer.data.userId.name}</p>
+                                        <p onClick={() => handleNavigate(postDrawer.data.userId._id)}>{postDrawer.data.userId.name}</p>
 
                                         <p className='text-[14px]'>{dayjs(postDrawer.data.createdAt).format("YYYY-MM-DD HH:MM")}</p>
 
@@ -132,9 +149,9 @@ const PostDrawer = () => {
 
                                     <div key={e._id} className='flex flex-col gap-1'>
 
-                                        <div className='flex items-center text-xl'>
+                                        <div className='flex items-center text-xl cursor-pointer'>
                                             <img className='w-[35px]' src={dp} alt="" srcSet="" />
-                                            <p>{e.userId.name}</p>
+                                            <p onClick={() => handleNavigate(e.userId._id)}>{e.userId.name}</p>
                                         </div>
 
                                         <p className='text-teal-500 text-1xl pl-10'>{e.comment}</p>
@@ -148,7 +165,7 @@ const PostDrawer = () => {
                             <div className='absolute bottom-0 left-0 w-full flex items-center justify-start border-2 border-gray-300'>
 
                                 <input ref={commentInputRef} className='w-[95%]' type="text" />
-                                
+
                                 <img onClick={handleAddComment} className='w-[30px] cursor-pointer' src={send} alt="" srcSet="" />
 
                             </div>

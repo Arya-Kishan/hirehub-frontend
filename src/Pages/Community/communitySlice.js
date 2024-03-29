@@ -11,7 +11,7 @@ const initialState = {
   commentDrawer: false,
   commentDrawerData: null,
   postDrawer: null,
-  dialog:{show:false,type:"",id:0},
+  dialog: { show: false, type: "", id: 0 },
 };
 
 
@@ -54,7 +54,6 @@ export const sendFriendRequestAsync = createAsyncThunk(
 export const getNotificationsAsync = createAsyncThunk(
   'community/getNotifications',
   async (userId) => {
-    console.log("ADDING FRINED REQUEST NOTIFICATION");
     const response = await axiosGetById({ endPoint: "notification", query: "userId", id: userId });
     return response.data;
   }
@@ -94,7 +93,7 @@ export const addRemoveCommentAsync = createAsyncThunk(
 export const handleDeletePostAsync = createAsyncThunk(
   'community/ handleDeletePost',
   async (postId) => {
-    const response = await axiosDeleteById({ endPoint: "post", query: "postId", id: postId,successMessage:"DELETED",errorMessage:"NOT DELETED" });
+    const response = await axiosDeleteById({ endPoint: "post", query: "postId", id: postId, successMessage: "DELETED", errorMessage: "NOT DELETED" });
     return response.data;
   }
 );
@@ -141,12 +140,14 @@ export const communitySlice = createSlice({
 
   extraReducers: (builder) => {
     builder
+    // ADDING POST
       .addCase(addPostAsync.pending, (state) => {
         state.status = 'loading';
       })
       .addCase(addPostAsync.fulfilled, (state, action) => {
         state.status = 'idle';
       })
+      // FETCHING ALL POST
       .addCase(fetchPostAsync.pending, (state) => {
         state.status = 'loading';
       })
@@ -154,6 +155,7 @@ export const communitySlice = createSlice({
         state.status = 'idle';
         state.userPosts = action.payload;
       })
+      // FETCHING USER POST
       .addCase(fetchMyPostAsync.pending, (state) => {
         state.status = 'loading';
       })
@@ -161,7 +163,7 @@ export const communitySlice = createSlice({
         state.status = 'idle';
         state.myPosts = action.payload;
       })
-      // HANDLING COMMENTS AND LIKES
+      // HANDLING LIKES
       .addCase(addRemoveLikeAsync.pending, (state) => {
         state.status = 'loading';
       })
@@ -169,7 +171,12 @@ export const communitySlice = createSlice({
         state.status = 'idle';
         let index = state.userPosts.findIndex((e) => e._id === action.payload._id);
         state.userPosts.splice(index, 1, action.payload);
+        if (state.myPosts) {
+          let index2 = state.myPosts?.findIndex((e) => e._id === action.payload._id);
+          state.myPosts.splice(index2, 1, action.payload);
+        }
       })
+      // HANDLING COMMENT
       .addCase(addRemoveCommentAsync.pending, (state) => {
         state.status = 'loading';
       })
@@ -179,6 +186,10 @@ export const communitySlice = createSlice({
         state.postDrawer = { data: action.payload, show: state.postDrawer.show };
         let index = state.userPosts.findIndex((e) => e._id === action.payload._id);
         state.userPosts.splice(index, 1, action.payload);
+        if (state.myPosts) {
+          let index2 = state.myPosts?.findIndex((e) => e._id === action.payload._id);
+          state.myPosts.splice(index2, 1, action.payload);
+        }
       })
       // HANDLING FRIEND REQUEST
       .addCase(sendFriendRequestAsync.pending, (state) => {
@@ -187,6 +198,7 @@ export const communitySlice = createSlice({
       .addCase(sendFriendRequestAsync.fulfilled, (state, action) => {
         state.status = 'idle';
       })
+      // NOTIFICATION
       .addCase(getNotificationsAsync.pending, (state) => {
         state.status = 'loading';
       })
@@ -194,6 +206,7 @@ export const communitySlice = createSlice({
         state.status = 'idle';
         state.myNotifications = action.payload;
       })
+      // FRINED REQUEST
       .addCase(handleRequestAsync.pending, (state) => {
         state.status = 'loading';
       })
@@ -202,6 +215,7 @@ export const communitySlice = createSlice({
         let index = state.myNotifications.findIndex((e) => e._id == action.payload._id)
         state.myNotifications.splice(index, 1, action.payload)
       })
+      // DELETE POST
       .addCase(handleDeletePostAsync.pending, (state) => {
         state.status = 'loading';
       })
