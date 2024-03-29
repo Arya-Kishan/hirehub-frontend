@@ -5,7 +5,7 @@ import comment from '../assets/comment.svg'
 import dp from '../assets/dp.svg'
 import remove from '../assets/delete.svg'
 import { useDispatch, useSelector } from "react-redux"
-import { addRemoveLikeAsync, handleDeletePostAsync, setCommentDrawer, setCommentDrawerData, setDialog, setLikeDrawer, setLikeDrawerData, setMyPost, setPostDrawer } from '../Pages/Community/communitySlice'
+import { addRemoveLikeAsync, handleDeletePostAsync, setCommentDrawer, setDialog, setLikeDrawer, setMyPost, setPostDrawer } from '../Pages/Community/communitySlice'
 import { selectDrawer, selectDrawerData, setDrawer, setDrawerData } from '../Pages/Forms/formsSlice'
 import { selectUserId, setOtherUserDetail } from '../Pages/User/userSlice'
 import { useNavigate, useParams } from "react-router-dom"
@@ -31,13 +31,11 @@ const Card = ({ card }) => {
     }
 
     const handleShowComments = () => {
-        dispatch(setCommentDrawer(true))
-        dispatch(setCommentDrawerData(card))
+        dispatch(setCommentDrawer({show:true,data:card}))
     }
 
     const handleShowLikes = () => {
-        dispatch(setLikeDrawer(true))
-        dispatch(setLikeDrawerData(card))
+        dispatch(setLikeDrawer({show:true,data:card}))
     }
 
     const handleDeletePost = (postId) => {

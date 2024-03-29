@@ -6,10 +6,8 @@ const initialState = {
   userPosts: null,
   myPosts: null,
   myNotifications: null,
-  likeDrawer: false,
-  likeDrawerData: null,
-  commentDrawer: false,
-  commentDrawerData: null,
+  likeDrawer: {show:false,data:null},
+  commentDrawer: {show:false,data:null},
   postDrawer: null,
   dialog: { show: false, type: "", id: 0 },
 };
@@ -121,12 +119,6 @@ export const communitySlice = createSlice({
     setCommentDrawer: (state, action) => {
       state.commentDrawer = action.payload;
     },
-    setLikeDrawerData: (state, action) => {
-      state.likeDrawerData = action.payload;
-    },
-    setCommentDrawerData: (state, action) => {
-      state.commentDrawerData = action.payload;
-    },
     setPostDrawer: (state, action) => {
       state.postDrawer = action.payload;
     },
@@ -182,7 +174,7 @@ export const communitySlice = createSlice({
       })
       .addCase(addRemoveCommentAsync.fulfilled, (state, action) => {
         state.status = 'idle';
-        state.commentDrawerData = action.payload;
+        state.commentDrawer.data = action.payload;
         state.postDrawer = { data: action.payload, show: state.postDrawer.show };
         let index = state.userPosts.findIndex((e) => e._id === action.payload._id);
         state.userPosts.splice(index, 1, action.payload);
@@ -227,15 +219,13 @@ export const communitySlice = createSlice({
   },
 });
 
-export const { logoutUser, setCommentDrawer, setLikeDrawer, setCommentDrawerData, setLikeDrawerData, setPostDrawer, setMyPost, setDialog } = communitySlice.actions;
+export const { logoutUser, setCommentDrawer, setLikeDrawer, setPostDrawer, setMyPost, setDialog } = communitySlice.actions;
 
 export const selectStatus = (state) => state.community.status;
 export const selectUserPosts = (state) => state.community.userPosts;
 export const selectMyPosts = (state) => state.community.myPosts;
 export const selectLikeDrawer = (state) => state.community.likeDrawer;
-export const selectLikeDrawerData = (state) => state.community.likeDrawerData;
 export const selectCommentDrawer = (state) => state.community.commentDrawer;
-export const selectCommentDrawerData = (state) => state.community.commentDrawerData;
 export const selectMyNotification = (state) => state.community.myNotifications;
 export const selectPostDrawer = (state) => state.community.postDrawer;
 export const selectDialog = (state) => state.community.dialog;

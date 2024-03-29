@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useEffect, useRef, useState } from 'react'
 import { selectUserId } from '../../Pages/User/userSlice'
-import { selectPostDrawer, setLikeDrawer, setLikeDrawerData } from '../../Pages/Community/communitySlice'
+import { selectPostDrawer, setLikeDrawer } from '../../Pages/Community/communitySlice'
 import { useDispatch, useSelector } from 'react-redux'
 import dp from "../../assets/dp.svg"
 import heart from "../../assets/heart.svg"
@@ -60,8 +60,7 @@ const PostDrawer = () => {
     }
 
     const handleShowLikes = () => {
-        dispatch(setLikeDrawer(true))
-        dispatch(setLikeDrawerData(postDrawer?.data))
+        dispatch(setLikeDrawer({show:true,data:postDrawer?.data}))
     }
 
     const handleDeleteComment = (comment) => {
@@ -123,7 +122,7 @@ const PostDrawer = () => {
                         <div onClick={e => e.stopPropagation()} className='w-full 2xl:w-[80%] h-full 2xl:h-[80%] bg-white flex flex-col justify-start items-start relative'>
 
                             {/* USER NAME, POST DATE AND DP  */}
-                            <div className='w-full text-center text-2xl flex items-center justify-between gap-5 bg-gray-400'>
+                            <div className='w-full text-center text-2xl flex items-center justify-between gap-5 bg-teal-400'>
 
                                 <div className='flex items-start'>
 
