@@ -23,8 +23,8 @@ export const addPostAsync = createAsyncThunk(
 
 export const fetchPostAsync = createAsyncThunk(
   'community/fetchPost',
-  async (formData) => {
-    const response = await axiosGetAll("post");
+  async (query="") => {
+    const response = await axiosGetAll({endPoint:"post",query:query});
     return response.data;
   }
 );

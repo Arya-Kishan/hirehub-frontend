@@ -12,7 +12,7 @@ const initialState = {
 export const getDataAsync = createAsyncThunk(
     'form/getData',
     async (formData) => {
-        const response = await axiosGetAll("local");
+        const response = await axiosGetAll({endPoint:"blog",query:""});
         return response.data;
     }
 );

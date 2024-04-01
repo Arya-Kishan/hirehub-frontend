@@ -35,10 +35,10 @@ export const axiosPost = ({ data, endPoint, errorMessage, successMessage }) => {
 
 
 
-export function axiosGetAll(endPoint) {
+export function axiosGetAll({endPoint,query}) {
     return new Promise(async (resolve, reject) => {
         try {
-            const { data } = await axios.get(`/${endPoint}/all`)
+            const { data } = await axios.get(`/${endPoint}/all?${query}`)
             resolve({ data })
         } catch (error) {
             reject({ data: null })

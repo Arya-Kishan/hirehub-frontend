@@ -1,8 +1,10 @@
 import React from 'react'
 import Banner from './Banner/component/Banner'
-import Category from './Category/component/Category'
-import Community from './Community/component/Community'
-import axios from "axios"
+import Second from './HomePage/components/Second'
+import Third from './HomePage/components/Third'
+import Fourth from './HomePage/components/Fourth'
+import Fifth from './HomePage/components/Fifth'
+import Sixth from './HomePage/components/Sixth'
 import Footer from './Footer/Footer'
 
 const HomePage = () => {
@@ -11,8 +13,11 @@ const HomePage = () => {
   return (
     <>
       <Banner />
-      <Category />
-      <Community />
+      <Second/>
+      <Third/>
+      <Fourth/>
+      <Fifth/>
+      <Sixth/>
       <Footer/>
     </>
   )

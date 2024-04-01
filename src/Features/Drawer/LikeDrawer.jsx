@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { motion } from "framer-motion";
 import dp from '../../assets/dp.svg'
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"

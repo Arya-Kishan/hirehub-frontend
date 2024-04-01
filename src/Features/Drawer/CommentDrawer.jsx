@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { motion } from "framer-motion";
 import dp from '../../assets/dp.svg'
 import remove from '../../assets/delete2.svg'
 import send1 from '../../assets/send1.svg'
