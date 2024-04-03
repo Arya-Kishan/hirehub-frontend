@@ -1,7 +1,6 @@
 import React, { memo, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux'
-import { selectEmployerId } from '../formsSlice';
 import { selectUserId } from '../../User/userSlice';
 import { addPostAsync } from '../../Community/communitySlice';
 import { toast } from 'react-toastify';
@@ -15,7 +14,6 @@ const PostForm = () => {
   } = useForm()
 
   const dispatch = useDispatch();
-  const employerId = useSelector(selectEmployerId);
   const userId = useSelector(selectUserId);
   const [image, setImage] = useState(null);
   const imageRef = useRef(null)

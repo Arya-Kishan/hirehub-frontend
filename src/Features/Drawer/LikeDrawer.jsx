@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import dp from '../../assets/dp.svg'
-import { useSelector, useDispatch } from "react-redux"
+import { useSelector} from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { selectLikeDrawer, setLikeDrawer } from '../../Pages/Community/communitySlice';
+import { selectLikeDrawer } from '../../Pages/Community/communitySlice';
 
 const LikeDrawer = () => {
 
