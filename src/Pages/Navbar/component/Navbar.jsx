@@ -53,7 +53,7 @@ const Navbar = () => {
 
 
   return (
-    <div ref={navRef} className='w-full h-[60px] flex items-center justify-between px-4 fixed top-0 left-0 z-10 bg-white'>
+    <div ref={navRef} className='w-full h-[60px] flex items-center justify-between px-4 fixed top-0 left-0 z-[100] bg-white'>
 
       <div className='flex gap-2 justify-center items-center'>
         <img className='w-[40px]' src={logo} alt="" srcSet="" />

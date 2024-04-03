@@ -12,7 +12,7 @@ const initialState = {
 export const getAllBlogAsync = createAsyncThunk(
     'auth/getAllBlog',
     async () => {
-        const response = await axiosGetAll({endPoint:"blog",query:""});
+        const response = await axiosGetAll({endPoint:"blog/all",query:""});
         return response.data;
     }
 );

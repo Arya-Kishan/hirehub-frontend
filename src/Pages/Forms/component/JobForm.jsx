@@ -19,6 +19,10 @@ const JobForm = () => {
   const userId = useSelector(selectUserId);
   const jobDetail = useSelector(selectJobDetail)
 
+  const [interestArr1, setinterestArr1] = useState(["full-Time", "Part-Time", "Internship", "Volunteering", "Remote"]);
+
+  const [interestArr2, setinterestArr2] = useState([]);
+
   console.log(jobDetail);
 
   const handleUpdate = () => {
@@ -28,27 +32,23 @@ const JobForm = () => {
 
   const handleForm = (data) => {
 
-    let formData = new FormData();
-
-    Object.keys(data).forEach((e) => {
-      formData.append(e, data[e])
-    })
-
-    Object.keys(data).forEach((e) => {
-      console.log(formData.get(e));
-    })
+    console.log(data);
 
     if (jobDetail) {
       console.log(data);
-      dispatch(updateJobAsync({ formData: formData, id: jobDetail._id }))
+      dispatch(updateJobAsync({ formData: data, id: jobDetail._id }))
     } else {
       // Adding one more important fileds in formdata
-      formData.append('postedBy', userId)
-      dispatch(addJobAsync(formData))
+      data = { ...data, "postedBy": userId }
+      dispatch(addJobAsync(data))
     }
 
-    reset()
+    // reset()
 
+  }
+
+  const addInterest = (interest) => {
+    setinterestArr2([...interestArr2, interest])
   }
 
   useEffect(() => {
@@ -69,7 +69,7 @@ const JobForm = () => {
   }, [])
 
   return (
-    <div className='w-full min-h-[100vh] flex flex-col items-center justify-start gap-2 pt-[70px]'>
+    <div className='w-full min-h-[100vh] flex flex-col items-center justify-start gap-2 py-[70px]'>
 
       <h1 className='w-full h-[10vh] text-center text-4xl'>JOB FORM</h1>
 
@@ -153,6 +153,43 @@ const JobForm = () => {
           <input type="number" {...register("salaryTo")} placeholder='Your salaryTo' className='w-full' style={{ borderBottom: '2px solid black' }} />
 
           {errors?.salaryTo && <p className='text-red'>{errors.salaryTo?.message}</p>}
+
+        </div>
+
+        {/* companyName */}
+        <div className='w-full flex flex-col items-start justify-start'>
+
+          <input type="text" {...register("companyName")} placeholder='Your companyName' className='w-full' style={{ borderBottom: '2px solid black' }} />
+
+          {errors?.companyName && <p className='text-red'>{errors.companyName?.message}</p>}
+
+        </div>
+
+        {/* type */}
+        <div className='w-full flex flex-col items-start justify-start'>
+
+          <div className='w-full flex flex-wrap gap-2 text-[14px] p-2' style={{ borderBottom: '2px solid black' }}>
+            {interestArr2?.length > 0 ? interestArr2.map((e, i) => (
+
+              <input key={e} value={e} {...register(`type.${i}`)} className='w-fit bg-yellow-500 rounded-lg p-1'></input>
+
+            )) : <span className='text-gray-400'>Choose Interest</span>}
+          </div>
+
+          <div className='flex flex-wrap gap-2 text-[14px] p-2'>
+            {interestArr1.map((e) => (
+              <p onClick={() => addInterest(e)} key={e} className='w-fit bg-yellow-500 rounded-lg p-1'>{e}</p>
+            ))}
+          </div>
+
+        </div>
+
+        {/* experience */}
+        <div className='w-full flex flex-col items-start justify-start'>
+
+          <input type="number" {...register("experience")} placeholder='Your experience' className='w-full' style={{ borderBottom: '2px solid black' }} />
+
+          {errors?.experience && <p className='text-red'>{errors.fixedSalary?.message}</p>}
 
         </div>
 

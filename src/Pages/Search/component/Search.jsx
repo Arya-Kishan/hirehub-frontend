@@ -1,6 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import search from "../../../assets/search.svg"
 import { useDispatch, useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
 import { searchJobAsync, searchUserAsync, selectSearchResult } from '../searchSlice'
 import debounce from "lodash.debounce"
 
@@ -10,6 +11,15 @@ const Search = ({ type = "user", hide }) => {
 
     const searchResult = useSelector(selectSearchResult)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    const handleNavigate = (id) => {
+        if (type == "job") {
+            navigate(`/jobDetails/${id}`)
+        } else if (type == "user") {
+            navigate(`/profile/${id}`)
+        }
+    }
 
     const handleDebounce = debounce(() => {
 
@@ -23,11 +33,6 @@ const Search = ({ type = "user", hide }) => {
 
     }, 500)
 
-    useEffect(() => {
-
-    }, [])
-
-    console.log(searchResult);
 
     return (
         <div onClick={() => hide()} className='w-full h-[100vh] bg-gradient-to-r from-teal-500 flex justify-center items-center fixed top-0 left-0 z-10'>
@@ -41,7 +46,7 @@ const Search = ({ type = "user", hide }) => {
 
                 <div className='w-full h-full overflow-y-scroll bg-white p-2'>
                     {searchResult?.map((e) => (
-                        <p key={e._id} className='w-full p-1 border-b-2 border-solid border-whit'>{e?.title || e?.name}</p>
+                        <p onClick={() => handleNavigate(e?._id)} key={e._id} className='w-full p-1 border-b-2 border-solid border-whit'>{e?.title || e?.name}</p>
                     ))}
                 </div>
 

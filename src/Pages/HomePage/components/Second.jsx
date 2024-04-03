@@ -40,7 +40,7 @@ const Second = () => {
         <img className='w-[300px] md:w-[450px]' src={group2} alt="" srcSet="" />
       </div>
 
-      <div className='w-full md:w-[50%] flex flex-col gap-8 justify-center items-start'>
+      <div className='w-full md:w-[50%] flex flex-col gap-8 justify-center items-start p-2'>
 
         <h1 className='w-full text-center md:text-start font-extrabold text-3xl md:text-4xl mb-6'><span className='text-teal-500'>Benefits</span> from our Job Portal</h1>
 
@@ -49,7 +49,7 @@ const Second = () => {
 
             <img className={`w-[50px] md:w-[70px] bg-${e.color}-500 p-3 rounded-full`} src={e.pic} alt="" srcSet="" />
             
-            <p>
+            <p className='flex flex-col'>
               <span className='text-xl md:text-2xl font-semibold'>{e.title}</span>
               <span>{e.desc}</span>
             </p>

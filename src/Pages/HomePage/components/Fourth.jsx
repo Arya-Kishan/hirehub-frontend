@@ -37,10 +37,10 @@ const Fourth = () => {
         <div className='w-full min-h-[100vh] flex flex-col md:flex-row justify-center items-center'>
 
             <div className='w-full md:w-[50%] flex justify-center items-center p-2'>
-                <img className='w-[250px] md:w-[500px]' src={bigImg3} alt="" srcSet="" />
+                <img className='w-[250px] md:w-[400px]' src={bigImg3} alt="" srcSet="" />
             </div>
 
-            <div className='w-full md:w-[50%] flex flex-col gap-8 justify-center items- p-2'>
+            <div className='w-full md:w-[50%] flex flex-col gap-8 justify-center items- px-4 py-2'>
 
                 <h1 className='w-full text-center md:text-start font-extrabold text-3xl md:text-4xl mb-6'>We always help to help you <span className='text-teal-500'>win</span></h1>
 

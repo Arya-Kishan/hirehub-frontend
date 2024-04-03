@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux"
-import { fetchCountriesAsync, fetchJobsAsync, fetchUserJobAsync, selectCountries, selectJobs } from '../jobSlice'
-import Loader from '../../../Features/Loader'
-import { selectUserId } from '../../User/userSlice'
+import { fetchCountriesAsync, fetchJobsAsync, selectCountries, selectJobs } from '../jobSlice'
+import { selectLoggedInUser, selectUserId } from '../../User/userSlice'
 import search from '../../../assets/search.svg'
-import menu from '../../../assets/menu.svg'
+import filter from '../../../assets/filter.svg'
+import bookmark from '../../../assets/bookmark.svg'
+import accepted from '../../../assets/accepted.svg'
+import rejected from '../../../assets/rejected.svg'
 import Search from '../../Search/component/Search'
 import JobCard from '../../../Features/JobCard'
 
@@ -22,6 +24,8 @@ let typeArr2 = [];
 let experienceArr2 = [];
 let categoryArr2 = [];
 
+let count = 0;
+
 const Job = () => {
 
   const [toggle, setToggle] = useState("top-[100vh]")
@@ -35,6 +39,8 @@ const Job = () => {
   const jobs = useSelector(selectJobs)
   const userId = useSelector(selectUserId)
   const countriesArr = useSelector(selectCountries)
+  const loggedInUser = useSelector(selectLoggedInUser);
+
   const dispatch = useDispatch()
 
 
@@ -111,19 +117,28 @@ const Job = () => {
     query = (arya.join("&"));
     console.log(query);
 
-    dispatch(fetchJobsAsync(query))
+    dispatch(fetchJobsAsync({ page: 0, query: query }))
 
     // experience=[1,2]&type=["Internship"]&category=["web"]&salaryFrom=10000&salaryTo=40000&country=China
 
   }
 
   const fetchCountryData = (country_1) => {
-    dispatch(fetchJobsAsync(`country=${country_1}`))
+    dispatch(fetchJobsAsync({ page: 0, query: `country=${country_1}` }))
     setCountry(country_1)
   }
 
   const checkBoxComp = () => (
     <>
+
+      {/* COUNTRY */}
+      <select onChange={e => fetchCountryData(e.target.value)}>
+        <option value="">Country</option>
+        {countriesArr?.map((e) => (
+          <option key={e._id} value={e.country}>{e.country}</option>
+        ))}
+      </select>
+
       {/* JOB TYPE CHECKBOXES */}
       <div className='flex flex-col gap-2'>
 
@@ -185,21 +200,23 @@ const Job = () => {
     </>
   )
 
+
   useEffect(() => {
-    dispatch(fetchJobsAsync())
+    dispatch(fetchJobsAsync({ page: 0, query: "" }))
     dispatch(fetchCountriesAsync())
   }, [])
+
 
 
   return (
     <>
 
       {/* SEARCH FIELD  */}
-      <div className='w-full h-[20vh] md:h-[20vh] bg-gray-500 flex flex-col justify-center gap-4 px-10 py-4'>
+      <div className='w-full h-[20vh] md:h-[20vh] bg-teal-500 flex flex-col justify-center gap-4 md:px-10 md:py-4 text-white p-2 mt-[70px]'>
 
-        <div className='text-3xl font-bold'>Find your dream job here</div>
+        <div className='text-2xl md:text-3xl font-bold'>Find your dream job here</div>
 
-        <div className='flex items-center bg-white rounded-2xl py-2 px-2'>
+        <div className='flex items-center bg-white rounded-2xl gap-1 p-1 md:py-2 md:px-2'>
 
           <img className="w-[25px]" src={search} alt="" srcSet="" />
 
@@ -211,34 +228,55 @@ const Job = () => {
 
       </div>
 
+      <div className='flex md:hidden justify-evenly gap-4 py-5 bg-[#E5E7EB]'>
+
+        <div onClick={() => navigate(`/savedJob/saved`)} className='w-[80px] h-[80px] bg-white p-2 flex flex-col justify-center items-center gap-1 rounded-lg text-[14px]'>
+          <img className='w-[40px] bg-teal-500 p-2 rounded-full' src={bookmark} alt="" srcSet="" />
+          <p>Saved</p>
+        </div>
+
+
+        {loggedInUser.role == "applicant" ? <div onClick={() => navigate(`/savedJob/applied`)} className='w-[80px] h-[80px] bg-white p-2 flex flex-col justify-center items-center gap-1 rounded-lg text-[14px]'>
+          <img className='w-[40px] bg-teal-500 p-2 rounded-full' src={accepted} alt="" srcSet="" />
+          <p>Applied</p>
+        </div> : <div onClick={() => navigate(`/savedJob/posted`)} className='w-[80px] h-[80px] bg-white p-2 flex flex-col justify-center items-center gap-1 rounded-lg text-[14px]'>
+          <img className='w-[40px] bg-teal-500 p-2 rounded-full' src={accepted} alt="" srcSet="" />
+          <p>Posted</p>
+        </div>}
+
+
+        <div onClick={() => navigate(`/application`)} className='w-[80px] h-[80px] bg-white p-2 flex flex-col justify-center items-center gap-1 rounded-lg text-[14px]'>
+          <img className='w-[40px] bg-teal-500 p-2 rounded-full' src={rejected} alt="" srcSet="" />
+          <p>Application</p>
+        </div>
+
+
+      </div>
+
       {/* MAIN ROW  */}
       <div className='w-full h-[80vh] flex bg-gray-200 overflow-scroll'>
 
         {/* LEFT SIDE */}
-        <div className='hidden md:w-[20%] h-full md:flex flex-col gap-8 p-4'>
+        <div className='hidden md:w-[20%] h-full md:flex flex-col gap-8 p-4 overflow-scroll'>
 
           {checkBoxComp()}
 
         </div>
 
         {/* RIGHT SIDE */}
-        <div className='w-full md:w-[80%] h-full flex flex-col bg-teal-300'>
+        <div className='w-full md:w-[80%] h-full flex flex-col'>
 
-          <div className='w-full flex justify-end items-center gap-5 p-2'>
+          <div className='w-full flex justify-between items-center gap-5 p-2'>
 
-            <select onChange={e => fetchCountryData(e.target.value)}>
-              <option value="">Country</option>
-              {countriesArr?.map((e) => (
-                <option value={e.country}>{e.country}</option>
-              ))}
-            </select>
+            <h2 className='font-bold text-xl'>Jobs</h2>
+            <img onClick={() => setToggle("top-0")} className='w-[25px]' src={filter} alt="" srcSet="" />
 
           </div>
 
           <div className='w-full flex flex-wrap gap-5  p-2 overflow-scroll'>
             {/* JOB CARD */}
-            {jobs?.map((job) => (
-              <JobCard job={job} />
+            {jobs?.map((job, i) => (
+              <JobCard key={i} job={job} />
             ))}
           </div>
 
@@ -254,9 +292,6 @@ const Job = () => {
         </div>
 
       </div>
-
-      {/* MENU BTN FIXED */}
-      <img onClick={() => setToggle("top-0")} className='fixed bottom-[40px] right-[40px] w-[40px] bg-white rounded-full p-2' src={menu} alt="" srcSet="" />
 
       {/* INPUT RANGE FIXED BOX */}
       {toggle2 && <div onClick={() => setToggle2(false)} className='w-full h-[100vh] fixed top-0 left-0 bg-gradient-to-r from-black flex justify-center items-center'>

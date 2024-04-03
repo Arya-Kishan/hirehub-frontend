@@ -5,6 +5,7 @@ import { addApplicationAsync } from '../../Application/applicationSlice';
 import { selectEmployerId } from '../formsSlice';
 import { selectUserId } from '../../User/userSlice';
 import { toast } from 'react-toastify';
+import { selectJobDetail } from '../../Job/jobSlice';
 
 const ApplicationForm = () => {
 
@@ -15,8 +16,8 @@ const ApplicationForm = () => {
   } = useForm()
 
   const dispatch = useDispatch();
-  const employerId = useSelector(selectEmployerId);
   const userId = useSelector(selectUserId);
+  const jobDetail = useSelector(selectJobDetail);
 
   const handleForm = (data) => {
 
@@ -30,10 +31,12 @@ const ApplicationForm = () => {
       formData.append('name', data.name)
       formData.append('email', data.email)
       formData.append('phone', data.phone)
+      formData.append('address', data.address)
       formData.append('coverLetter', data.coverLetter)
       formData.append('resume', data.resume[0])
+      formData.append('jobId', jobDetail._id)
       formData.append('applicantId', userId)
-      formData.append('employerId', employerId)
+      formData.append('employerId', jobDetail.postedBy)
 
       Object.keys(data).forEach((e) => {
         console.log(formData.get(e));
@@ -51,7 +54,7 @@ const ApplicationForm = () => {
   }, [])
 
   return (
-    <div className='w-full min-h-[100vh] flex flex-col items-center justify-start gap-2 pt-[70px]'>
+    <div className='w-full min-h-[100vh] flex flex-col items-center justify-start gap-2 py-[70px]'>
 
       <h1 className='w-full h-[10vh] text-center text-2xl'>APPLICATION FORM</h1>
 

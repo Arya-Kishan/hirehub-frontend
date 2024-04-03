@@ -21,6 +21,7 @@ import Card from '../../../Features/Card'
 import { getMyBlogAsync, selectMyBlogs, setBlogDrawer } from '../../Blogs/blogsSlice'
 import Blogs from '../../Blogs/Blogs'
 import { getApplicationAsync, selectApplications } from '../../Application/applicationSlice'
+import Navbar from '../../Navbar/component/Navbar'
 
 
 const Profile = () => {
@@ -112,6 +113,7 @@ const Profile = () => {
 
 
   return (
+    <>
     <div className='w-full min-h-[100vh] flex flex-col py-[70px] overflow-hidden'>
 
       {paramUserIdDetails && myPosts ?
@@ -325,6 +327,7 @@ const Profile = () => {
 
 
     </div>
+    </>
   )
 }
 

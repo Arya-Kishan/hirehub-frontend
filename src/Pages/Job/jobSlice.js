@@ -4,6 +4,7 @@ import { axiosDeleteById, axiosGetAll, axiosGetById, axiosPost, axiosUpdateById 
 const initialState = {
   status: 'idle',
   allJobs: null,
+  savedAppliedPostedJobs:null,
   jobDetail: null,
   countriesArr:null,
 };
@@ -19,8 +20,8 @@ export const addJobAsync = createAsyncThunk(
 
 export const fetchJobsAsync = createAsyncThunk(
   'job/fetchJobs',
-  async (query="") => {
-    const response = await axiosGetAll({ endPoint: "job", query: query });
+  async ({page,query}) => {
+    const response = await axiosGetAll({ endPoint: `job/all/${page}`, query: query });
     return response.data;
   }
 );
@@ -28,7 +29,7 @@ export const fetchJobsAsync = createAsyncThunk(
 export const fetchCountriesAsync = createAsyncThunk(
   'job/fetchCountries',
   async (query="") => {
-    const response = await axiosGetAll({ endPoint: "job/country", query: query });
+    const response = await axiosGetAll({ endPoint: "job/country/all", query: query });
     return response.data;
   }
 );
@@ -44,6 +45,14 @@ export const fetchJobQueryAsync = createAsyncThunk(
 
 export const fetchUserJobAsync = createAsyncThunk(
   'job/fetchUserJob',
+  async ({ id, query }) => {
+    const response = await axiosGetById({ endPoint: "job", query: query, id: id });
+    return response.data;
+  }
+);
+
+export const fetchSavedAppliedPostedJobAsync = createAsyncThunk(
+  'job/fetchSavedAppliedPostedJob',
   async ({ id, query }) => {
     const response = await axiosGetById({ endPoint: "job", query: query, id: id });
     return response.data;
@@ -104,6 +113,13 @@ export const jobSlice = createSlice({
         state.status = 'idle';
         state.jobDetail = action.payload;
       })
+      .addCase(fetchSavedAppliedPostedJobAsync.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchSavedAppliedPostedJobAsync.fulfilled, (state, action) => {
+        state.status = 'idle';
+        state.savedAppliedPostedJobs = action.payload;
+      })
       .addCase(updateJobAsync.pending, (state) => {
         state.status = 'loading';
       })
@@ -130,6 +146,7 @@ export const { logoutUser } = jobSlice.actions;
 
 export const selectStatus = (state) => state.job.status;
 export const selectJobs = (state) => state.job.allJobs;
+export const selectSavedAppliedPostedJobs = (state) => state.job.savedAppliedPostedJobs;
 export const selectCountries = (state) => state.job.countriesArr;
 // I USED THIS BELOW SELECTJ... FOR SHOWING DETAILS OF JOB AND UPDATING
 export const selectJobDetail = (state) => state.job.jobDetail;

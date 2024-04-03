@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import dayjs from "dayjs"
 import { deleteBlogAsync, setBlogDrawer } from './blogsSlice'
 import { selectUserId } from '../User/userSlice'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 
 const Blogs = ({ blog }) => {
@@ -18,6 +18,8 @@ const Blogs = ({ blog }) => {
 
     const loggedInUserId = useSelector(selectUserId)
     const { userId: paramUserId } = useParams();
+
+    const navigate = useNavigate()
 
     const handleEdit = () => {
         dispatch(setBlogDrawer({ show: true, data: blog }))
@@ -30,23 +32,23 @@ const Blogs = ({ blog }) => {
 
 
     return (
-        <div className='w-[250px] md:w-[300px] h-[20vh] md:h-[30vh] bg-yellow-500 relative overflow-hidden flex flex-col justify-between p-1 text-white'>
+        <div className='w-[250px] md:w-[300px] h-[20vh] md:h-[30vh] bg-teal-500 rounded-2xl relative overflow-hidden flex flex-col justify-between p-1 text-white'>
 
             {/* HEADING NAME,DP OF BLOG */}
             <div className='flex items-center justify-between pr-2 text-black text-xl'>
 
-                <div className='flex items-center'>
-                    <img src={dp} alt="" srcSet="" draggable={"false"} />
-                    <p>{blog.userId.name}</p>
+                <div onClick={()=>navigate(`/profile/${blog.userId._id}`)} className='flex items-center'>
+                    <img className='w-[30px] md:w-[50px]' src={dp} alt="" srcSet="" draggable={"false"} />
+                    <p className='text-[16px] md:text-xl'>{blog.userId.name}</p>
                 </div>
 
                 {window.location.pathname.includes("profile") && (loggedInUserId == blog.userId._id) && <img onClick={() => setToggle("top-0")} className='w-[15px] -rotate-90' src={threeDot2} alt="" srcSet="" />}
 
             </div>
 
-            <div className='pl-2 h-full'>{blog.description}</div>
+            <div className='pl-2 h-full text-[14px] md:text-1xl'>{blog.description}</div>
 
-            <div className='w-full text-end'>{dayjs(blog.createdAt).format("DD MMM")}</div>
+            <div className='w-full text-end text-[14px]'>{dayjs(blog.createdAt).format("DD MMM")}</div>
 
             {/* OPTION SLIDER FOR EDIT DELETE BLOG OPTIONS */}
             <div className={`w-full justify-between bg-teal-500 p-2 absolute ${toggle} left-0 flex transition-all duration-700`}>

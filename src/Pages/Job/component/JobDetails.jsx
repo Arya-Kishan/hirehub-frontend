@@ -16,7 +16,6 @@ const JobDetails = () => {
 
     const handleApply = (employerId) => {
         navigate(`/applicationForm`)
-        dispatch(setEmployerId(employerId))
     }
 
     const handleUpdateJob = () => {

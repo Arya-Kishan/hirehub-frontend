@@ -3,7 +3,6 @@ import { axiosGetAll } from '../../Helper/AxiosCall';
 
 const initialState = {
     status: 'idle',
-    employerId: null,
     drawer: false,
     drawerData: null,
 };
@@ -12,7 +11,7 @@ const initialState = {
 export const getDataAsync = createAsyncThunk(
     'form/getData',
     async (formData) => {
-        const response = await axiosGetAll({endPoint:"blog",query:""});
+        const response = await axiosGetAll({endPoint:"blog/all",query:""});
         return response.data;
     }
 );
@@ -27,9 +26,6 @@ export const formSlice = createSlice({
     name: 'form',
     initialState,
     reducers: {
-        setEmployerId: (state, action) => {
-            state.employerId = action.payload;
-        },
         setDrawer: (state, action) => {
             state.drawer = action.payload;
         },
@@ -52,7 +48,6 @@ export const formSlice = createSlice({
 export const { setEmployerId, setDrawerData, setDrawer } = formSlice.actions;
 
 export const selectStatus = (state) => state.job.status;
-export const selectEmployerId = (state) => state.form.employerId;
 export const selectDrawer = (state) => state.form.drawer;
 export const selectDrawerData = (state) => state.form.drawerData;
 

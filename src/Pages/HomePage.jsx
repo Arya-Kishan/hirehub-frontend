@@ -6,6 +6,7 @@ import Fourth from './HomePage/components/Fourth'
 import Fifth from './HomePage/components/Fifth'
 import Sixth from './HomePage/components/Sixth'
 import Footer from './Footer/Footer'
+import Navbar from './Navbar/component/Navbar'
 
 const HomePage = () => {
 
@@ -13,12 +14,12 @@ const HomePage = () => {
   return (
     <>
       <Banner />
-      <Second/>
-      <Third/>
-      <Fourth/>
-      <Fifth/>
-      <Sixth/>
-      <Footer/>
+      <Second />
+      <Third />
+      <Fourth />
+      <Fifth />
+      <Sixth />
+      <Footer />
     </>
   )
 }

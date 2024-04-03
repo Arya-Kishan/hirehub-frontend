@@ -30,7 +30,7 @@ const Sixth = () => {
 
             <h1 className='w-full font-bold text-5xl text-center'>Testimonial</h1>
 
-            <div className='w-full flex flex-col md:flex-row items-center justify-evenly gap-5 p-2 select-none px-2 py-10'>
+            <div className='w-full flex flex-col md:flex-row items-center justify-evenly gap-10 md:gap-5 p-2 select-none px-2 py-10'>
 
                 {arr.map((e,i) => (
                     <div key={i} className='w-[300px] md:w-[400px] h-[200px] md:h-[300px] flex flex-col justify-center items-center gap-3 shadow-lg border-2 border-gray-200 shadow-black rounded-lg p-2 relative'>
