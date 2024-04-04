@@ -51,7 +51,7 @@ const Sixth = () => {
 
             </div>
 
-            <div className='w-full text-center'><span className='bg-teal-500 px-4 py-1 rounded-md'>More</span></div>
+            <div className='w-full text-center'><span className='bg-teal-500 text-white px-4 py-1 rounded-md'>More</span></div>
         </div>
     )
 }

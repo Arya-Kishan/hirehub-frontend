@@ -11,7 +11,7 @@ import search from "../../../assets/search.svg"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchPostAsync, selectUserPosts } from '../communitySlice'
 import Card from '../../../Features/Card'
-import { selectUserId } from '../../User/userSlice'
+import { selectLoggedInUser, selectUserId } from '../../User/userSlice'
 import { useNavigate } from 'react-router-dom'
 import { getAllBlogAsync, selectBlogs, setBlogDrawer } from '../../Blogs/blogsSlice'
 import Search from '../../Search/component/Search'
@@ -26,6 +26,7 @@ const Community = () => {
   const posts = useSelector(selectUserPosts)
   const loggedInUserId = useSelector(selectUserId)
   const blogs = useSelector(selectBlogs)
+  const loggedInUser = useSelector(selectLoggedInUser)
 
   const navigate = useNavigate()
 
@@ -123,7 +124,7 @@ const Community = () => {
         <div className='w-full h-[120px] md:h-[30%] flex flex-col md:flex-row justify-between md:gap-5 p-2 bg-gray-400 rounded-2xl relative'>
 
           <div className='flex flex-col h-full'>
-            <p className='text-xl md:text-4xl font-bold'>Hello Arya</p>
+            <p className='text-xl md:text-4xl font-bold'>Hello {loggedInUser.name}</p>
             <p className='text-[14px] md:text-xl'>Start your day with some highlights</p>
             <p onClick={() => dispatch(setBlogDrawer({ show: true, data: "" }))} className='w-[50px] bg-teal-500 rounded-lg p-1 text-center text-white mt-1'>Add</p>
           </div>
@@ -140,7 +141,7 @@ const Community = () => {
         </div>
 
         {/* ALL POSTS */}
-        <div className='w-full h-[30%] bg-red-500 flex flex-wrap justify-center md:justify-start items-center gap-4'>
+        <div className='w-full h-[30%] flex flex-wrap justify-center md:justify-start items-center gap-4'>
           {posts?.map((e) => (<Card key={e._id} card={e} />))}
         </div>
 
