@@ -6,13 +6,14 @@ const initialState = {
     blogs: null,
     myBlogs: null,
     blogDrawer: { show: false, data: null },
+    addingBlogLoader: { result: null, loader: "idle" },
 };
 
 
 export const getAllBlogAsync = createAsyncThunk(
     'auth/getAllBlog',
     async () => {
-        const response = await axiosGetAll({endPoint:"blog/all",query:""});
+        const response = await axiosGetAll({ endPoint: "blog/all", query: "" });
         return response.data;
     }
 );
@@ -27,9 +28,13 @@ export const getMyBlogAsync = createAsyncThunk(
 
 export const addBlogAsync = createAsyncThunk(
     'auth/addBlog',
-    async (formData) => {
-        const response = await axiosPost({ data: formData, endPoint: "blog", errorMessage: "BLOG NOT ADDED", successMessage: "BLOG ADDED" });
-        return response.data;
+    async (formData, { rejectWithValue }) => {
+        try {
+            const response = await axiosPost({ data: formData, endPoint: "blog", errorMessage: "BLOG NOT ADDED", successMessage: "BLOG ADDED" });
+            return response.data;
+        } catch (error) {
+            return response.data;
+        }
     }
 );
 
@@ -64,6 +69,9 @@ export const blogSlice = createSlice({
         setBlogDrawer: (state, action) => {
             state.blogDrawer = action.payload;
         },
+        setAddingBlogLoader: (state, action) => {
+            state.addingBlogLoader = action.payload;
+        },
     },
 
     extraReducers: (builder) => {
@@ -87,10 +95,17 @@ export const blogSlice = createSlice({
             // ADD BLOG
             .addCase(addBlogAsync.pending, (state) => {
                 state.status = 'loading';
+                state.addingBlogLoader = { result: null, loader: 'loading' };
             })
             .addCase(addBlogAsync.fulfilled, (state, action) => {
                 state.status = 'idle';
+                state.addingBlogLoader = { result: "success", loader: "idle" };
                 state.myBlogs.push(action.payload);
+            })
+            .addCase(addBlogAsync.rejected, (state, action) => {
+                state.status = 'idle';
+                state.addingPostLoader = { result: "failure", loader: "idle" };
+
             })
             // UPDATE BLOG
             .addCase(updateBlogAsync.pending, (state) => {
@@ -113,11 +128,13 @@ export const blogSlice = createSlice({
     },
 });
 
-export const { setBlogDrawer } = blogSlice.actions;
+export const { setBlogDrawer, setAddingBlogLoader } = blogSlice.actions;
 
 export const selectStatus = (state) => state.blog.status;
 export const selectBlogs = (state) => state.blog.blogs;
 export const selectMyBlogs = (state) => state.blog.myBlogs;
 export const selectBlogDrawer = (state) => state.blog.blogDrawer;
+export const selectAddingBlogLoader = (state) => state.blog.addingBlogLoader;
+
 
 export default blogSlice.reducer;

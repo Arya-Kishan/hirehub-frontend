@@ -29,8 +29,11 @@ import BlogDrawer from './Features/Drawer/BlogDrawer'
 import UpdateProfileForm from './Pages/Forms/component/UpdateProfileForm'
 import Community from './Pages/Community/component/Community'
 import SavedJobs from './Pages/Job/component/SavedJobs'
+import ForgotPassword from './Pages/User/component/ForgotPassword'
+import ChangePassword from './Pages/User/component/ChangePassword'
 
 function App() {
+
 
   // BELOW CODE SETS THE AXIOS HEADER
   axios.defaults.headers.common["x-jwt-routes"] = `${localStorage.getItem("x-jwt-routes")}`
@@ -55,6 +58,8 @@ function App() {
             <Routes>
               <Route path='/' element={<Protected><HomePage /></Protected>} />
               <Route path='/login' element={<Login />} />
+              <Route path='/forgotPassword' element={<ForgotPassword />} />
+              <Route path='/changePassword' element={<ChangePassword />} />
               <Route path='/profile/:userId' element={<Protected><Profile /></Protected>} />
               <Route path='/job' element={<Protected><Job /></Protected>} />
               <Route path='/savedJob/:type' element={<Protected><SavedJobs /></Protected>} />

@@ -41,28 +41,28 @@ const Community = () => {
       {/* SEVERAL OPTOINS LIKE SETTING, PROFILE */}
       <div className='flex flex-col justify-start items-start gap-4'>
 
-        <div onClick={() => navigate(`/profile/${loggedInUserId}`)} className='flex gap-2 justify-start items-center pl-2'>
-          <img className='w-[35px] md:w-[50px] rounded-full bg-teal-500 p-2' src={profile} alt="" srcSet="" />
+        <div onClick={() => navigate(`/profile/${loggedInUserId}`)} className='w-full flex gap-2 justify-start items-center p-2 cursor-pointer hover:bg-teal-400'>
+          <img className='w-[35px] md:w-[50px] rounded-full bg-teal-400 p-2' src={profile} alt="" srcSet="" />
           <p className='text-1xl md:text-xl text-white'>Profile</p>
         </div>
 
-        <div onClick={() => navigate(`/postForm`)} className='flex gap-2 justify-start items-center pl-2'>
-          <img className='w-[35px] md:w-[50px] rounded-full bg-teal-500 p-2' src={post} alt="" srcSet="" />
+        <div onClick={() => navigate(`/postForm`)} className='w-full flex gap-2 justify-start items-center p-2 cursor-pointer hover:bg-teal-400'>
+          <img className='w-[35px] md:w-[50px] rounded-full bg-teal-400 p-2' src={post} alt="" srcSet="" />
           <p className='text-1xl md:text-xl text-white'>Create Post</p>
         </div>
 
-        <div onClick={() => dispatch(setBlogDrawer({ show: true, data: "" }))} className='flex gap-2 justify-start items-center pl-2'>
-          <img className='w-[35px] md:w-[50px] rounded-full bg-teal-500 p-2' src={blog} alt="" srcSet="" />
+        <div onClick={() => dispatch(setBlogDrawer({ show: true, data: "" }))} className='w-full flex gap-2 justify-start items-center p-2 cursor-pointer hover:bg-teal-400'>
+          <img className='w-[35px] md:w-[50px] rounded-full bg-teal-400 p-2' src={blog} alt="" srcSet="" />
           <p className='text-1xl md:text-xl text-white'>Create Blog</p>
         </div>
 
-        <div onClick={() => navigate("/profileForm")} className='flex gap-2 justify-start items-center pl-2'>
-          <img className='w-[35px] md:w-[50px] rounded-full bg-teal-500 p-2' src={pencil} alt="" srcSet="" />
+        <div onClick={() => navigate("/profileForm")} className='w-full flex gap-2 justify-start items-center p-2 cursor-pointer hover:bg-teal-400'>
+          <img className='w-[35px] md:w-[50px] rounded-full bg-teal-400 p-2' src={pencil} alt="" srcSet="" />
           <p className='text-1xl md:text-xl text-white'>Edit</p>
         </div>
 
-        <div className='flex gap-2 justify-start items-center pl-2'>
-          <img className='w-[35px] md:w-[50px] rounded-full bg-teal-500 p-2' src={setting} alt="" srcSet="" />
+        <div className='w-full flex gap-2 justify-start items-center p-2 cursor-pointer hover:bg-teal-400'>
+          <img className='w-[35px] md:w-[50px] rounded-full bg-teal-400 p-2' src={setting} alt="" srcSet="" />
           <p className='text-1xl md:text-xl text-white'>Setting</p>
         </div>
 
@@ -96,7 +96,7 @@ const Community = () => {
       </div>
 
       {/* LEFT BOX */}
-      <div className={`w-[250px] md:w-[20%] h-[calc(100vh-70px)] hidden md:flex flex-col justify-start items-start gap-5 bg-gray-500 pt-6`}>
+      <div className={`w-[250px] md:w-[20%] h-[calc(100vh-70px)] hidden md:flex flex-col justify-start items-start gap-5 bg-teal-500 pt-6`}>
 
         {leftBox()}
 
@@ -121,12 +121,12 @@ const Community = () => {
         </div>
 
         {/* NAMES,RIGHT IMAGE */}
-        <div className='w-full h-[120px] md:h-[30%] flex flex-col md:flex-row justify-between md:gap-5 p-2 bg-gray-400 rounded-2xl relative'>
+        <div className='w-full h-[120px] md:h-[30%] flex flex-col md:flex-row justify-between md:gap-5 p-2 bg-teal-500 rounded-2xl relative'>
 
           <div className='flex flex-col h-full'>
             <p className='text-xl md:text-4xl font-bold'>Hello {loggedInUser.name}</p>
             <p className='text-[14px] md:text-xl'>Start your day with some highlights</p>
-            <p onClick={() => dispatch(setBlogDrawer({ show: true, data: "" }))} className='w-[50px] bg-teal-500 rounded-lg p-1 text-center text-white mt-1'>Add</p>
+            <p onClick={() => dispatch(setBlogDrawer({ show: true, data: "" }))} className='w-[100px] md:w-[200px] bg-black rounded-lg p-1 text-center text-white mt-4'>Add</p>
           </div>
 
           <div className='absolute right-3 bottom-0 flex justify-end'><img className='w-[100px] md:w-[200px]' src={bigImg6} alt="" /></div>
@@ -134,7 +134,7 @@ const Community = () => {
         </div>
 
         {/* BLOGS */}
-        <div className='w-full flex gap-2 overflow-x-scroll'>
+        <div className='w-full h-[20vh] md:h-[30vh] flex gap-2 overflow-x-scroll'>
 
           {blogs?.map((e) => (<div key={e._id}><Blogs blog={e} /></div>))}
 

@@ -45,7 +45,7 @@ export const formSlice = createSlice({
     },
 });
 
-export const { setEmployerId, setDrawerData, setDrawer } = formSlice.actions;
+export const { setDrawerData, setDrawer } = formSlice.actions;
 
 export const selectStatus = (state) => state.job.status;
 export const selectDrawer = (state) => state.form.drawer;

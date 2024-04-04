@@ -6,25 +6,31 @@ const initialState = {
   userPosts: null,
   myPosts: null,
   myNotifications: null,
-  likeDrawer: {show:false,data:null},
-  commentDrawer: {show:false,data:null},
+  likeDrawer: { show: false, data: null },
+  commentDrawer: { show: false, data: null },
   postDrawer: null,
   dialog: { show: false, type: "", id: 0 },
+  addingPostLoader: { result: null, loader: "idle" },
 };
 
 
 export const addPostAsync = createAsyncThunk(
   'community/addPost',
-  async (formData) => {
-    const response = await axiosPost({ data: formData, endPoint: "post", successMessage: "Posted", errorMessage: "Not Posted" });
-    return response.data;
+  async (formData, { rejectWithValue }) => {
+    try {
+      const response = await axiosPost({ data: formData, endPoint: "post", successMessage: "Posted", errorMessage: "Not Posted" });
+      return response.data;
+    } catch (error) {
+      return response.data;
+
+    }
   }
 );
 
 export const fetchPostAsync = createAsyncThunk(
   'community/fetchPost',
-  async (query="") => {
-    const response = await axiosGetAll({endPoint:"post/all",query:query});
+  async (query = "") => {
+    const response = await axiosGetAll({ endPoint: "post/all", query: query });
     return response.data;
   }
 );
@@ -128,16 +134,25 @@ export const communitySlice = createSlice({
     setDialog: (state, action) => {
       state.dialog = action.payload;
     },
+    setAddingPostLoader: (state, action) => {
+      state.addingPostLoader = action.payload;
+    },
   },
 
   extraReducers: (builder) => {
     builder
-    // ADDING POST
+      // ADDING POST
       .addCase(addPostAsync.pending, (state) => {
         state.status = 'loading';
+        state.addingPostLoader = { result: null, loader: "loading" };
       })
       .addCase(addPostAsync.fulfilled, (state, action) => {
         state.status = 'idle';
+        state.addingPostLoader = { result: "success", loader: "idle" };
+      })
+      .addCase(addPostAsync.rejected, (state, action) => {
+        state.status = 'idle';
+        state.addingPostLoader = { result: "failure", loader: "idle" };
       })
       // FETCHING ALL POST
       .addCase(fetchPostAsync.pending, (state) => {
@@ -219,7 +234,7 @@ export const communitySlice = createSlice({
   },
 });
 
-export const { logoutUser, setCommentDrawer, setLikeDrawer, setPostDrawer, setMyPost, setDialog } = communitySlice.actions;
+export const { logoutUser, setCommentDrawer, setLikeDrawer, setPostDrawer, setMyPost, setDialog, setAddingPostLoader } = communitySlice.actions;
 
 export const selectStatus = (state) => state.community.status;
 export const selectUserPosts = (state) => state.community.userPosts;
@@ -229,6 +244,7 @@ export const selectCommentDrawer = (state) => state.community.commentDrawer;
 export const selectMyNotification = (state) => state.community.myNotifications;
 export const selectPostDrawer = (state) => state.community.postDrawer;
 export const selectDialog = (state) => state.community.dialog;
+export const selectAddingPostLoader = (state) => state.community.addingPostLoader;
 
 
 export default communitySlice.reducer;

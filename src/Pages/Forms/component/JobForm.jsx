@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux'
 import { selectUserId } from '../../User/userSlice';
 import { addJobAsync, selectJobDetail, updateJobAsync } from '../../Job/jobSlice';
+import { useNavigate } from 'react-router-dom';
 
 const JobForm = () => {
 
@@ -18,6 +19,7 @@ const JobForm = () => {
   const dispatch = useDispatch();
   const userId = useSelector(selectUserId);
   const jobDetail = useSelector(selectJobDetail)
+  const navigate = useNavigate()
 
   const [interestArr1, setinterestArr1] = useState(["full-Time", "Part-Time", "Internship", "Volunteering", "Remote"]);
 
@@ -41,6 +43,7 @@ const JobForm = () => {
       // Adding one more important fileds in formdata
       data = { ...data, "postedBy": userId }
       dispatch(addJobAsync(data))
+      navigate("/job")
     }
 
     // reset()
@@ -193,7 +196,7 @@ const JobForm = () => {
 
         </div>
 
-        {!jobDetail ? <button type='submit' className='w-full bg-teal-500 px-6 py-2'>Submit</button> : <button type='submit' className='w-full bg-teal-500 px-6 py-2'>Update</button>}
+        {!jobDetail ? <button type='submit' className='w-full bg-teal-500 px-6 py-2'>Create</button> : <button type='submit' className='w-full bg-teal-500 px-6 py-2'>Update</button>}
 
       </form>
 

@@ -1,6 +1,7 @@
 import React from 'react'
 import dayjs from "dayjs"
 import add from '../assets/add.svg'
+import remove from '../assets/delete.svg'
 import bookmark from '../assets/bookmark.svg'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -41,7 +42,7 @@ const JobCard = ({ job }) => {
                     </div>
                 </div>
 
-                <div onClick={e => e.stopPropagation()} className='self-start'><img onClick={() => handleJobSaved(job._id)} className='w-[20px] h-[20px] p-1 rounded-full bg-black' src={bookmark} alt="" srcSet="" /></div>
+                {!window.location.href.includes("/savedJob/saved") ? <div onClick={e => e.stopPropagation()} className='self-start'><img onClick={() => handleJobSaved(job._id)} className='w-[20px] h-[20px] p-1 rounded-full bg-black' src={bookmark} alt="" srcSet="" /></div> : <div onClick={e => e.stopPropagation()} className='self-start'><img className='w-[30px] h-[30px] p-1 rounded-full bg-black' src={remove} alt="" srcSet="" /></div>}
 
             </div>
 

@@ -1,9 +1,11 @@
-import React, { memo, useRef, useState } from 'react'
+import React, { memo, useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux'
 import { selectUserId } from '../../User/userSlice';
-import { addPostAsync } from '../../Community/communitySlice';
+import { addPostAsync, selectAddingPostLoader, setAddingPostLoader } from '../../Community/communitySlice';
 import { toast } from 'react-toastify';
+import loader from '../../../assets/loader.svg'
+import { useNavigate } from 'react-router-dom';
 
 const PostForm = () => {
 
@@ -15,8 +17,10 @@ const PostForm = () => {
 
   const dispatch = useDispatch();
   const userId = useSelector(selectUserId);
+  const addingPostLoader = useSelector(selectAddingPostLoader)
   const [image, setImage] = useState(null);
   const imageRef = useRef(null)
+  const navigate = useNavigate()
 
   const handleForm = (data) => {
 
@@ -34,8 +38,6 @@ const PostForm = () => {
     })
 
     dispatch(addPostAsync(formData))
-
-
   }
 
   const handleImage = (e) => {
@@ -58,6 +60,16 @@ const PostForm = () => {
     };
 
   }
+
+  useEffect(() => {
+    if (addingPostLoader.result == "success") {
+      navigate("/community")
+
+      setTimeout(() => {
+        dispatch(setAddingPostLoader({ result: null, loader: "idle" }))
+      }, 500);
+    }
+  }, [addingPostLoader])
 
   return (
     <div className='w-full min-h-[100vh] flex flex-col items-center justify-start gap-2 pt-70px p-10'>
@@ -82,22 +94,36 @@ const PostForm = () => {
         {/* hashtags */}
         <div className='w-full flex flex-col items-start justify-start'>
 
-          <input type="text" {...register("hashtags")} placeholder='Your hashtags' className='w-full' style={{ borderBottom: '2px solid black' }} />
+          <input type="text" {...register("hashtags", {
+            required: {
+              value: true,
+              message: 'Please Write Hashtags'
+            }
+          })} placeholder='Your hashtags' className='w-full' style={{ borderBottom: '2px solid black' }} />
 
-          {errors?.hashtags && <p className='text-red'>{errors.hashtags?.message}</p>}
+          {errors?.hashtags && <p className='text-red-500'>{errors.hashtags?.message}</p>}
 
         </div>
 
         {/* description */}
         <div className='w-full flex flex-col items-start justify-start'>
 
-          <input type="text" {...register("description")} placeholder='Your description' className='w-full' style={{ borderBottom: '2px solid black' }} />
+          <input type="text" {...register("description", {
+            required: {
+              value: true,
+              message: 'Please Write Description'
+            },
+            minLength: {
+              value: 10,
+              message: 'Description should be greater than 10 characters'
+            }
+          })} placeholder='Your description' className='w-full' style={{ borderBottom: '2px solid black' }} />
 
-          {errors?.description && <p className='text-red'>{errors.description?.message}</p>}
+          {errors?.description && <p className='text-red-500'>{errors.description?.message}</p>}
 
         </div>
 
-        <button type='submit' className='w-full bg-teal-500 px-6 py-2'>Post</button>
+        {addingPostLoader.loader == "loading" ? <div className='w-full bg-teal-500 px-6 py-2'><img className='w-[30px]' src={loader} alt="" srcSet="" /></div> : <button type='submit' className='w-full bg-teal-500 px-6 py-2 cursor-pointer hover:bg-teal-600'>Post</button>}
 
       </form>
 

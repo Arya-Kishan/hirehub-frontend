@@ -6,8 +6,10 @@ import { selectLoggedInUser, selectUserId } from '../../User/userSlice'
 import search from '../../../assets/search.svg'
 import filter from '../../../assets/filter.svg'
 import bookmark from '../../../assets/bookmark.svg'
+import menu from '../../../assets/menu.svg'
 import accepted from '../../../assets/accepted.svg'
 import rejected from '../../../assets/rejected.svg'
+import create from '../../../assets/create.svg'
 import Search from '../../Search/component/Search'
 import JobCard from '../../../Features/JobCard'
 
@@ -30,6 +32,7 @@ const Job = () => {
 
   const [toggle, setToggle] = useState("top-[100vh]")
   const [toggle2, setToggle2] = useState(false)
+  const [toggle3, setToggle3] = useState(false)
   const [range1, setRange1] = useState(10000)
   const [range2, setRange2] = useState(100000)
   const [showSearch, setShowSearch] = useState(null)
@@ -200,6 +203,39 @@ const Job = () => {
     </>
   )
 
+  const moreOptionComp = () => (
+    <>
+
+      <div onClick={() => navigate(`/savedJob/saved`)} className='w-[100px] md:w-[150px] h-[100px] md:h-[150px] bg-white p-2 flex flex-col justify-center items-center gap-1 rounded-lg text-[14px]'>
+        <img className='w-[40px] md:w-[60px] bg-teal-500 p-2 rounded-full' src={bookmark} alt="" srcSet="" />
+        <p className='text-teal-500 md:text-xl'>Saved</p>
+      </div>
+
+
+      {loggedInUser.role == "applicant" ? <div onClick={() => navigate(`/savedJob/applied`)} className='w-[100px] md:w-[150px] h-[100px] md:h-[150px] bg-white p-2 flex flex-col justify-center items-center gap-1 rounded-lg text-[14px]'>
+        <img className='w-[40px] md:w-[60px] bg-teal-500 p-2 rounded-full' src={accepted} alt="" srcSet="" />
+        <p className='text-teal-500 md:text-xl'>Applied</p>
+      </div> : <div onClick={() => navigate(`/savedJob/posted`)} className='w-[100px] md:w-[150px] h-[100px] md:h-[150px] bg-white p-2 flex flex-col justify-center items-center gap-1 rounded-lg text-[14px]'>
+        <img className='w-[40px] md:w-[60px] bg-teal-500 p-2 rounded-full' src={accepted} alt="" srcSet="" />
+        <p className='text-teal-500 md:text-xl'>Posted</p>
+      </div>}
+
+
+      <div onClick={() => navigate(`/application`)} className='w-[100px] md:w-[150px] h-[100px] md:h-[150px] bg-white p-2 flex flex-col justify-center items-center gap-1 rounded-lg text-[14px]'>
+        <img className='w-[40px] md:w-[60px] bg-teal-500 p-2 rounded-full' src={rejected} alt="" srcSet="" />
+        <p className='text-teal-500 md:text-xl'>Application</p>
+      </div>
+
+      {loggedInUser.role == "employer" && <div onClick={() => navigate(`/jobForm`)} className='w-[100px] md:w-[150px] h-[100px] md:h-[150px] bg-white p-2 flex flex-col justify-center items-center gap-1 rounded-lg text-[14px]'>
+        <img className='w-[40px] md:w-[60px] bg-teal-500 p-2 rounded-full' src={create} alt="" srcSet="" />
+        <p className='text-teal-500 md:text-xl'>Create</p>
+      </div>}
+
+
+    </>
+
+  )
+
 
   useEffect(() => {
     dispatch(fetchJobsAsync({ page: 0, query: "" }))
@@ -209,7 +245,7 @@ const Job = () => {
 
 
   return (
-    <>
+    <div>
 
       {/* SEARCH FIELD  */}
       <div className='w-full h-[20vh] md:h-[20vh] bg-teal-500 flex flex-col justify-center gap-4 md:px-10 md:py-4 text-white p-2 mt-[70px]'>
@@ -230,31 +266,12 @@ const Job = () => {
 
       <div className='flex md:hidden justify-evenly gap-4 py-5 bg-[#E5E7EB]'>
 
-        <div onClick={() => navigate(`/savedJob/saved`)} className='w-[80px] h-[80px] bg-white p-2 flex flex-col justify-center items-center gap-1 rounded-lg text-[14px]'>
-          <img className='w-[40px] bg-teal-500 p-2 rounded-full' src={bookmark} alt="" srcSet="" />
-          <p>Saved</p>
-        </div>
-
-
-        {loggedInUser.role == "applicant" ? <div onClick={() => navigate(`/savedJob/applied`)} className='w-[80px] h-[80px] bg-white p-2 flex flex-col justify-center items-center gap-1 rounded-lg text-[14px]'>
-          <img className='w-[40px] bg-teal-500 p-2 rounded-full' src={accepted} alt="" srcSet="" />
-          <p>Applied</p>
-        </div> : <div onClick={() => navigate(`/savedJob/posted`)} className='w-[80px] h-[80px] bg-white p-2 flex flex-col justify-center items-center gap-1 rounded-lg text-[14px]'>
-          <img className='w-[40px] bg-teal-500 p-2 rounded-full' src={accepted} alt="" srcSet="" />
-          <p>Posted</p>
-        </div>}
-
-
-        <div onClick={() => navigate(`/application`)} className='w-[80px] h-[80px] bg-white p-2 flex flex-col justify-center items-center gap-1 rounded-lg text-[14px]'>
-          <img className='w-[40px] bg-teal-500 p-2 rounded-full' src={rejected} alt="" srcSet="" />
-          <p>Application</p>
-        </div>
-
+        {moreOptionComp()}
 
       </div>
 
       {/* MAIN ROW  */}
-      <div className='w-full h-[80vh] flex bg-gray-200 overflow-scroll'>
+      <div className='w-full h-[calc(80vh-70px)] flex bg-gray-200'>
 
         {/* LEFT SIDE */}
         <div className='hidden md:w-[20%] h-full md:flex flex-col gap-8 p-4 overflow-scroll'>
@@ -264,16 +281,19 @@ const Job = () => {
         </div>
 
         {/* RIGHT SIDE */}
-        <div className='w-full md:w-[80%] h-full flex flex-col'>
+        <div className='w-full md:w-[80%] h-full flex flex-col md:overflow-scroll'>
 
           <div className='w-full flex justify-between items-center gap-5 p-2'>
 
             <h2 className='font-bold text-xl'>Jobs</h2>
-            <img onClick={() => setToggle("top-0")} className='w-[25px]' src={filter} alt="" srcSet="" />
+            <div className='flex gap-2'>
+              <img onClick={() => setToggle("top-0")} className='w-[25px] cursor-pointer' src={filter} alt="" srcSet="" />
+              <img onClick={() => setToggle3(true)} className='hidden md:block w-[25px] cursor-pointer' src={menu} alt="" srcSet="" />
+            </div>
 
           </div>
 
-          <div className='w-full flex flex-wrap gap-5  p-2 overflow-scroll'>
+          <div className='w-full flex flex-wrap gap-5  p-2'>
             {/* JOB CARD */}
             {jobs?.map((job, i) => (
               <JobCard key={i} job={job} />
@@ -287,7 +307,7 @@ const Job = () => {
       {/* LEFT BOX FOR MOBILE RESPONSIVE */}
       <div onClick={() => setToggle("top-[100vh]")} className={`fixed ${toggle} left-0 w-full h-[100vh] transition-all duration-700 flex items-end`}>
 
-        <div onClick={e => e.stopPropagation()} className='w-full h-[50vh] bg-red-500 flex flex-col gap-8 p-4 overflow-scroll'>
+        <div onClick={e => e.stopPropagation()} className='w-full h-[50vh] bg-teal-600 flex flex-col gap-8 p-4'>
           {checkBoxComp()}
         </div>
 
@@ -322,11 +342,20 @@ const Job = () => {
 
       </div>}
 
+      {/* MORE OPTIONS FOR DESKTOP */}
+      {toggle3 && <div onClick={() => setToggle3(false)} className='w-full h-[100vh] fixed top-0 left-0 bg-gradient-to-r from-black flex justify-center items-center'>
+
+        <div onClick={e => e.stopPropagation()} className='flex justify-evenly gap-10 py-5'>
+          {moreOptionComp()}
+        </div>
+
+      </div>}
+
 
       {/* JOB SEARCH COMPONENT */}
       {showSearch && <Search type='job' hide={setShowSearch} />}
 
-    </>
+    </div>
   )
 }
 

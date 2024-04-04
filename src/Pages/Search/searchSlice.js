@@ -16,7 +16,7 @@ const initialState = {
 export const searchJobAsync = createAsyncThunk(
   'search/searchJob',
   async ({query}) => {
-    const response = await axiosSearch({endPoint:"job/all",query:query});
+    const response = await axiosSearch({endPoint:"job/all/0",query:query});
     return response.data;
   }
 );

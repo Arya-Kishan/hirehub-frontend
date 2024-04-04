@@ -192,9 +192,9 @@ const Profile = () => {
 
             {/* MY SAVED,POST,MY BLOGS SELECT BUTTON LITTLE NAVBAR */}
             <div className='w-full h-[5vh] md:h-[5vh] bg-teal-500 flex items-center justify-around'>
-              <p onClick={() => fetchUserPost(paramUserIdDetails._id)} className={`w-full h-full flex justify-center items-center ${detail.type == "posts" ? "text-white bg-teal-800" : "text-black"}`}>POST</p>
-              <p onClick={() => fetchUserBlogs(paramUserIdDetails._id)} className={`w-full h-full flex justify-center items-center ${detail.type == "blogs" ? "text-white bg-teal-800" : "text-black"}`}>BLOGS</p>
-              <p onClick={() => fetchUserApplications(paramUserIdDetails._id)} className={`w-full h-full flex justify-center items-center ${detail.type == "applications" ? "text-white bg-teal-800" : "text-black"}`}>APPLICATION</p>
+              <p onClick={() => fetchUserPost(paramUserIdDetails._id)} className={`w-full h-full flex justify-center items-center cursor-pointer ${detail.type == "posts" ? "text-white bg-teal-800" : "text-black"}`}>POST</p>
+              <p onClick={() => fetchUserBlogs(paramUserIdDetails._id)} className={`w-full h-full flex justify-center items-center cursor-pointer ${detail.type == "blogs" ? "text-white bg-teal-800" : "text-black"}`}>BLOGS</p>
+              <p onClick={() => fetchUserApplications(paramUserIdDetails._id)} className={`w-full h-full flex justify-center items-center cursor-pointer ${detail.type == "applications" ? "text-white bg-teal-800" : "text-black"}`}>APPLICATION</p>
             </div>
 
             {/* ALL POSTS */}

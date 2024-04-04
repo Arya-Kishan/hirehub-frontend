@@ -39,7 +39,7 @@ const SavedJobs = () => {
     console.log(selectedJobs);
 
     return (
-        <div className='w-full h-[calc(100vh-70px)] mt-[70px] px-4 overflow-scroll'>
+        <div className='w-full h-[calc(100vh-70px)] mt-[70px] px-4 pb-[70px] overflow-scroll'>
 
             <h1 className='w-full font-bold text-2xl capitalize flex items-center justify-between px-4'>
                 <p>{type} Jobs</p>

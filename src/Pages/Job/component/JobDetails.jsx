@@ -3,14 +3,14 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux"
 import { deleteJobAsync, fetchJobQueryAsync, selectJobDetail } from '../jobSlice'
 import Loader from '../../../Features/Loader'
-import { setEmployerId } from '../../Forms/formsSlice'
-import { selectUserId } from '../../User/userSlice'
+import { selectLoggedInUser, selectUserId } from '../../User/userSlice'
 
 const JobDetails = () => {
 
     const navigate = useNavigate()
     const jobDetail = useSelector(selectJobDetail)
     const userId = useSelector(selectUserId)
+    const loggedInUser = useSelector(selectLoggedInUser)
     const dispatch = useDispatch()
     const { id } = useParams()
 
@@ -62,7 +62,7 @@ const JobDetails = () => {
                 </div>
 
                 {/* EDIT DELETE BUTTON */}
-                {userId == jobDetail.postedBy && <>
+                {userId == jobDetail.postedBy && loggedInUser.role == "employer" && <>
 
                     <div className='w-[90%] h-[5vh] flex items-center justify-between gap-2'>
                         <button onClick={handleUpdateJob} className='w-[100px] px-5 py-2 bg-teal-500'>Edit</button>
@@ -71,7 +71,7 @@ const JobDetails = () => {
 
                 </>}
 
-            </> : <Loader></Loader>}
+            </> : <Loader />}
 
 
             {/* APPLY */}

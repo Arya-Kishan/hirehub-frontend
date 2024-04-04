@@ -23,6 +23,8 @@ const Login = () => {
     formState: { errors },
   } = useForm()
 
+  const navigate = useNavigate()
+
   // Toggling the login and sign up page
   const [toggle, setToggle] = useState(false)
   const [showPassword, SetShowPassword] = useState(false)
@@ -48,7 +50,7 @@ const Login = () => {
   }
 
   return (
-    <div className='w-full h-[100vh] flex flex-wrap'>
+    <div className='w-full min-h-[100vh] flex flex-wrap'>
       {user && <Navigate to='/' />}
 
       <div className='w-[100vw] h-[100vh] lg:w-[50vw] lg:h-[100vh] bg-teal-800 flex flex-col gap-5 justify-center items-center relative'>
@@ -59,7 +61,7 @@ const Login = () => {
 
         <h1 className='text-1xl text-white'>{toggle ? "Create a new Account" : "Login to your Account"}</h1>
 
-        <form onSubmit={handleSubmit(handleForm)} className='flex flex-col gap-4'>
+        <form onSubmit={handleSubmit(handleForm)} className='flex flex-col gap-6'>
 
           {toggle &&
             <>
@@ -142,6 +144,10 @@ const Login = () => {
                   value: true,
                   message: "Email must be Given"
                 },
+                pattern: {
+                  value: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                  message: "invalid email please fill correct email"
+                },
                 minLength: {
                   value: 3,
                   message: "Email must be greater than 3 letters"
@@ -160,7 +166,9 @@ const Login = () => {
           </div>
 
           {/* PASSWORD */}
-          <div className='flex flex-col'>
+          <div className='flex flex-col relative'>
+
+            <p onClick={() => navigate("/forgotPassword")} className='text-white w-full text-end text-[12px] absolute -top-[50%] right-0 cursor-pointer'>Forgot Password</p>
 
             <div className='bg-white flex gap-2 w-[300px] h-[40px] rounded-lg'>
               <input {...register("password", {

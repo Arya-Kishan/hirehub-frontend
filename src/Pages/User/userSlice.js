@@ -4,11 +4,14 @@ import axios from 'axios';
 
 const initialState = {
   status: 'idle',
-  loginLoader:'idle',
+  loginLoader: 'idle',
   loggedInUser: null,
   userId: null,
   otherUserDetail: null,
   preCheckUser: false,
+  forgotPasswordLoader: 'idle',
+  passwordChange: null,
+  changePasswordLoader: 'idle',
 };
 
 
@@ -50,9 +53,13 @@ export const registerUserAsync = createAsyncThunk(
 
 export const loginUserAsync = createAsyncThunk(
   'auth/loginUser',
-  async (formData) => {
-    const response = await axiosPost({ data: formData, endPoint: "user/login", errorMessage: "INVALID CREDENTIALS", successMessage: "LOGGED IN" });
-    return response.data;
+  async (formData, { rejectWithValue }) => {
+    try {
+      const response = await axiosPost({ data: formData, endPoint: "user/login", errorMessage: "INVALID CREDENTIALS", successMessage: "LOGGED IN" });
+      return response.data;
+    } catch (error) {
+      return response.data;
+    }
   }
 );
 
@@ -71,6 +78,32 @@ export const updateUserAsync = createAsyncThunk(
     console.log("updating user");
     const response = await axiosUpdateById({ data: formData, endPoint: "user", query: 'userId', id: userId, errorMessage: "NOT UPDATED", successMessage: "UPDATED" });
     return response.data;
+  }
+);
+
+export const forgotPasswordAsync = createAsyncThunk(
+  'auth/forgotPassword',
+  async (formData, { rejectWithValue }) => {
+    console.log("SENDING EMAIL FOR FORGOT PASSWORD");
+    try {
+      const response = await axiosPost({ data: formData, endPoint: "user/forgotPassword", errorMessage: "EMAIL NOT SENT", successMessage: "EMAIL SENT" });
+      return response.data;
+    } catch (error) {
+      return response.data;
+    }
+  }
+);
+
+export const changePasswordAsync = createAsyncThunk(
+  'auth/changePassword',
+  async (formData, { rejectWithValue }) => {
+    console.log("CHANGING PASSWORD");
+    try {
+      const response = await axiosPost({ data: formData, endPoint: "user/changePassword", errorMessage: "PASSWORD NOT CHANGED", successMessage: "PASSWORD CHANGED" });
+      return response.data;
+    } catch (error) {
+      return response.data;
+    }
   }
 );
 
@@ -104,6 +137,11 @@ export const userSlice = createSlice({
         state.loginLoader = 'idle';
         state.userId = action.payload._id;
         state.loggedInUser = action.payload;
+      })
+      .addCase(loginGuestUserAsync.rejected, (state, action) => {
+        state.status = 'idle';
+        state.loginLoader = 'idle';
+        state.loggedInUser = null;
       })
       // CHECKING USER WITH JWT TOKEN
       .addCase(checkUserWithJwtAsync.pending, (state) => {
@@ -142,6 +180,11 @@ export const userSlice = createSlice({
         state.status = 'idle';
         state.userId = action.payload._id;
       })
+      .addCase(loginUserAsync.rejected, (state, action) => {
+        state.status = 'idle';
+        state.loginLoader = 'idle';
+        state.loggedInUser = null;
+      })
       // UPDATE USER
       .addCase(updateUserAsync.pending, (state) => {
         state.status = 'loading';
@@ -156,6 +199,33 @@ export const userSlice = createSlice({
       .addCase(getOtherUserDetailAsync.fulfilled, (state, action) => {
         state.otherUserDetail = action.payload;
       })
+      // FORGOT PASSWORD
+      .addCase(forgotPasswordAsync.pending, (state) => {
+        state.status = 'loading';
+        state.forgotPasswordLoader = 'loading';
+      })
+      .addCase(forgotPasswordAsync.fulfilled, (state, action) => {
+        state.status = 'idle';
+        state.forgotPasswordLoader = 'idle';
+      })
+      .addCase(forgotPasswordAsync.rejected, (state, action) => {
+        state.status = 'idle';
+        state.forgotPasswordLoader = 'idle';
+      })
+      // CHANGING PASSWORD
+      .addCase(changePasswordAsync.pending, (state) => {
+        state.status = 'loading';
+        state.changePasswordLoader = 'loading';
+      })
+      .addCase(changePasswordAsync.fulfilled, (state, action) => {
+        state.status = 'idle';
+        state.changePasswordLoader = 'idle';
+        state.passwordChange = "success";
+      })
+      .addCase(changePasswordAsync.rejected, (state, action) => {
+        state.status = 'idle';
+        state.changePasswordLoader = 'idle';
+      })
   },
 });
 
@@ -163,9 +233,12 @@ export const { logoutUser, setOtherUserDetail } = userSlice.actions;
 
 export const selectStatus = (state) => state.user.status;
 export const selectLoginLoader = (state) => state.user.loginLoader;
+export const selectChangePasswordLoader = (state) => state.user.changePasswordLoader;
+export const selectForgotPasswordLoader = (state) => state.user.forgotPasswordLoader;
 export const selectLoggedInUser = (state) => state.user.loggedInUser;
 export const selectUserId = (state) => state.user.userId;
 export const selectPreCheckUser = (state) => state.user.preCheckUser;
 export const selectOtherUserDetail = (state) => state.user.otherUserDetail;
+export const selectPasswordChange = (state) => state.user.passwordChange;
 
 export default userSlice.reducer;
