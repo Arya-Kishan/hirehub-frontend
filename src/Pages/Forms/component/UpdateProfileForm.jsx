@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectLoggedInUser, selectUserId, updateUserAsync } from '../../User/userSlice';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import { useNavigate } from "react-router-dom"
 
 const UpdateProfileForm = () => {
 
@@ -14,6 +15,7 @@ const UpdateProfileForm = () => {
     } = useForm()
 
     const dispatch = useDispatch();
+    const navigate = useNavigate()
     const loggedInUserId = useSelector(selectUserId);
     const loggedInUser = useSelector(selectLoggedInUser);
 
@@ -48,6 +50,7 @@ const UpdateProfileForm = () => {
 
         dispatch(updateUserAsync({ formData: formData, userId: loggedInUserId }))
 
+        navigate(`/profile/${loggedInUserId}`)
 
     }
 
@@ -108,7 +111,7 @@ const UpdateProfileForm = () => {
 
 
     return (
-        <div className='w-full min-h-[100vh] px-2 py-8 mt-[60px] flex justify-center bg-gradient-to-r from-teal-500 to-teal-800'>
+        <div className='w-full min-h-[100vh] px-2 py-[70px] mt-[60px] flex justify-center bg-gradient-to-r from-teal-500 to-teal-800'>
 
             <form onSubmit={handleSubmit(handleForm)} className='w-[80%] min-h-[50vh] flex flex-col justify-start items-center gap-10' >
 

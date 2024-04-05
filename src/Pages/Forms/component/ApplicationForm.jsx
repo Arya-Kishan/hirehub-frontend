@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux'
 import { addApplicationAsync } from '../../Application/applicationSlice';
-import { selectEmployerId } from '../formsSlice';
 import { selectUserId } from '../../User/userSlice';
 import { toast } from 'react-toastify';
 import { selectJobDetail } from '../../Job/jobSlice';

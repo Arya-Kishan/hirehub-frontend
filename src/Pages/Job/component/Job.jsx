@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux"
-import { fetchCountriesAsync, fetchJobsAsync, selectCountries, selectJobs } from '../jobSlice'
+import { fetchCountriesAsync, fetchJobsAsync, selectCountries, selectJobs, setJobs } from '../jobSlice'
 import { selectLoggedInUser, selectUserId } from '../../User/userSlice'
 import search from '../../../assets/search.svg'
 import filter from '../../../assets/filter.svg'
@@ -12,9 +12,11 @@ import rejected from '../../../assets/rejected.svg'
 import create from '../../../assets/create.svg'
 import Search from '../../Search/component/Search'
 import JobCard from '../../../Features/JobCard'
+import Loader from '../../../Features/Loader'
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 
-const jobTypeArr = ["full-Time", "Part-Time", "Internship", "Volunteering"]
+const jobTypeArr = ["full-Time", "Part-Time", "Internship", "Volunteering", "Remote"]
 
 const experienceArr = ["Entry Level", "Intermediate", "Expert"]
 
@@ -30,6 +32,8 @@ let count = 0;
 
 const Job = () => {
 
+  const [data, setData] = useState([])
+  const [dataQuery, setDataQuery] = useState("")
   const [toggle, setToggle] = useState("top-[100vh]")
   const [toggle2, setToggle2] = useState(false)
   const [toggle3, setToggle3] = useState(false)
@@ -45,12 +49,6 @@ const Job = () => {
   const loggedInUser = useSelector(selectLoggedInUser);
 
   const dispatch = useDispatch()
-
-
-  const handleDetails = (id) => {
-    console.log(id);
-    navigate(`/jobDetails/${id}`)
-  }
 
 
   const handleJobTypes = (e, type) => {
@@ -95,7 +93,6 @@ const Job = () => {
     console.log(query);
 
     let arya = query.split("&")
-    // console.log(arya);
 
     if (typeArr2.length == 0) {
       let i = arya.findIndex((e) => e.includes("type"))
@@ -119,8 +116,10 @@ const Job = () => {
 
     query = (arya.join("&"));
     console.log(query);
-
-    dispatch(fetchJobsAsync({ page: 0, query: query }))
+    setDataQuery(query)
+    count = 0;
+    dispatch(setJobs(null))
+    dispatch(fetchJobsAsync({ page: count, query: query }))
 
     // experience=[1,2]&type=["Internship"]&category=["web"]&salaryFrom=10000&salaryTo=40000&country=China
 
@@ -236,13 +235,31 @@ const Job = () => {
 
   )
 
+  const fetchNextData = () => {
+    count++;
+    console.log("FETCHING NEXT DATA");
+    console.log(count);
+    dispatch(fetchJobsAsync({ page: count, query: dataQuery }))
+  }
+
 
   useEffect(() => {
     dispatch(fetchJobsAsync({ page: 0, query: "" }))
     dispatch(fetchCountriesAsync())
   }, [])
 
+  useEffect(() => {
 
+    if (jobs && count >= 1) {
+      setData([...data, ...jobs])
+    } else {
+      setData(jobs)
+    }
+
+  }, [jobs])
+
+  console.log("----------JOBS---------");
+  console.log(jobs);
 
   return (
     <div>
@@ -281,7 +298,7 @@ const Job = () => {
         </div>
 
         {/* RIGHT SIDE */}
-        <div className='w-full md:w-[80%] h-full flex flex-col md:overflow-scroll'>
+        <div id='scrollableDiv' className='w-full md:w-[80%] h-full flex flex-col md:overflow-scroll'>
 
           <div className='w-full flex justify-between items-center gap-5 p-2'>
 
@@ -293,12 +310,24 @@ const Job = () => {
 
           </div>
 
-          <div className='w-full flex flex-wrap gap-5  p-2'>
-            {/* JOB CARD */}
-            {jobs?.map((job, i) => (
+          {/* JOB CARD */}
+          <InfiniteScroll
+            dataLength={count * 10} //This is important field to render the next data
+            next={fetchNextData}
+            hasMore={data?.length < Number(localStorage.getItem("x-total-count"))}
+            loader={<Loader />}
+            scrollableTarget="scrollableDiv"
+            endMessage={
+              <p className='w-full text-center'>
+                <b>Yay! You have seen it all</b>
+              </p>
+            }
+            className='w-full h-full flex flex-wrap gap-5  p-2'
+          >
+            {data?.length > 0 ? data?.map((job, i) => (
               <JobCard key={i} job={job} />
-            ))}
-          </div>
+            )) : <Loader />}
+          </InfiniteScroll>
 
         </div>
 

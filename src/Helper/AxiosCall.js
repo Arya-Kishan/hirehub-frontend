@@ -1,7 +1,5 @@
 import axios from "axios";
 import { toast } from 'react-toastify';
-const myHeader = new Headers();
-
 
 export const axiosPost = ({ data, endPoint, errorMessage, successMessage }) => {
 
@@ -35,11 +33,18 @@ export const axiosPost = ({ data, endPoint, errorMessage, successMessage }) => {
 
 
 
-export function axiosGetAll({endPoint,query}) {
+export function axiosGetAll({ endPoint, query }) {
     return new Promise(async (resolve, reject) => {
         try {
-            const { data } = await axios.get(`/${endPoint}?${query}`)
-            resolve({ data })
+            const res = await axios.get(`/${endPoint}?${query}`)
+            console.log(res.headers?.["x-total-count"]);
+            if (res.headers?.["x-total-count"]) {
+                localStorage.setItem("x-total-count", res.headers?.["x-total-count"])
+            }
+            if (res.headers?.["x-total-post"]) {
+                localStorage.setItem("x-total-post", res.headers?.["x-total-post"])
+            }
+            resolve({ data: res.data })
         } catch (error) {
             reject({ data: null })
         }

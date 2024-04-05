@@ -1,6 +1,8 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useLayoutEffect, useRef } from 'react'
 import dp from '../../../assets/dp.svg'
 import quote from '../../../assets/quote.svg'
+import gsap from "gsap"
+import ScrollTrigger from "gsap/ScrollTrigger";
 
 const arr = [
     {
@@ -25,15 +27,45 @@ const arr = [
 
 const Sixth = () => {
 
+    gsap.registerPlugin(ScrollTrigger)
+
+    const parentRef = useRef()
+  
+    useLayoutEffect(() => {
+  
+      const ctx1 = gsap.context(() => {
+  
+        let t1 = gsap.timeline({
+          scrollTrigger: {
+            trigger: ".testimonial",
+            // markers: true,
+            start: "0% 80%",
+            end: "30% 80%",
+            scrub: 2,
+          }
+        })
+          .from(".testimonial", {
+            opacity:0,
+            y:50,
+          }, 'a')
+  
+  
+      }, parentRef)
+  
+      return () => ctx1.revert();
+  
+    }, [])
+
+
     return (
-        <div className='py-6 bg-gradient-to-b from-white to-gray-400'>
+        <div ref={parentRef} className='py-6 bg-gradient-to-b from-white to-gray-400 overflow-hidden'>
 
             <h1 className='w-full font-bold text-5xl text-center'>Testimonial</h1>
 
             <div className='w-full flex flex-col md:flex-row items-center justify-evenly gap-10 md:gap-5 p-2 select-none px-2 py-10'>
 
                 {arr.map((e,i) => (
-                    <div key={i} className='w-[300px] md:w-[400px] h-[200px] md:h-[300px] flex flex-col justify-center items-center gap-3 shadow-lg border-2 border-gray-200 shadow-black rounded-lg p-2 relative'>
+                    <div key={i} className='w-[300px] md:w-[400px] h-[200px] md:h-[300px] flex flex-col justify-center items-center gap-3 shadow-lg border-2 border-gray-200 shadow-black rounded-lg p-2 relative testimonial'>
 
                         <img className='absolute -bottom-[20px] left-[50%] -translate-x-[50%]' src={dp} alt="" srcSet="" />
 

@@ -31,6 +31,7 @@ import Community from './Pages/Community/component/Community'
 import SavedJobs from './Pages/Job/component/SavedJobs'
 import ForgotPassword from './Pages/User/component/ForgotPassword'
 import ChangePassword from './Pages/User/component/ChangePassword'
+import Blogs from './Pages/Blogs/Blogs'
 
 function App() {
 
@@ -62,6 +63,7 @@ function App() {
               <Route path='/changePassword' element={<ChangePassword />} />
               <Route path='/profile/:userId' element={<Protected><Profile /></Protected>} />
               <Route path='/job' element={<Protected><Job /></Protected>} />
+              <Route path='/blogs' element={<Protected><Blogs /></Protected>} />
               <Route path='/savedJob/:type' element={<Protected><SavedJobs /></Protected>} />
               <Route path='/jobDetails/:id' element={<Protected><JobDetails /></Protected>} />
               <Route path='/multiform/:type' element={<Protected><MultiForm /></Protected>} />

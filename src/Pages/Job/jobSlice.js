@@ -85,8 +85,8 @@ export const jobSlice = createSlice({
   name: 'job',
   initialState,
   reducers: {
-    logoutUser: (state) => {
-      state.status = "idle";
+    setJobs: (state,action) => {
+      state.allJobs = action.payload;
     },
   },
 
@@ -142,7 +142,7 @@ export const jobSlice = createSlice({
   },
 });
 
-export const { logoutUser } = jobSlice.actions;
+export const { setJobs } = jobSlice.actions;
 
 export const selectStatus = (state) => state.job.status;
 export const selectJobs = (state) => state.job.allJobs;

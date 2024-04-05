@@ -1,12 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import profile from "../../../assets/profile.svg"
 import logo from "../../../assets/logo.svg"
-import menu from "../../../assets/menu.svg"
 import home from "../../../assets/home.svg"
 import job from "../../../assets/job.svg"
 import community from "../../../assets/community.svg"
-import application from "../../../assets/application.svg"
-import cross from "../../../assets/cross.svg"
+import add from "../../../assets/application.svg"
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { logoutUser, selectUserId } from '../../User/userSlice'
@@ -14,7 +12,6 @@ import { getNotificationsAsync, handleRequestAsync, selectMyNotification } from 
 
 const Navbar = () => {
 
-  const navRef = useRef(null)
   const loggedInUserId = useSelector(selectUserId)
   const myNotifications = useSelector(selectMyNotification)
   const dispatch = useDispatch()
@@ -52,8 +49,9 @@ const Navbar = () => {
   }, [])
 
 
+
   return (
-    <div ref={navRef} className='w-full h-[60px] flex items-center justify-between px-4 fixed top-0 left-0 z-[100] bg-white'>
+    <div className='w-full h-[60px] flex items-center justify-between px-4 fixed top-0 left-0 z-[100] bg-white'>
 
       <div className='flex gap-2 justify-center items-center'>
         <img className='w-[40px]' src={logo} alt="" srcSet="" />
@@ -67,7 +65,7 @@ const Navbar = () => {
 
           <h1 className='w-full text-center text-2xl'>Notification :</h1>
 
-          {myNotifications?.length > 0 ? myNotifications?.map((e,i) => (
+          {myNotifications?.length > 0 ? myNotifications?.map((e, i) => (
             <div key={i}>
               {e.senderId.name && <div className='flex flex-col items-start justify-start gap-2 pl-5'>
 
@@ -100,9 +98,9 @@ const Navbar = () => {
 
       {/* FOR MOBILE DEVICE */}
       <div
-        className='w-full flex justify-evenly md:hidden fixed bottom-0 right-0 bg-teal-500 p-2'>
+        className='w-full flex justify-evenly md:hidden fixed bottom-0 right-0 bg-teal-500 p-2 z-[90]'>
         <Link to={'/job'} className='list cursor-pointer'><img className='w-[25px]' src={job} alt="" srcSet="" /></Link>
-        <Link to={'/application'} className='list cursor-pointer'><img className='w-[25px]' src={application} alt="" srcSet="" /></Link>
+        <Link to={'/application'} className='list cursor-pointer'><img className='w-[25px]' src={add} alt="" srcSet="" /></Link>
         <Link to={'/'} className='list cursor-pointer'><img className='w-[25px]' src={home} alt="" srcSet="" /></Link>
         <Link to={'/community'} className='list cursor-pointer'><img className='w-[25px]' src={community} alt="" srcSet="" /></Link>
         <span className='cursor-pointer'><img onClick={() => setToggle1(!toggle1)} className='w-[30px]' src={profile} alt="" /></span>
@@ -112,7 +110,7 @@ const Navbar = () => {
       {toggle1 && <div onClick={() => setToggle1(false)} className='w-full h-[calc(100vh-100px)] fixed top-[60px] left-0'>
 
         <div onClick={e => e.stopPropagation()} className='absolute bottom-[10px] md:top-[10px] right-2 h-[100px] bg-teal-500 px-5 py-2 text-xl text-white font-bold rounded-lg'>
-          <Link onClick={()=>setToggle1(false)} to={`/profile/${loggedInUserId}`}>Profile</Link>
+          <Link onClick={() => setToggle1(false)} to={`/profile/${loggedInUserId}`}>Profile</Link>
           <p onClick={handleLogout}>Logout</p>
           <p onClick={handleNotification}>Notification</p>
         </div>

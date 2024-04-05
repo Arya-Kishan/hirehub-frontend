@@ -58,9 +58,9 @@ const Card = ({ card }) => {
     // console.log("-------card-----");
 
     return (
-        <div className='w-full md:w-[300px] bg-white shadow-2xl flex flex-col gap-1 p-3 relative border-2 border-gray-100 select-none rounded-2xl'>
+        <div className='w-full md:w-[25vw] bg-white shadow-2xl flex flex-col gap-1 p-3 relative border-2 border-gray-100 select-none rounded-2xl'>
 
-            <img onClick={() => dispatch(setPostDrawer({ data: card, show: true }))} loading='lazy' className='w-full md:w-[300px] h-[200px] bg-teal-500' src={card.picUrl} alt="" srcSet="" draggable="false" />
+            <img onClick={() => dispatch(setPostDrawer({ data: card, show: true }))} loading='lazy' className='w-full md:w-full h-[250px] md:h-[200px] bg-teal-500' src={card.picUrl} alt="" srcSet="" draggable="false" />
 
             <div className='w-full flex items-center justify-between'>
 
