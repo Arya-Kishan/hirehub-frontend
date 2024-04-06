@@ -1,6 +1,7 @@
 import React, { memo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { handleDeletePostAsync, selectDialog, setDialog } from '../../Pages/Community/communitySlice'
+import { selectLoggedInUser } from '../../Pages/User/userSlice'
 
 const Dialog = () => {
 
@@ -8,6 +9,7 @@ const Dialog = () => {
 
     const dispatch = useDispatch()
     const dialog = useSelector(selectDialog)
+    const loggedInUser = useSelector(selectLoggedInUser)
     console.log(dialog);
 
     const hideDialog = () => {
@@ -16,9 +18,20 @@ const Dialog = () => {
 
 
     const handleDelete = () => {
+
         if (dialog?.type == "post") {
             dispatch(handleDeletePostAsync(dialog.id))
         }
+
+        if (dialog?.type == "user") {
+
+            if (loggedInUser.upgrade.pro == true) {
+                dispatch(deleteAccountAsync(dialog.id))
+            } else {
+                alert("Only Pro User alllowed to delete Account")
+            }
+        }
+
         dispatch(setDialog({ show: false, type: "", id: 0 }))
     }
 

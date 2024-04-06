@@ -19,7 +19,7 @@ const CommentDrawer = () => {
     // HERE COMMENT_DRAWER_DATA IS WHOLE SINGLE POST DATA
     const loggedInUserId = useSelector(selectUserId)
 
-    const [toggle, setToggle] = useState("top-100vh")
+    const [toggle, setToggle] = useState("top-dvh")
 
     const handleHideDrawer = () => {
         setToggle("top-[100vh]")
@@ -55,7 +55,7 @@ const CommentDrawer = () => {
 
 
     return (
-        <div className={`w-full h-[100vh] fixed ${toggle} transition-all duration-500 left-0 flex flex-col items-start justify-end pt-[60px] pb-[46px]`} onClick={handleHideDrawer}
+        <div className={`w-full h-dvh fixed ${toggle} transition-all duration-500 left-0 flex flex-col items-start justify-end pt-[60px] pb-[46px]`} onClick={handleHideDrawer}
         >
 
             {/* DOWN ARROW ICON */}

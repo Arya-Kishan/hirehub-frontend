@@ -3,7 +3,7 @@ import { axiosAddRemoveLikeComment, axiosDeleteById, axiosGetAll, axiosGetById, 
 
 const initialState = {
   status: 'idle',
-  userPosts: null,
+  userPosts: [],
   myPosts: null,
   myNotifications: null,
   likeDrawer: { show: false, data: null },
@@ -160,7 +160,7 @@ export const communitySlice = createSlice({
       })
       .addCase(fetchPostAsync.fulfilled, (state, action) => {
         state.status = 'idle';
-        state.userPosts = action.payload;
+        state.userPosts.push(...action.payload);
       })
       // FETCHING USER POST
       .addCase(fetchMyPostAsync.pending, (state) => {

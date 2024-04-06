@@ -304,7 +304,7 @@ const Job = () => {
 
             <h2 className='font-bold text-xl'>Jobs</h2>
             <div className='flex gap-2'>
-              <img onClick={() => setToggle("top-0")} className='w-[25px] cursor-pointer' src={filter} alt="" srcSet="" />
+              <img onClick={() => setToggle("top-0")} className='block md:hidden w-[25px] cursor-pointer' src={filter} alt="" srcSet="" />
               <img onClick={() => setToggle3(true)} className='hidden md:block w-[25px] cursor-pointer' src={menu} alt="" srcSet="" />
             </div>
 
@@ -336,7 +336,7 @@ const Job = () => {
       {/* LEFT BOX FOR MOBILE RESPONSIVE */}
       <div onClick={() => setToggle("top-[100vh]")} className={`fixed ${toggle} left-0 w-full h-[100vh] transition-all duration-700 flex items-end`}>
 
-        <div onClick={e => e.stopPropagation()} className='w-full h-[50vh] bg-teal-600 flex flex-col gap-8 p-4'>
+        <div onClick={e => e.stopPropagation()} className='w-full h-[50vh] bg-teal-600 flex flex-col gap-8 p-4 pb-[70px] overflow-scroll'>
           {checkBoxComp()}
         </div>
 

@@ -32,6 +32,7 @@ import SavedJobs from './Pages/Job/component/SavedJobs'
 import ForgotPassword from './Pages/User/component/ForgotPassword'
 import ChangePassword from './Pages/User/component/ChangePassword'
 import Blogs from './Pages/Blogs/Blogs'
+import PaymentSuccess from './Pages/User/component/PaymentSuccess'
 
 function App() {
 
@@ -74,6 +75,7 @@ function App() {
               <Route path='/community' element={<Protected><Community /></Protected>} />
               <Route path='/communityHome' element={<Protected><CommunityHome /></Protected>} />
               <Route path='/application' element={<Protected><Application /></Protected>} />
+              <Route path='/success' element={<Protected><PaymentSuccess /></Protected>} />
             </Routes>
           </Suspense>
           {loggedInUser && <>

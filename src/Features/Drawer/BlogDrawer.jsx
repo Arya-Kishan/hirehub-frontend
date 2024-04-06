@@ -53,7 +53,7 @@ const BlogDrawer = () => {
     }, [addingBlogLoader])
 
     return (
-        <div onClick={hideBlogDrawer} className={`w-full h-[100vh] transition-all duration-700 fixed ${BlogDrawer?.show ? "top-[0vh]" : "top-[100vh]"} left-0 flex items-end justify-end`}>
+        <div onClick={hideBlogDrawer} className={`w-full h-dvh transition-all duration-700 fixed ${BlogDrawer?.show ? "top-[0vh]" : "top-dvh"} left-0 flex items-end justify-end`}>
 
             <div onClick={(e) => e.stopPropagation()} className='w-full h-[40vh] flex flex-col mb-[46px] md:mb-[0px] border-2 border-gray-800'>
 

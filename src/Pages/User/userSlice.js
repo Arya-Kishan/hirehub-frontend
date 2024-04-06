@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { axiosGetById, axiosPost, axiosUpdateById } from '../../Helper/AxiosCall';
+import { axiosDeleteById, axiosGetById, axiosPost, axiosUpdateById } from '../../Helper/AxiosCall';
 import axios from 'axios';
 
 const initialState = {
@@ -107,6 +107,13 @@ export const changePasswordAsync = createAsyncThunk(
   }
 );
 
+export const deleteAccountAsync = createAsyncThunk(
+  'user/deleteAccountAsync',
+  async (userId) => {
+    const response = await axiosDeleteById({ endPoint: "user", query: "userId", id: userId, successMessage: "DELETED", errorMessage: "NOT DELETED" });
+    return response.data;
+  }
+);
 
 
 
@@ -225,6 +232,13 @@ export const userSlice = createSlice({
       .addCase(changePasswordAsync.rejected, (state, action) => {
         state.status = 'idle';
         state.changePasswordLoader = 'idle';
+      })
+      .addCase(deleteAccountAsync.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(deleteAccountAsync.fulfilled, (state, action) => {
+        state.loggedInUser = null;
+        state.userId = null;
       })
   },
 });

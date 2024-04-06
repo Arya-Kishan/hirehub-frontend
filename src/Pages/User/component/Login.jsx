@@ -229,7 +229,7 @@ const Login = () => {
         <img className='w-[10%] lg:w-[60%]' src={authImg} alt="Img" srcSet="" />
       </div>
 
-      {loginLoader == "loading" ? <img className='w-[50px] fixed top-[10%] left-[50%] -translate-x-[50%]' src={loader} alt="" srcset="" /> : ""}
+      {loginLoader == "loading" ? <img className='w-[50px] fixed top-[10%] left-[50%] -translate-x-[50%]' src={loader} alt="" srcSet="" /> : ""}
 
     </div>
   )
