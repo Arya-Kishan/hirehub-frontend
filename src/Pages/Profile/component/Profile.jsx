@@ -22,6 +22,7 @@ import { getMyBlogAsync, selectMyBlogs, setBlogDrawer } from '../../Blogs/blogsS
 import Blogs from '../../Blogs/Blogs'
 import { getApplicationAsync, selectApplications } from '../../Application/applicationSlice'
 import Navbar from '../../Navbar/component/Navbar'
+import BlogCard from '../../Blogs/BlogCard'
 
 
 const Profile = () => {
@@ -125,7 +126,7 @@ const Profile = () => {
             {/* PROFILE PIC, NAME, BIO */}
             <div className='w-full flex flex-col items-center justify-center gap-1 z-[8]'>
 
-              <img className='w-[200px] rounded-full' src={paramUserIdDetails.profilePic} alt="" srcSet="" />
+              <img className='w-[200px] h-[200px] rounded-full' src={paramUserIdDetails.profilePic} alt="" srcSet="" />
 
               <div className='w-full flex flex-col justify-center items-center md:items-start gap-2'>
 
@@ -170,7 +171,7 @@ const Profile = () => {
             <div className={`w-full h-[50%] absolute ${toggle3} left-0 bg-teal-500 rounded-lg flex flex-col justify-start items-center transition-all duration-700 z-30`}>
 
               <div className='w-full flex justify-end p-2'>
-                <img className='w-[30px]' onClick={() => setToggle3("-bottom-[50%]")} src={cross} alt="" srcset="" />
+                <img className='w-[30px]' onClick={() => setToggle3("-bottom-[50%]")} src={cross} alt="" srcSet="" />
               </div>
 
               {paramUserIdDetails.friends.map((e) => (
@@ -178,7 +179,7 @@ const Profile = () => {
                   navigate(`/profile/${e._id}`)
                   setToggle3("-bottom-[50%]")
                 }} className='w-full flex items-center text-white justify-start mt-1 overflow-scroll'>
-                  <img className='w-[40px]' src={dp} alt="" srcset="" />
+                  <img className='w-[40px]' src={dp} alt="" srcSet="" />
                   <p>{e.name}</p>
                 </div>
               ))}
@@ -212,7 +213,7 @@ const Profile = () => {
 
                     {
                       detail.type == "blogs" &&
-                      <Blogs blog={e} />
+                      <BlogCard blog={e} />
                     }
 
                     {

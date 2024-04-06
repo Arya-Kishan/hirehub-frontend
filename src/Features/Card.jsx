@@ -6,15 +6,12 @@ import dp from '../assets/dp.svg'
 import remove from '../assets/delete.svg'
 import { useDispatch, useSelector } from "react-redux"
 import { addRemoveLikeAsync, handleDeletePostAsync, setCommentDrawer, setDialog, setLikeDrawer, setMyPost, setPostDrawer } from '../Pages/Community/communitySlice'
-import { selectDrawer, selectDrawerData, setDrawer, setDrawerData } from '../Pages/Forms/formsSlice'
 import { selectUserId, setOtherUserDetail } from '../Pages/User/userSlice'
 import { useNavigate, useParams } from "react-router-dom"
 
 const Card = ({ card }) => {
 
     const dispatch = useDispatch();
-    const drawer = useSelector(selectDrawer)
-    const drawerData = useSelector(selectDrawerData)
     const userId = useSelector(selectUserId)
     const [showLiked, setShowLiked] = useState(true)
     const navigate = useNavigate()
@@ -31,11 +28,11 @@ const Card = ({ card }) => {
     }
 
     const handleShowComments = () => {
-        dispatch(setCommentDrawer({show:true,data:card}))
+        dispatch(setCommentDrawer({ show: true, data: card }))
     }
 
     const handleShowLikes = () => {
-        dispatch(setLikeDrawer({show:true,data:card}))
+        dispatch(setLikeDrawer({ show: true, data: card }))
     }
 
     const handleDeletePost = (postId) => {
@@ -55,7 +52,8 @@ const Card = ({ card }) => {
 
     }
 
-    // console.log("-------card-----");
+    console.log("-------card-----");
+    console.log(card);
 
     return (
         <div className='w-full md:w-[25vw] bg-white shadow-2xl flex flex-col gap-1 p-3 relative border-2 border-gray-100 select-none rounded-2xl'>
@@ -65,7 +63,7 @@ const Card = ({ card }) => {
             <div className='w-full flex items-center justify-between'>
 
                 <div onClick={() => handleNavigateToOtherProfile(card.userId._id)} className='flex gap-1 items-center justify-start cursor-pointer'>
-                    <img className='w-[45px]' src={dp} alt="" srcSet="" />
+                    <img className='w-[30px] h-[30px] rounded-full' src={card.userId.profilePic} alt="" srcSet="" />
                     <p className='text-[14px]'>{card?.userId?.name}</p>
                 </div>
 

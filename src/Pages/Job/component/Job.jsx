@@ -316,7 +316,7 @@ const Job = () => {
             next={fetchNextData}
             hasMore={data?.length < Number(localStorage.getItem("x-total-count"))}
             loader={<Loader />}
-            scrollableTarget="scrollableDiv"
+            scrollableTarget={`${document.body.clientWidth >= "768" ? "scrollableDiv" : window}`}
             endMessage={
               <p className='w-full text-center'>
                 <b>Yay! You have seen it all</b>

@@ -4,8 +4,6 @@ import cap from '../../../assets/cap.svg'
 import mind from '../../../assets/mind.svg'
 import play from '../../../assets/play.svg'
 import training from '../../../assets/training.svg'
-import gsap from "gsap"
-import ScrollTrigger from "gsap/ScrollTrigger";
 
 const arr = [
   {
@@ -36,56 +34,11 @@ const arr = [
 
 const Second = () => {
 
-  gsap.registerPlugin(ScrollTrigger)
-
-  const parentRef = useRef()
-
-  useLayoutEffect(() => {
-
-    const ctx1 = gsap.context(() => {
-
-      let t1 = gsap.timeline({
-        scrollTrigger: {
-          trigger: ".pic",
-          // markers: true,
-          start: "0% 60%",
-          end: "30% 60%",
-          scrub: 2,
-        }
-      })
-        .from(".pic", {
-          opacity:0,
-          scale:0.8,
-        }, 'a')
-
-        let t2 = gsap.timeline({
-          scrollTrigger: {
-            trigger: ".desc",
-            // markers: true,
-            start: "0% 80%",
-            end: "100% 60%",
-            scrub: 2,
-          }
-        })
-          .from(".desc", {
-            opacity:0,
-            x:-50,
-            stagger:0.5,
-            duration:1,
-          }, 'a')
-
-
-    }, parentRef)
-
-    return () => ctx1.revert();
-
-  }, [])
-
   return (
-    <div ref={parentRef} className='w-full min-h-[90vh] flex flex-col md:flex-row items-center justify-center bg-white px-2 py-6 gap-4'>
+    <div className='w-full min-h-[90vh] flex flex-col md:flex-row items-center justify-center bg-white px-2 py-6 gap-4'>
 
       <div className='w-full md:w-[50%] flex justify-center items-center'>
-        <img className='w-[300px] md:w-[450px] opacity-1 pic' src={group2} alt="" srcSet="" />
+        <img className='w-[300px] md:w-[450px] opacity-1' src={group2} alt="" srcSet="" />
       </div>
 
       <div className='w-full md:w-[50%] flex flex-col gap-8 justify-center items-start p-2'>
@@ -93,7 +46,7 @@ const Second = () => {
         <h1 className='w-full text-center md:text-start font-extrabold text-3xl md:text-4xl mb-6'><span className='text-teal-500'>Benefits</span> from our Job Portal</h1>
 
         {arr.map((e, i) => (
-          <div key={i} className='flex items-center justify-start gap-5 desc'>
+          <div key={i} className='flex items-center justify-start gap-5'>
 
             <img className={`w-[50px] md:w-[70px] bg-${e.color}-500 p-3 rounded-full`} src={e.pic} alt="" srcSet="" />
 
