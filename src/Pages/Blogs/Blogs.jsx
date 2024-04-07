@@ -21,7 +21,7 @@ const Blogs = () => {
         >
             <h1 className='text-2xl'>BLOGS</h1>
 
-            <div className='w-full flex flex-col md:flex-row flex-wrap gap-5 overflow-hidden'>
+            <div className='w-full flex flex-col md:flex-row items-center md:items-start flex-wrap gap-5 overflow-hidden'>
                 {blogs?.map((blog) => (
                     <BlogCard key={blog._id} blog={blog} />
                 ))}

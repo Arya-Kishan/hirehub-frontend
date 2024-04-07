@@ -37,7 +37,7 @@ const BlogCard = ({ blog }) => {
             <div className='flex items-center justify-between pr-2 text-black text-xl'>
 
                 <div onClick={() => navigate(`/profile/${blog.userId._id}`)} className='flex items-center gap-2'>
-                    <img className='w-[30px] md:w-[50px] rounded-full' src={blog.userId.profilePic} alt="" srcSet="" draggable={"false"} />
+                    <img className='w-[30px] h-[30px] md:w-[50px] md:h-[50px] rounded-full' src={blog.userId.profilePic} alt="" srcSet="" draggable={"false"} />
                     <p className='text-[16px] md:text-xl'>{blog.userId.name}</p>
                 </div>
 

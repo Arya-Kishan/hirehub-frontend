@@ -109,7 +109,7 @@ const PostDrawer = () => {
 
             {postDrawer?.data &&
 
-                <div onClick={handleRemoveDrawer2} className={`w-full h-[calc(100vh-106px)] lg:h-[100vh] bg-gradient-to-r from-black flex flex-col md:flex-row md:items-center md:justify-center transition-all duration-500 ${toggle2} z-50`}>
+                <div onClick={handleRemoveDrawer2} className={`w-full h-dvh lg:h-dvh bg-gradient-to-r from-black flex flex-col md:flex-row md:items-center md:justify-center transition-all duration-500 ${toggle2} z-50`}>
 
                     {/* POST PIC */}
                     <div className='w-full 2xl:w-[50%] h-fit md:h-[50%] 2xl:h-full bg-transparent flex items-center justify-center'>
@@ -124,9 +124,9 @@ const PostDrawer = () => {
                             {/* USER NAME, POST DATE AND DP  */}
                             <div className='w-full text-center text-2xl flex items-center justify-between gap-5 bg-teal-400'>
 
-                                <div className='flex items-start'>
+                                <div className='flex items-center gap-1'>
 
-                                    <img className='w-[70px]' src={dp} alt="" srcSet="" />
+                                    <img className='w-[50px] h-[50px] rounded-full' src={postDrawer.data.userId.profilePic} alt="" srcSet="" />
 
                                     <div className='flex flex-col items-start justify-start cursor-pointer'>
 
@@ -161,15 +161,15 @@ const PostDrawer = () => {
                             </div>
 
                             {/* INPUT */}
-                            <div className='absolute bottom-0 left-0 w-full flex items-center justify-start border-2 border-gray-300'>
+                            <div className='absolute bottom-[106px] md:bottom-0 left-0 w-full flex items-center justify-start border-2 border-gray-300'>
 
-                                <input ref={commentInputRef} className='w-[95%]' type="text" />
+                                <input ref={commentInputRef} className='w-[95%] bg-white' type="text" />
 
                                 <img onClick={handleAddComment} className='w-[30px] cursor-pointer' src={send} alt="" srcSet="" />
 
                             </div>
 
-                        </div>
+                        </div>  
 
                     </div>
 
