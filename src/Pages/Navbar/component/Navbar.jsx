@@ -89,10 +89,10 @@ const Navbar = () => {
 
       {/* FOR LARGE DEVICE */}
       <ul className='hidden md:flex gap-6 justify-center items-center relative'>
-        <Link to={'/'} className='list cursor-pointer'>Home</Link>
-        <Link to={'/job'} className='list cursor-pointer'>All Jobs</Link>
-        <Link to={'/application'} className='list cursor-pointer'>My Applications</Link>
-        <Link to={'/community'} className='list cursor-pointer'>Community</Link>
+        <Link to={'/'} className='list cursor-pointer hover:bg-teal-500 p-2 rounded-lg'>Home</Link>
+        <Link to={'/job'} className='list cursor-pointer hover:bg-teal-500 p-2 rounded-lg'>All Jobs</Link>
+        <Link to={'/application'} className='list cursor-pointer hover:bg-teal-500 p-2 rounded-lg'>My Applications</Link>
+        <Link to={'/community'} className='list cursor-pointer hover:bg-teal-500 p-2 rounded-lg'>Community</Link>
         <span className='cursor-pointer'><img onClick={() => setToggle1(!toggle1)} className='w-[30px]' src={profile} alt="" /></span>
       </ul>
 
@@ -107,7 +107,7 @@ const Navbar = () => {
       </div>
 
       {/* BELOW DIV USED FOR SHOWING PROFILE BAR OPTIONS */}
-      {toggle1 && <div onClick={() => setToggle1(false)} className='w-full h-dvh fixed top-0 left-0'>
+      {toggle1 && <div onClick={() => setToggle1(false)} className='w-full h-dvh fixed top-0 left-0 cursor-pointer'>
 
         <div onClick={e => e.stopPropagation()} className='absolute bottom-[50px] md:top-[60px] right-2 h-[100px] bg-teal-500 px-5 py-2 text-xl text-white font-bold rounded-lg'>
           <Link onClick={() => setToggle1(false)} to={`/profile/${loggedInUserId}`}>Profile</Link>

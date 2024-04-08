@@ -24,8 +24,18 @@ const JobCard = ({ job }) => {
         dispatch(updateUserAsync({ formData, userId: loggedInUserId }))
     }
 
+    const experience = (exp) => {
+        if (exp == 1) {
+            return <span className='text-green-500'>Entry</span>
+        } else if (exp == 2) {
+            return <span className='text-yellow-500'>Intermediate</span>
+        } else {
+            return <span className='text-red-500'>Experienced</span>
+        }
+    }
+
     return (
-        <div onClick={() => navigate(`/jobDetails/${job._id}`)} className='w-full lg:w-[38vw] flex flex-col items-start justify-start bg-white shadow-md shadow-black p-2 gap-2 md:gap-5 rounded-lg'>
+        <div onClick={() => navigate(`/jobDetails/${job._id}`)} className='w-full lg:w-[38vw] flex flex-col items-start justify-start bg-white shadow-md shadow-black p-2 gap-2 md:gap-5 rounded-lg flex-shrink-0'>
 
             {/* NAME OF COMPANY, JOB TITLE, SAVE BUTTON */}
             <div className='w-full flex items-center justify-between gap-1'>
@@ -58,7 +68,10 @@ const JobCard = ({ job }) => {
                 {job.description}
             </div>
 
-            <div className='w-full text-end text-[13px] md:text-1xl'>{dayjs(job.postedOn).format("DD MMM")}</div>
+            <div className='w-full flex justify-between text-[13px] md:text-1xl'>
+                <p>{job.fixedSalary.toString().slice(0,2)}K / {experience(job.experience)}</p>
+                <p>{dayjs(job.postedOn).format("DD MMM")}</p>
+            </div>
 
         </div>
     )

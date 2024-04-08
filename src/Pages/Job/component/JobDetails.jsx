@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux"
-import { deleteJobAsync, fetchJobQueryAsync, selectJobDetail } from '../jobSlice'
+import { deleteJobAsync, fetchJobQueryAsync, selectJobDetail, setJobDetail } from '../jobSlice'
 import Loader from '../../../Features/Loader'
 import { selectLoggedInUser, selectUserId } from '../../User/userSlice'
 
@@ -27,6 +27,7 @@ const JobDetails = () => {
     }
 
     useEffect(() => {
+        dispatch(setJobDetail(null))
         dispatch(fetchJobQueryAsync(id))
     }, [])
 
@@ -71,7 +72,7 @@ const JobDetails = () => {
 
                 </>}
 
-            </> : <Loader />}
+            </> : <div className='w-full h-dvh'><Loader /></div>}
 
 
             {/* APPLY */}

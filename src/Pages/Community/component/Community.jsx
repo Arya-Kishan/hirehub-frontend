@@ -88,7 +88,7 @@ const Community = () => {
     <>
 
       {/* SEVERAL OPTOINS LIKE SETTING, PROFILE */}
-      <div className='flex flex-col justify-start items-start gap-4 px-'>
+      <div className='w-full flex flex-col justify-start items-start gap-4'>
 
         <div onClick={() => navigate(`/profile/${loggedInUserId}`)} className='w-full flex gap-2 justify-start items-center p-2 cursor-pointer hover:bg-teal-400'>
           <img className='w-[35px] md:w-[50px] rounded-full bg-teal-400 p-2' src={profile} alt="" srcSet="" />
@@ -118,15 +118,16 @@ const Community = () => {
       </div>
 
       {/* UPGRADE PRO FEATURE */}
-      <div className='w-full h-full flex flex-col justify-end items-center gap-2 px-5 py-2'>
+      <div className='w-full flex flex-col justify-end items-center gap-2 px-5 pb-2'>
 
         <img className='w-[100px]' src={pc} alt="" srcSet="" />
 
         <b className='w-full text-center capitalize'>Upgrade to Pro for more features</b>
 
-        <span onClick={handleUpgrade} className='bg-teal-500 px-6 py-1 rounded-lg'>Upgrade</span>
+        <span onClick={handleUpgrade} className='bg-yellow-500 px-6 py-1 rounded-lg cursor-pointer hover:bg-teal-800 hover:text-white'>Upgrade</span>
 
       </div>
+
     </>
   )
 
@@ -146,7 +147,7 @@ const Community = () => {
       </div>
 
       {/* LEFT BOX */}
-      <div className={`w-[250px] md:w-[20%] h-[calc(100vh-70px)] hidden md:flex flex-col justify-start items-start gap-5 bg-teal-500 pt-6`}>
+      <div className={`w-[250px] md:w-[20%] h-dvh hidden md:flex flex-col justify-between items-start bg-teal-500`}>
 
         {leftBox()}
 
@@ -184,7 +185,7 @@ const Community = () => {
           <div className='flex flex-col h-full'>
             <p className='text-xl md:text-4xl font-bold'>Hello {loggedInUser.name}</p>
             <p className='text-[13px] md:text-xl'>Start your day with some highlights</p>
-            <p onClick={() => dispatch(setBlogDrawer({ show: true, data: "" }))} className='w-[100px] md:w-[200px] bg-black rounded-lg p-1 text-center text-white mt-4'>Add</p>
+            <p onClick={() => dispatch(setBlogDrawer({ show: true, data: "" }))} className='w-[100px] md:w-[200px] bg-black rounded-lg p-1 text-center text-white mt-4 cursor-pointer hover:bg-teal-400'>Add</p>
           </div>
 
           <div className='absolute right-3 bottom-0 flex justify-end'><img className='w-[100px] md:w-[200px]' src={bigImg6} alt="" /></div>
@@ -196,7 +197,7 @@ const Community = () => {
           dataLength={count * 10} //This is important field to render the next data
           next={fetchNextData}
           hasMore={posts?.length < Number(localStorage.getItem("x-total-post"))}
-          loader={<Loader />}
+          loader={<div className='w-full h-dvh flex justify-center items-center'><Loader /></div>}
           scrollableTarget="scrollableDiv"
           endMessage={
             <p className='w-full text-center'>
@@ -205,7 +206,7 @@ const Community = () => {
           }
           className='w-full h-[30%] flex flex-wrap justify-center md:justify-start items-center gap-4'
         >
-          {posts?.length > 0 ? posts?.map((e) => (<Card key={e._id} card={e} />)) : <Loader />}
+          {posts?.length > 0 ? posts?.map((e,i) => (<Card key={i} card={e} />)) : ""}
         </InfiniteScroll>
 
       </div>

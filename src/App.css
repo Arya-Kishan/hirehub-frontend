@@ -1,0 +1,45 @@
+#bar1{
+    background-color: red;
+}
+
+#dollar1,#dollar2,#dollar3,#dollar4{
+    animation: anime1 ease-in-out 3s infinite;
+}
+
+@keyframes anime1 {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(10px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+
+#bar1,#bar1,#bar2,#bar3,#bar4{
+    animation: anime2 ease-in-out 4s infinite;
+}
+
+@keyframes anime2 {
+    0% {
+        transform: translateY(10px);
+    }
+
+    50% {
+        transform: translateY(0px);
+    }
+
+    100% {
+        transform: translateY(10px);
+    }
+}
+
+
+#background{
+    animation: anime1 ease-in-out 4s infinite;
+}

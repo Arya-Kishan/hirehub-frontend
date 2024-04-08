@@ -165,7 +165,7 @@ const Profile = () => {
               {/* MORE & CONNECT */}
               <div className='w-full flex justify-evenly items-center gap-5 my-4'>
 
-                <button onClick={() => setToggle("right-[0px]")} className='w-[100px] text-white bg-teal-500 px-4 py-1 rounded-lg shadow-lg'>More</button>
+                <button onClick={() => setToggle("right-[0px]")} className='w-[100px] text-white bg-teal-500 px-4 py-1 rounded-lg shadow-lg hover:bg-yellow-500'>More</button>
 
                 {paramUserIdDetails._id !== loggedInUserId ? <p className='w-[100px] text-center border-2 border-teal-500 px-2 py-1 text-teal-500 cursor-pointer rounded-lg shadow-lg'>{friendsArr().includes(loggedInUserId) ? "Friend" : <span onClick={() => handleSentRequest(paramUserIdDetails._id)}>Connect</span>}</p> : ""}
 
@@ -197,9 +197,19 @@ const Profile = () => {
 
               {/* MY SAVED,POST,MY BLOGS SELECT BUTTON LITTLE NAVBAR */}
               <div className='w-full h-[5vh] md:h-[5vh] bg-teal-500 flex items-center justify-around'>
-                <p onClick={() => fetchUserPost(paramUserIdDetails._id)} className={`w-full h-full flex justify-center items-center cursor-pointer ${detail.type == "posts" ? "text-white bg-teal-800" : "text-black"}`}>POST</p>
-                <p onClick={() => fetchUserBlogs(paramUserIdDetails._id)} className={`w-full h-full flex justify-center items-center cursor-pointer ${detail.type == "blogs" ? "text-white bg-teal-800" : "text-black"}`}>BLOGS</p>
-                <p onClick={() => fetchUserApplications(paramUserIdDetails._id)} className={`w-full h-full flex justify-center items-center cursor-pointer ${detail.type == "applications" ? "text-white bg-teal-800" : "text-black"}`}>APPLICATION</p>
+
+                <p
+                  onClick={() => fetchUserPost(paramUserIdDetails._id)}
+                  className={`w-full h-full hover:bg-teal-800 flex justify-center items-center cursor-pointer ${detail.type == "posts" ? "text-white bg-teal-800" : "text-black"}`}>POST</p>
+
+                <p
+                  onClick={() => fetchUserBlogs(paramUserIdDetails._id)}
+                  className={`w-full h-full hover:bg-teal-800 flex justify-center items-center cursor-pointer ${detail.type == "blogs" ? "text-white bg-teal-800" : "text-black"}`}>BLOGS</p>
+
+                <p
+                  onClick={() => fetchUserApplications(paramUserIdDetails._id)}
+                  className={`w-full h-full hover:bg-teal-800 flex justify-center items-center cursor-pointer ${detail.type == "applications" ? "text-white bg-teal-800" : "text-black"}`}>APPLICATION</p>
+
               </div>
 
               {/* ALL POSTS */}
@@ -269,22 +279,22 @@ const Profile = () => {
 
             {loggedInUserId == paramUserId && <>
               <div onClick={() => navigate(`/postForm`)} className='text-xl font-semibold p-2 flex items-center gap-1 w-[200px] justify-between'>
-                <span>Create Post</span>
+                <span className='hover:text-white'>Create Post</span>
                 <img className='w-[20px]' src={add} alt="" srcSet="" />
               </div>
 
               <div onClick={() => dispatch(setBlogDrawer({ show: true, data: "" }))} className='text-xl font-semibold p-2 flex items-center gap-1 w-[200px] justify-between'>
-                <span>Create Blog</span>
+                <span className='hover:text-white'>Create Blog</span>
                 <img className='w-[20px]' src={add} alt="" srcSet="" />
               </div>
 
               <div onClick={() => navigate("/profileForm")} className='text-xl font-semibold p-2 flex items-center gap-1 w-[200px] justify-between'>
-                <span>Update Profile</span>
+                <span className='hover:text-white'>Update Profile</span>
                 <img className='w-[20px]' src={pencil} alt="" srcSet="" />
               </div>
 
               <div onClick={handleDeleteAccount} className='text-xl font-semibold p-2 flex items-center gap-1 w-[200px] justify-between'>
-                <span>Delete Account</span>
+                <span className='hover:text-white'>Delete Account</span>
                 <img className='w-[20px]' src={remove} alt="" srcSet="" />
               </div>
             </>}
@@ -293,7 +303,7 @@ const Profile = () => {
               setToggle2("right-0")
               setToggle("-right-[100vw]")
             }} className='text-xl font-semibold p-2 flex items-center gap-1 w-[200px] justify-between'>
-              <span>More Detail</span>
+              <span className='hover:text-white'>More Detail</span>
               <img className='w-[20px]' src={remove} alt="" srcSet="" />
             </div>
 

@@ -46,7 +46,7 @@ const Search = ({ type = "user", hide }) => {
 
                 <div className='w-full h-full overflow-y-scroll bg-white p-2'>
                     {searchResult?.map((e) => (
-                        <p onClick={() => handleNavigate(e?._id)} key={e._id} className='w-full p-1 border-b-2 border-solid border-whit'>{e?.title || e?.name}</p>
+                        <p onClick={() => handleNavigate(e?._id)} key={e._id} className='w-full p-1 border-b-2 border-solid border-white hover:bg-teal-500 cursor-pointer'>{e?.title || e?.name}</p>
                     ))}
                 </div>
 

@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux'
 import { selectUserId } from '../../User/userSlice';
-import { addJobAsync, selectJobDetail, updateJobAsync } from '../../Job/jobSlice';
-import { useNavigate } from 'react-router-dom';
+import { addJobAsync, selectJobDetail, selectJobLoader, updateJobAsync } from '../../Job/jobSlice';
+import Loader from '../../../Features/Loader';
+import loader from "../../../assets/loader.svg"
 
 const JobForm = () => {
 
@@ -19,18 +20,13 @@ const JobForm = () => {
   const dispatch = useDispatch();
   const userId = useSelector(selectUserId);
   const jobDetail = useSelector(selectJobDetail)
-  const navigate = useNavigate()
+  const jobLoader = useSelector(selectJobLoader)
 
   const [interestArr1, setinterestArr1] = useState(["full-Time", "Part-Time", "Internship", "Volunteering", "Remote"]);
 
   const [interestArr2, setinterestArr2] = useState([]);
 
   console.log(jobDetail);
-
-  const handleUpdate = () => {
-
-  }
-
 
   const handleForm = (data) => {
 
@@ -43,7 +39,6 @@ const JobForm = () => {
       // Adding one more important fileds in formdata
       data = { ...data, "postedBy": userId }
       dispatch(addJobAsync(data))
-      navigate("/job")
     }
 
     // reset()
@@ -54,22 +49,36 @@ const JobForm = () => {
     setinterestArr2([...interestArr2, interest])
   }
 
+  const handleRemoveType = (e) => {
+    console.log(e);
+    console.log(interestArr2);
+    let index = interestArr2.findIndex((el) => el == e)
+    console.log(index);
+    interestArr2.splice(index, 1)
+    console.log(interestArr2);
+    setinterestArr2(interestArr2)
+  }
+
   useEffect(() => {
 
     if (jobDetail) {
-      setValue("category", jobDetail.category)
-      setValue("city", jobDetail.city)
-      setValue("country", jobDetail.country)
-      setValue("description", jobDetail.description)
-      setValue("fixedSalary", jobDetail.fixedSalary)
-      setValue("location", jobDetail.location)
-      setValue("salaryFrom", jobDetail.salaryFrom)
-      setValue("salaryTo", jobDetail.salaryTo)
       setValue("title", jobDetail.title)
+      setValue("description", jobDetail.description)
+      setValue("country", jobDetail.country)
+      setValue("city", jobDetail.city)
+      setValue("location", jobDetail.location)
+      setValue("fixedSalary", jobDetail.fixedSalary)
+      setValue("companyName", jobDetail.companyName)
+      setValue("experience", jobDetail.experience)
+    }
 
+    if (jobDetail?.type) {
+      setinterestArr2(jobDetail?.type)
     }
 
   }, [])
+
+  console.log(interestArr2);
 
   return (
     <div className='w-full min-h-[100vh] flex flex-col items-center justify-start gap-2 py-[70px]'>
@@ -81,7 +90,7 @@ const JobForm = () => {
         {/* Title */}
         <div className='w-full flex flex-col items-start justify-start'>
 
-          <input type="text" {...register("title")} placeholder='Your Title' className='w-full' style={{ borderBottom: '2px solid black' }} />
+          <input type="text" {...register("title")} placeholder='Title' className='w-full' style={{ borderBottom: '2px solid black' }} />
 
           {errors?.title && <p className='text-red'>{errors.title?.message}</p>}
 
@@ -90,79 +99,82 @@ const JobForm = () => {
         {/* description */}
         <div className='w-full flex flex-col items-start justify-start'>
 
-          <input type="text" {...register("description")} placeholder='Your description' className='w-full' style={{ borderBottom: '2px solid black' }} />
+          <textarea type="text" {...register("description")} placeholder='description' className='w-full h-[200px]' style={{ borderBottom: '2px solid black' }} />
 
           {errors?.description && <p className='text-red'>{errors.description?.message}</p>}
-
-        </div>
-
-        {/* category */}
-        <div className='w-full flex flex-col items-start justify-start'>
-
-          <input type="text" {...register("category")} placeholder='Your category' className='w-full' style={{ borderBottom: '2px solid black' }} />
-
-          {errors?.category && <p className='text-red'>{errors.category?.message}</p>}
-
-        </div>
-
-        {/* country */}
-        <div className='w-full flex flex-col items-start justify-start'>
-
-          <input type="text" {...register("country")} placeholder='Your country' className='w-full' style={{ borderBottom: '2px solid black' }} />
-
-          {errors?.country && <p className='text-red'>{errors.country?.message}</p>}
-
-        </div>
-
-        {/* city */}
-        <div className='w-full flex flex-col items-start justify-start'>
-
-          <input type="text" {...register("city")} placeholder='Your city' className='w-full' style={{ borderBottom: '2px solid black' }} />
-
-          {errors?.city && <p className='text-red'>{errors.city?.message}</p>}
 
         </div>
 
         {/* location */}
         <div className='w-full flex flex-col items-start justify-start'>
 
-          <input type="text" {...register("location")} placeholder='Your location' className='w-full' style={{ borderBottom: '2px solid black' }} />
+          <textarea type="text" {...register("location")} placeholder='location' className='w-full h-[100px]' style={{ borderBottom: '2px solid black' }} />
 
           {errors?.location && <p className='text-red'>{errors.location?.message}</p>}
 
         </div>
 
-        {/* fixedSalary */}
-        <div className='w-full flex flex-col items-start justify-start'>
+        <div className='w-full flex justify-between gap-4'>
 
-          <input type="number" {...register("fixedSalary")} placeholder='Your fixedSalary' className='w-full' style={{ borderBottom: '2px solid black' }} />
+          {/* country */}
+          <div className='w-full flex flex-col items-start justify-start'>
 
-          {errors?.fixedSalary && <p className='text-red'>{errors.fixedSalary?.message}</p>}
+            <input type="text" {...register("country")} placeholder='country' className='w-full' style={{ borderBottom: '2px solid black' }} />
+
+            {errors?.country && <p className='text-red'>{errors.country?.message}</p>}
+
+          </div>
+
+          {/* city */}
+          <div className='w-full flex flex-col items-start justify-start'>
+
+            <input type="text" {...register("city")} placeholder='city' className='w-full' style={{ borderBottom: '2px solid black' }} />
+
+            {errors?.city && <p className='text-red'>{errors.city?.message}</p>}
+
+          </div>
 
         </div>
 
-        {/* salaryFrom */}
-        <div className='w-full flex flex-col items-start justify-start'>
+        <div className='w-full flex justify-between gap-4'>
 
-          <input type="number" {...register("salaryFrom")} placeholder='Your salaryFrom' className='w-full' style={{ borderBottom: '2px solid black' }} />
+          {/* experience */}
+          <div className='w-full flex flex-col items-start justify-start'>
 
-          {errors?.salaryFrom && <p className='text-red'>{errors.salaryFrom?.message}</p>}
+            <input type="number" {...register("experience", {
+              required: {
+                value: true,
+                message: 'Fill the experience'
+              },
+              min: {
+                value: 1,
+                message: "BETWEEN 1 - 3"
+              },
+              max: {
+                value: 3,
+                message: "BETWEEN 1 - 3"
+              }
+            })} placeholder='experience' className='w-full' style={{ borderBottom: '2px solid black' }} />
 
-        </div>
+            {errors?.experience && <p className='text-red'>{errors.fixedSalary?.message}</p>}
 
-        {/* salaryTo */}
-        <div className='w-full flex flex-col items-start justify-start'>
+          </div>
 
-          <input type="number" {...register("salaryTo")} placeholder='Your salaryTo' className='w-full' style={{ borderBottom: '2px solid black' }} />
+          {/* fixedSalary */}
+          <div className='w-full flex flex-col items-start justify-start'>
 
-          {errors?.salaryTo && <p className='text-red'>{errors.salaryTo?.message}</p>}
+            <input type="number" {...register("fixedSalary")} placeholder='fixedSalary' className='w-full' style={{ borderBottom: '2px solid black' }} />
+
+            {errors?.fixedSalary && <p className='text-red'>{errors.fixedSalary?.message}</p>}
+
+          </div>
 
         </div>
 
         {/* companyName */}
         <div className='w-full flex flex-col items-start justify-start'>
 
-          <input type="text" {...register("companyName")} placeholder='Your companyName' className='w-full' style={{ borderBottom: '2px solid black' }} />
+          <input type="text" {...register("companyName")} placeholder='companyName' className='w-full' style={{ borderBottom: '2px solid black' }} />
 
           {errors?.companyName && <p className='text-red'>{errors.companyName?.message}</p>}
 
@@ -174,9 +186,9 @@ const JobForm = () => {
           <div className='w-full flex flex-wrap gap-2 text-[14px] p-2' style={{ borderBottom: '2px solid black' }}>
             {interestArr2?.length > 0 ? interestArr2.map((e, i) => (
 
-              <input key={e} value={e} {...register(`type.${i}`)} className='w-fit bg-yellow-500 rounded-lg p-1'></input>
+              <input onFocus={(e) => handleRemoveType(e.target.value)} key={e} value={e} {...register(`type.${i}`)} className='w-fit bg-yellow-500 rounded-lg p-1'></input>
 
-            )) : <span className='text-gray-400'>Choose Interest</span>}
+            )) : <span className='text-gray-400'>Choose Type</span>}
           </div>
 
           <div className='flex flex-wrap gap-2 text-[14px] p-2'>
@@ -187,16 +199,8 @@ const JobForm = () => {
 
         </div>
 
-        {/* experience */}
-        <div className='w-full flex flex-col items-start justify-start'>
 
-          <input type="number" {...register("experience")} placeholder='Your experience' className='w-full' style={{ borderBottom: '2px solid black' }} />
-
-          {errors?.experience && <p className='text-red'>{errors.fixedSalary?.message}</p>}
-
-        </div>
-
-        {!jobDetail ? <button type='submit' className='w-full bg-teal-500 px-6 py-2'>Create</button> : <button type='submit' className='w-full bg-teal-500 px-6 py-2'>Update</button>}
+        {jobLoader == "idle" ? !jobDetail ? <button type='submit' className='w-full bg-teal-500 px-6 py-2'>Create</button> : <button type='submit' className='w-full bg-teal-500 px-6 py-2'>Update</button> : <img className='w-[50px]' src={loader} alt="" srcset="" />}
 
       </form>
 

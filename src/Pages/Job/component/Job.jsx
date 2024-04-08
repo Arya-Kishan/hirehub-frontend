@@ -14,19 +14,21 @@ import Search from '../../Search/component/Search'
 import JobCard from '../../../Features/JobCard'
 import Loader from '../../../Features/Loader'
 import InfiniteScroll from 'react-infinite-scroll-component';
+import Slider from 'rc-slider';
+import 'rc-slider/assets/index.css';
 
 
-const jobTypeArr = ["full-Time", "Part-Time", "Internship", "Volunteering", "Remote"]
+const jobTypeArr = ["Full-Time", "Part-Time", "Internship", "Volunteering", "Remote"]
 
 const experienceArr = ["Entry Level", "Intermediate", "Expert"]
 
-const jobCategoryArr = ["frontend", "backend", "fullStack", "Designer", "Developer"]
+const dateArr = [{ date: 1, word: 'Last 24 Hours' }, { date: 7, word: 'Last 7 days' }, { date: 30, word: 'Last 30 days' }, { date: 120, word: 'Last 6 months' }, { date: 365, word: 'All' }]
 
 let query;
 
 let typeArr2 = [];
 let experienceArr2 = [];
-let categoryArr2 = [];
+let date = 365;
 
 let count = 0;
 
@@ -37,7 +39,7 @@ const Job = () => {
   const [toggle, setToggle] = useState("top-[100vh]")
   const [toggle2, setToggle2] = useState(false)
   const [toggle3, setToggle3] = useState(false)
-  const [range1, setRange1] = useState(10000)
+  const [range1, setRange1] = useState(1000)
   const [range2, setRange2] = useState(100000)
   const [showSearch, setShowSearch] = useState(null)
   const [country, setCountry] = useState(null)
@@ -60,14 +62,18 @@ const Job = () => {
       }
 
       if (type == "experience") {
-        experienceArr2.push(e.target.value)
+        experienceArr2.push(Number(e.target.value))
       }
 
-      if (type == "category") {
-        categoryArr2.push(e.target.value)
+      if (type == "date") {
+        if (e.target.value) {
+          date = (e.target.value)
+        } else {
+          date = 365
+        }
       }
 
-      query = (`type=${JSON.stringify(typeArr2)}&experience=${JSON.stringify(experienceArr2)}&category=${JSON.stringify(categoryArr2)}&salaryFrom=${range1}&salaryTo=${range2}&country=${country}`)
+      query = (`type=${JSON.stringify(typeArr2)}&experience=${JSON.stringify(experienceArr2)}&date=${date}&salaryFrom=${range1}&salaryTo=${range2}&country=${country}`)
 
     } else {
 
@@ -77,16 +83,15 @@ const Job = () => {
       }
 
       if (type == "experience") {
-        let i = experienceArr2.findIndex((type) => type == e.target.value)
+        let i = experienceArr2.findIndex((type) => type == Number(e.target.value))
         experienceArr2.splice(i, 1)
       }
 
-      if (type == "category") {
-        let i = categoryArr2.findIndex((type) => type == e.target.value)
-        categoryArr2.splice(i, 1)
+      if (type == "date") {
+        date = 365
       }
 
-      query = (`type=${JSON.stringify(typeArr2)}&experience=${JSON.stringify(experienceArr2)}&category=${JSON.stringify(categoryArr2)}&salaryFrom=${range1}&salaryTo=${range2}&country=${country}`)
+      query = (`type=${JSON.stringify(typeArr2)}&experience=${JSON.stringify(experienceArr2)}&date=${date}&salaryFrom=${range1}&salaryTo=${range2}&country=${country}`)
 
     }
 
@@ -101,11 +106,6 @@ const Job = () => {
 
     if (experienceArr2.length == 0) {
       let i = arya.findIndex((e) => e.includes("experience"))
-      arya.splice(i, 1)
-    }
-
-    if (categoryArr2.length == 0) {
-      let i = arya.findIndex((e) => e.includes("category"))
       arya.splice(i, 1)
     }
 
@@ -191,10 +191,10 @@ const Job = () => {
         <h2 className='text-2xl font-semibold'>Job Category</h2>
 
         <div className='flex flex-col'>
-          {jobCategoryArr.map((e, i) => (
+          {dateArr.map((e, i) => (
             <div key={i} className='flex gap-1'>
-              <input onClick={(e) => handleJobTypes(e, "category")} type="checkbox" value={e} />
-              <span>{e}</span>
+              <input onClick={(e) => handleJobTypes(e, "date")} type="radio" name='arya' value={e.date} />
+              <span>{e.word}</span>
             </div>
           ))}
         </div>
@@ -205,29 +205,44 @@ const Job = () => {
   const moreOptionComp = () => (
     <>
 
-      <div onClick={() => navigate(`/savedJob/saved`)} className='w-[100px] md:w-[150px] h-[100px] md:h-[150px] bg-white p-2 flex flex-col justify-center items-center gap-1 rounded-lg text-[14px]'>
+      <div onClick={() => navigate(`/savedJob/saved`)} className='w-[100px] md:w-[150px] h-[100px] md:h-[150px] bg-white p-2 flex flex-col justify-center items-center gap-1 rounded-lg text-[14px] hover:bg-gray-400 hover:text-white text-teal-500 cursor-pointer'>
+
         <img className='w-[40px] md:w-[60px] bg-teal-500 p-2 rounded-full' src={bookmark} alt="" srcSet="" />
-        <p className='text-teal-500 md:text-xl'>Saved</p>
+
+        <p className=' md:text-xl'>Saved</p>
+
       </div>
 
 
-      {loggedInUser.role == "applicant" ? <div onClick={() => navigate(`/savedJob/applied`)} className='w-[100px] md:w-[150px] h-[100px] md:h-[150px] bg-white p-2 flex flex-col justify-center items-center gap-1 rounded-lg text-[14px]'>
+      {loggedInUser.role == "applicant" ? <div onClick={() => navigate(`/savedJob/applied`)} className='w-[100px] md:w-[150px] h-[100px] md:h-[150px] bg-white p-2 flex flex-col justify-center items-center gap-1 rounded-lg text-[14px] hover:bg-gray-400 hover:text-white text-teal-500 cursor-pointer'>
+
         <img className='w-[40px] md:w-[60px] bg-teal-500 p-2 rounded-full' src={accepted} alt="" srcSet="" />
-        <p className='text-teal-500 md:text-xl'>Applied</p>
-      </div> : <div onClick={() => navigate(`/savedJob/posted`)} className='w-[100px] md:w-[150px] h-[100px] md:h-[150px] bg-white p-2 flex flex-col justify-center items-center gap-1 rounded-lg text-[14px]'>
+
+        <p className=' md:text-xl'>Applied</p>
+
+      </div> : <div onClick={() => navigate(`/savedJob/posted`)} className='w-[100px] md:w-[150px] h-[100px] md:h-[150px] bg-white p-2 flex flex-col justify-center items-center gap-1 rounded-lg text-[14px] hover:bg-gray-400 hover:text-white text-teal-500 cursor-pointer'>
+
         <img className='w-[40px] md:w-[60px] bg-teal-500 p-2 rounded-full' src={accepted} alt="" srcSet="" />
-        <p className='text-teal-500 md:text-xl'>Posted</p>
+
+        <p className=' md:text-xl'>Posted</p>
+
       </div>}
 
 
-      <div onClick={() => navigate(`/application`)} className='w-[100px] md:w-[150px] h-[100px] md:h-[150px] bg-white p-2 flex flex-col justify-center items-center gap-1 rounded-lg text-[14px]'>
+      <div onClick={() => navigate(`/application`)} className='w-[100px] md:w-[150px] h-[100px] md:h-[150px] bg-white p-2 flex flex-col justify-center items-center gap-1 rounded-lg text-[14px] hover:bg-gray-400 hover:text-white text-teal-500 cursor-pointer'>
+
         <img className='w-[40px] md:w-[60px] bg-teal-500 p-2 rounded-full' src={rejected} alt="" srcSet="" />
-        <p className='text-teal-500 md:text-xl'>Application</p>
+
+        <p className=' md:text-xl'>Application</p>
+
       </div>
 
-      {loggedInUser.role == "employer" && <div onClick={() => navigate(`/jobForm`)} className='w-[100px] md:w-[150px] h-[100px] md:h-[150px] bg-white p-2 flex flex-col justify-center items-center gap-1 rounded-lg text-[14px]'>
+      {loggedInUser.role == "employer" && <div onClick={() => navigate(`/jobForm`)} className='w-[100px] md:w-[150px] h-[100px] md:h-[150px] bg-white p-2 flex flex-col justify-center items-center gap-1 rounded-lg text-[14px] hover:bg-gray-400 hover:text-white text-teal-500 cursor-pointer'>
+
         <img className='w-[40px] md:w-[60px] bg-teal-500 p-2 rounded-full' src={create} alt="" srcSet="" />
-        <p className='text-teal-500 md:text-xl'>Create</p>
+
+        <p className=' md:text-xl'>Create</p>
+
       </div>}
 
 
@@ -241,7 +256,6 @@ const Job = () => {
     console.log(count);
     dispatch(fetchJobsAsync({ page: count, query: dataQuery }))
   }
-
 
   useEffect(() => {
     dispatch(fetchJobsAsync({ page: 0, query: "" }))
@@ -257,6 +271,11 @@ const Job = () => {
     }
 
   }, [jobs])
+
+  const completeSlider = (value) => {
+    setRange1(value[0])
+    setRange2(value[1])
+  }
 
   console.log("----------JOBS---------");
   console.log(jobs);
@@ -302,7 +321,7 @@ const Job = () => {
 
           <div className='w-full flex justify-between items-center gap-5 p-2'>
 
-            <h2 className='font-bold text-xl'>Jobs</h2>
+            <h2 className='font-bold text-xl'>Jobs - <span className='text-gray-500'>{(localStorage.getItem("x-total-count"))}</span></h2>
             <div className='flex gap-2'>
               <img onClick={() => setToggle("top-0")} className='block md:hidden w-[25px] cursor-pointer' src={filter} alt="" srcSet="" />
               <img onClick={() => setToggle3(true)} className='hidden md:block w-[25px] cursor-pointer' src={menu} alt="" srcSet="" />
@@ -347,13 +366,15 @@ const Job = () => {
 
         <div onClick={e => e.stopPropagation()} className='w-[50%] h-[50%] bg-teal-500 rounded-2xl flex flex-col gap-6 justify-center items-center'>
 
-          <div className='flex items-center justify-center gap-2 p-2'>
-            <input onChange={(e) => {
-              setRange1(e.target.value)
-            }} type="range" min={10000} max={100000} value={range1} step={1000} />
-            <input onChange={(e) => {
-              setRange2(e.target.value)
-            }} type="range" min={10000} max={100000} value={range2} step={1000} />
+          <div className='w-[60%]'>
+          <Slider
+            range
+            defaultValue={[range1, range2]}
+            step={1000}
+            min={2000}
+            max={90000}
+            onChangeComplete={completeSlider}
+          />
           </div>
 
           <p className='text-3xl'>{range1} - {range2}</p>

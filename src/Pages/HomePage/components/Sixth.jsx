@@ -1,5 +1,5 @@
-import React, { useEffect, useLayoutEffect, useRef } from 'react'
-import dp from '../../../assets/dp.svg'
+import { useNavigate } from 'react-router-dom'
+import dp from '../../../assets/account0.svg'
 import quote from '../../../assets/quote.svg'
 
 const arr = [
@@ -25,6 +25,8 @@ const arr = [
 
 const Sixth = () => {
 
+    const navigate = useNavigate()
+
 
     return (
         <div className='py-6 bg-gradient-to-b from-white to-gray-400 overflow-hidden'>
@@ -36,7 +38,7 @@ const Sixth = () => {
                 {arr.map((e,i) => (
                     <div key={i} className='w-[300px] md:w-[400px] h-[200px] md:h-[300px] flex flex-col justify-center items-center gap-3 shadow-lg border-2 border-gray-200 shadow-black rounded-lg p-2 relative'>
 
-                        <img className='absolute -bottom-[20px] left-[50%] -translate-x-[50%]' src={dp} alt="" srcSet="" />
+                        <img className='w-[40px] absolute -bottom-[5px] left-[50%] -translate-x-[50%]' src={dp} alt="" srcSet="" />
 
                         <div className='hidden md:block text-gray-500 px-10'>{e.desc}</div>
 
@@ -52,7 +54,7 @@ const Sixth = () => {
 
             </div>
 
-            <div className='w-full text-center'><span className='bg-teal-500 text-white px-4 py-1 rounded-md'>More</span></div>
+            <div className='w-full text-center'><span onClick={()=>navigate("/blogs")} className='bg-teal-500 text-white px-4 py-1 rounded-md'>More</span></div>
         </div>
     )
 }

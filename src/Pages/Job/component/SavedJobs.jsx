@@ -43,18 +43,18 @@ const SavedJobs = () => {
 
             <h1 className='w-full font-bold text-2xl capitalize flex items-center justify-between px-4'>
                 <p>{type} Jobs</p>
-                {loggedInUser.role == "employer" && <img onClick={()=>navigate("/jobForm")} className='w-[40px]' src={add} alt="" srcset="" />}
+                {loggedInUser.role == "employer" && <img onClick={() => navigate("/jobForm")} className='w-[40px]' src={add} alt="" srcset="" />}
             </h1>
 
-            {type == "saved" && (selectedJobs && selectedJobs.length > 0 ? <div className='flex flex-col gap-5 mt-4'>
+            {type == "saved" && (selectedJobs && selectedJobs.length > 0 ? <div className='flex flex-col md:flex-row justify-center items-center flex-wrap gap-5 mt-4'>
                 {selectedJobs?.map((e) => (<JobCard job={e} />))}
             </div> : <div className='uppercase'>NO {type} JOBS</div>)}
 
-            {type == "posted" && (selectedJobs && selectedJobs.length > 0 ? <div className='flex flex-col gap-5 mt-4'>
+            {type == "posted" && (selectedJobs && selectedJobs.length > 0 ? <div className='flex flex-col md:flex-row justify-center items-center flex-wrap gap-5 mt-4'>
                 {selectedJobs?.map((e) => (<JobCard job={e} />))}
             </div> : <div className='uppercase'>NO {type} JOBS</div>)}
 
-            {type == "applied" && (applications && applications.length > 0 ? <div className='flex flex-col gap-5 mt-4'>
+            {type == "applied" && (applications && applications.length > 0 ? <div className='flex flex-col md:flex-row justify-center items-center flex-wrap gap-5 mt-4'>
                 {applications?.map((e) => (<JobCard job={e.jobId} />))}
             </div> : <div className='uppercase'>NO {type} JOBS</div>)}
 

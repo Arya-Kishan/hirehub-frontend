@@ -4,23 +4,28 @@ import { axiosDeleteById, axiosGetAll, axiosGetById, axiosPost, axiosUpdateById 
 const initialState = {
   status: 'idle',
   allJobs: null,
-  savedAppliedPostedJobs:null,
+  savedAppliedPostedJobs: null,
   jobDetail: null,
-  countriesArr:null,
+  countriesArr: null,
+  jobLoader: "idle",
 };
 
 
 export const addJobAsync = createAsyncThunk(
   'job/addJob',
-  async (formData) => {
-    const response = await axiosPost({ data: formData, endPoint: "job", successMessage: "Job Added", errorMessage: "Job Not Added" });
-    return response.data;
+  async (formData, { rejectWithValue }) => {
+    try {
+      const response = await axiosPost({ data: formData, endPoint: "job", successMessage: "Job Added", errorMessage: "Job Not Added" });
+      return response.data;
+    } catch (error) {
+      return response.data;
+    }
   }
 );
 
 export const fetchJobsAsync = createAsyncThunk(
   'job/fetchJobs',
-  async ({page,query}) => {
+  async ({ page, query }) => {
     const response = await axiosGetAll({ endPoint: `job/all/${page}`, query: query });
     return response.data;
   }
@@ -28,7 +33,7 @@ export const fetchJobsAsync = createAsyncThunk(
 
 export const fetchCountriesAsync = createAsyncThunk(
   'job/fetchCountries',
-  async (query="") => {
+  async (query = "") => {
     const response = await axiosGetAll({ endPoint: "job/country/all", query: query });
     return response.data;
   }
@@ -62,9 +67,13 @@ export const fetchSavedAppliedPostedJobAsync = createAsyncThunk(
 
 export const updateJobAsync = createAsyncThunk(
   'job/updateJob',
-  async ({ formData, id }) => {
-    const response = await axiosUpdateById({ data: formData, endPoint: "job", query: "jobId", id: id, successMessage: "Job Updated", errorMessage: "Job Not Updated" });
-    return response.data;
+  async ({ formData, id }, { rejectWithValue }) => {
+    try {
+      const response = await axiosUpdateById({ data: formData, endPoint: "job", query: "jobId", id: id, successMessage: "Job Updated", errorMessage: "Job Not Updated" });
+      return response.data;
+    } catch (error) {
+      return response.data;
+    }
   }
 );
 
@@ -85,8 +94,11 @@ export const jobSlice = createSlice({
   name: 'job',
   initialState,
   reducers: {
-    setJobs: (state,action) => {
+    setJobs: (state, action) => {
       state.allJobs = action.payload;
+    },
+    setJobDetail: (state, action) => {
+      state.jobDetail = action.payload
     },
   },
 
@@ -106,6 +118,7 @@ export const jobSlice = createSlice({
         state.status = 'idle';
         state.allJobs = action.payload;
       })
+      // FETHING JOB DETAILS WITH JOB ID
       .addCase(fetchJobQueryAsync.pending, (state) => {
         state.status = 'loading';
       })
@@ -113,6 +126,7 @@ export const jobSlice = createSlice({
         state.status = 'idle';
         state.jobDetail = action.payload;
       })
+      // FETCHING APPLICATIONS SAVED POSTED JOBS
       .addCase(fetchSavedAppliedPostedJobAsync.pending, (state) => {
         state.status = 'loading';
       })
@@ -120,18 +134,40 @@ export const jobSlice = createSlice({
         state.status = 'idle';
         state.savedAppliedPostedJobs = action.payload;
       })
+      // UPDATE JOB
       .addCase(updateJobAsync.pending, (state) => {
         state.status = 'loading';
+        state.jobLoader = 'loading';
       })
       .addCase(updateJobAsync.fulfilled, (state, action) => {
         state.status = 'idle';
+        state.jobLoader = 'idle';
       })
+      .addCase(updateJobAsync.rejected, (state, action) => {
+        state.status = 'idle';
+        state.jobLoader = 'idle';
+      })
+      // UPDATE JOB
+      .addCase(addJobAsync.pending, (state) => {
+        state.status = 'loading';
+        state.jobLoader = 'loading';
+      })
+      .addCase(addJobAsync.fulfilled, (state, action) => {
+        state.status = 'idle';
+        state.jobLoader = 'idle';
+      })
+      .addCase(addJobAsync.rejected, (state, action) => {
+        state.status = 'idle';
+        state.jobLoader = 'idle';
+      })
+      // DELETE JOB
       .addCase(deleteJobAsync.pending, (state) => {
         state.status = 'loading';
       })
       .addCase(deleteJobAsync.fulfilled, (state, action) => {
         state.status = 'idle';
       })
+      // GETTING COUNTRIES
       .addCase(fetchCountriesAsync.pending, (state) => {
         state.status = 'loading';
       })
@@ -142,10 +178,11 @@ export const jobSlice = createSlice({
   },
 });
 
-export const { setJobs } = jobSlice.actions;
+export const { setJobs, setJobDetail } = jobSlice.actions;
 
 export const selectStatus = (state) => state.job.status;
 export const selectJobs = (state) => state.job.allJobs;
+export const selectJobLoader = (state) => state.job.jobLoader;
 export const selectSavedAppliedPostedJobs = (state) => state.job.savedAppliedPostedJobs;
 export const selectCountries = (state) => state.job.countriesArr;
 // I USED THIS BELOW SELECTJ... FOR SHOWING DETAILS OF JOB AND UPDATING

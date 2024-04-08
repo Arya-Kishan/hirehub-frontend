@@ -53,10 +53,10 @@ function App() {
 
   return (
     <>
-      {preCheckUser &&
+      {preCheckUser ?
         <BrowserRouter>
           {loggedInUser && <Navbar />}
-          <Suspense fallback={<Loader />} >
+          <Suspense fallback={<div className='w-full h-dvh flex justify-center items-center'><Loader /></div>} >
             <Routes>
               <Route path='/' element={<Protected><HomePage /></Protected>} />
               <Route path='/login' element={<Login />} />
@@ -85,7 +85,7 @@ function App() {
             <Dialog />
             <BlogDrawer />
           </>}
-        </BrowserRouter>
+        </BrowserRouter> : <div className='w-full h-dvh flex justify-center items-center'><Loader /></div>
       }
     </>
   )
