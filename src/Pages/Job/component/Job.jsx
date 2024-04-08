@@ -364,7 +364,7 @@ const Job = () => {
       {/* INPUT RANGE FIXED BOX */}
       {toggle2 && <div onClick={() => setToggle2(false)} className='w-full h-[100vh] fixed top-0 left-0 bg-gradient-to-r from-black flex justify-center items-center'>
 
-        <div onClick={e => e.stopPropagation()} className='w-[50%] h-[50%] bg-teal-500 rounded-2xl flex flex-col gap-6 justify-center items-center'>
+        <div onClick={e => e.stopPropagation()} className='w-[80%] md:w-[50%] h-fit py-10 bg-teal-500 rounded-2xl flex flex-col gap-6 justify-center items-center'>
 
           <div className='w-[60%]'>
           <Slider
@@ -377,14 +377,14 @@ const Job = () => {
           />
           </div>
 
-          <p className='text-3xl'>{range1} - {range2}</p>
+          <p className='text-xl'>{range1} - {range2}</p>
 
           <div className='w-full flex items-center justify-evenly'>
-            <button onClick={() => setToggle2(false)} className='bg-red-500 px-4 py-1'>Cancel</button>
+            <button onClick={() => setToggle2(false)} className='bg-teal-800  rounded-lg hover:bg-teal-300 cursor-pointer px-4 py-1'>Cancel</button>
             <button onClick={(e) => {
               handleJobTypes(e, "range")
               setToggle2(false)
-            }} className='bg-yellow-500 px-4 py-1'>Get</button>
+            }} className='bg-teal-800 hover:bg-teal-300 cursor-pointer rounded-lg px-4 py-1'>Get</button>
           </div>
 
 
