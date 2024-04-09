@@ -6,7 +6,9 @@ import { axiosGetById, axiosPost, axiosSearch } from '../../Helper/AxiosCall';
 
 const initialState = {
   status: 'idle',
-  searchResult:null,
+  jobSearchResult: null,
+  userSearchResult: null,
+  searchLoader: { message: '', loader: "idle" },
 };
 
 
@@ -15,18 +17,26 @@ const initialState = {
 
 export const searchJobAsync = createAsyncThunk(
   'search/searchJob',
-  async ({query}) => {
-    const response = await axiosSearch({endPoint:"job/all/0",query:query});
-    return response.data;
+  async ({ query }, { rejectWithValue }) => {
+    try {
+      const response = await axiosSearch({ endPoint: "job/all/0", query: query });
+      return response.data;
+    } catch (error) {
+      return response.data;
+    }
   }
 );
 
 export const searchUserAsync = createAsyncThunk(
   'search/searchUser',
-  async ({query}) => {
+  async ({ query }, { rejectWithValue }) => {
     console.log(query);
-    const response = await axiosSearch({endPoint:"user/all",query:query});
-    return response.data;
+    try {
+      const response = await axiosSearch({ endPoint: "user/all", query: query });
+      return response.data;
+    } catch (error) {
+      return response.data;
+    }
   }
 );
 
@@ -37,8 +47,11 @@ export const searchSlice = createSlice({
   name: 'search',
   initialState,
   reducers: {
-    logoutUser: (state) => {
-      state.status = "idle";
+    setJobSearchResult: (state) => {
+      state.jobSearchResult = null;
+    },
+    setUserSearchResult: (state) => {
+      state.userSearchResult = null;
     },
   },
 
@@ -46,24 +59,41 @@ export const searchSlice = createSlice({
     builder
       .addCase(searchJobAsync.pending, (state) => {
         state.status = 'loading';
+        state.searchLoader = { message: '', loader: "loading" };
       })
       .addCase(searchJobAsync.fulfilled, (state, action) => {
         state.status = 'idle';
-        state.searchResult = action.payload;
+        state.jobSearchResult = action.payload;
+        state.searchLoader = { message: 'success', loader: "idle" };
       })
+      .addCase(searchJobAsync.rejected, (state, action) => {
+        state.status = 'idle';
+        state.jobSearchResult = null;
+        state.searchLoader = { message: 'failure', loader: "idle" };
+      })
+
       .addCase(searchUserAsync.pending, (state) => {
         state.status = 'loading';
+        state.searchLoader = { message: '', loader: "loading" };
       })
       .addCase(searchUserAsync.fulfilled, (state, action) => {
         state.status = 'idle';
-        state.searchResult = action.payload;
+        state.userSearchResult = action.payload;
+        state.searchLoader = { message: 'success', loader: "idle" };
+      })
+      .addCase(searchUserAsync.rejected, (state, action) => {
+        state.status = 'idle';
+        state.searchLoader = { message: 'failure', loader: "idle" };
       })
   },
 });
 
-export const { logoutUser } = searchSlice.actions;
+export const { setJobSearchResult, setUserSearchResult } = searchSlice.actions;
 
 export const selectStatus = (state) => state.search.status;
-export const selectSearchResult = (state) => state.search.searchResult;
+export const selectSearchLoader = (state) => state.search.searchLoader;
+
+export const selectUserSearchResult = (state) => state.search.userSearchResult;
+export const selectJobSearchResult = (state) => state.search.jobSearchResult;
 
 export default searchSlice.reducer;

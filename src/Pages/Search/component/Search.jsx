@@ -1,15 +1,17 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import search from "../../../assets/search.svg"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { searchJobAsync, searchUserAsync, selectSearchResult } from '../searchSlice'
+import { searchJobAsync, searchUserAsync, selectJobSearchResult, selectUserSearchResult, setJobSearchResult, setUserSearchResult } from '../searchSlice'
 import debounce from "lodash.debounce"
 
 const Search = ({ type = "user", hide }) => {
 
     const inputRef = useRef(null)
 
-    const searchResult = useSelector(selectSearchResult)
+    const userSearchResult = useSelector(selectUserSearchResult)
+    const jobSearchResult = useSelector(selectJobSearchResult)
+
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -25,13 +27,18 @@ const Search = ({ type = "user", hide }) => {
 
         if (inputRef.current.value.length > 0) {
             if (type == "job") {
+                setUserSearchResult()
                 dispatch(searchJobAsync({ query: `search=${inputRef.current.value}` }))
             } else if (type == "user") {
+                setJobSearchResult()
                 dispatch(searchUserAsync({ query: `search=${inputRef.current.value}` }))
             }
         }
 
     }, 500)
+
+    console.log(jobSearchResult);
+    console.log(userSearchResult);
 
 
     return (
@@ -39,15 +46,28 @@ const Search = ({ type = "user", hide }) => {
 
             <div onClick={e => e.stopPropagation()} className='w-[70%] h-[70%] flex flex-col justify-start items-center gap-2 p-1'>
 
-                <div className='w-full flex items-center justify-start bg-white'>
+                <div className='w-full flex items-center justify-start bg-slate-200 rounded-xl p-1 border-2 border-teal-400 shadow-2xl shadow-black'>
                     <input onChange={handleDebounce} ref={inputRef} className='w-[96%]' type="text" placeholder='Search...' />
-                    <img className='w-[30px]' src={search} alt="seae" srcSet="" />
+                    <img className='w-[30px] bg-teal-400 p-1 rounded-full' src={search} alt="seae" srcSet="" />
                 </div>
 
-                <div className='w-full h-full overflow-y-scroll bg-white p-2'>
-                    {searchResult?.map((e) => (
-                        <p onClick={() => handleNavigate(e?._id)} key={e._id} className='w-full p-1 border-b-2 border-solid border-white hover:bg-teal-500 cursor-pointer'>{e?.title || e?.name}</p>
-                    ))}
+                <div className='w-full h-full overflow-y-scroll bg-slate-200 p-2 rounded-xl border-2 border-teal-400 shadow-2xl shadow-black'>
+
+
+                    {userSearchResult || jobSearchResult ? <>
+
+                        {type == "user" && userSearchResult?.map((e) => (
+                            <p onClick={() => handleNavigate(e?._id)} key={e._id} className='w-full p-1 border-b-2 border-solid border-white hover:bg-teal-500 cursor-pointer'>{e?.title || e?.name}</p>
+                        ))}
+
+
+                        {type == "job" && jobSearchResult?.map((e) => (
+                            <p onClick={() => handleNavigate(e?._id)} key={e._id} className='w-full p-1 border-b-2 border-solid border-white hover:bg-teal-500 cursor-pointer'>{e?.title || e?.name}</p>
+                        ))}
+
+                    </> : <div className='w-full h-full flex justify-center items-center'>NO RECORDS</div>}
+
+
                 </div>
 
             </div>

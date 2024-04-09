@@ -51,7 +51,7 @@ const Login = () => {
   }
 
   return (
-    <div className='w-full min-h-[100vh] flex flex-wrap'>
+    <div className='w-full min-h-dvh flex flex-wrap'>
       {user && <Navigate to='/' />}
 
       <div className='w-[100vw] h-[100vh] lg:w-[50vw] lg:h-[100vh] bg-teal-800 flex flex-col gap-5 justify-center items-center relative'>
@@ -120,7 +120,11 @@ const Login = () => {
                     minLength: {
                       value: 9,
                       message: "Phone must be greater than 9 Numbers"
-                    }
+                    },
+                    maxLength: {
+                      value: 10,
+                      message: "Phone must be lesser than 10 Numbers"
+                    },
                   })}
                     placeholder='Phone...'
                     className='w-[90%] rounded-lg outline-none border-none'
@@ -210,11 +214,11 @@ const Login = () => {
             :
             <>
 
-              <button type='submit' className='w-[100%] h-[30px] text-white bg-teal-500 rounded-lg'>Login</button>
+              <button type='submit' disabled={loginLoader == "loading" ? true : false} className='w-[100%] h-[30px] text-white bg-teal-500 rounded-lg'>Login</button>
 
               <h1 className='text-center text-white'>OR</h1>
 
-              <button type='button' onClick={() => setToggle(true)} className='w-[100%] h-[30px] text-white border-solid border-2 border-white rounded-lg'>Register</button>
+              <button type='button' disabled={loginLoader == "loading" ? true : false} onClick={() => setToggle(true)} className='w-[100%] h-[30px] text-white border-solid border-2 border-white rounded-lg'>Register</button>
 
             </>}
 

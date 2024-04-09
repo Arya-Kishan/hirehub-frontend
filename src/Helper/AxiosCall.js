@@ -70,10 +70,10 @@ export function axiosUpdateById({ data, endPoint, query, id, errorMessage, succe
 
         try {
             const response = await axios.patch(`/${endPoint}?${query}=${id}`, data)
-            toast(`${successMessage}`)
+            toast.success(`${successMessage}`)
             resolve({ data: response.data })
         } catch (error) {
-            toast(`${errorMessage}`)
+            toast.error(`${errorMessage}`)
             reject({ data: null })
         }
 

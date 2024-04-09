@@ -179,7 +179,7 @@ const Profile = () => {
                 </div>
 
                 {paramUserIdDetails.friends.map((e) => (
-                  <div onClick={() => {
+                  <div key={e._id} onClick={() => {
                     navigate(`/profile/${e._id}`)
                     setToggle3("-bottom-[50%]")
                   }} className='w-full flex items-center text-white justify-start mt-1 overflow-scroll'>
@@ -218,7 +218,7 @@ const Profile = () => {
                 {friendsArr().includes(loggedInUserId) || (paramUserId == loggedInUserId) ? detail?.data?.length > 0 ?
 
                   detail?.data?.map((e, i) => (
-                    <div key={i}>
+                    <div key={e._id}>
 
                       {
                         detail.type == "posts" &&
@@ -327,7 +327,7 @@ const Profile = () => {
                 : {paramUserIdDetails.location}</p>
 
               <div className='flex gap-4'>
-                {paramUserIdDetails.interest.map((e, i) => (<span key={i} className='px-4 py-1 bg-yellow-500 rounded-lg'>{e}</span>))}
+                {paramUserIdDetails.interest.map((e) => (<span key={e} className='px-4 py-1 bg-yellow-500 rounded-lg'>{e}</span>))}
               </div>
 
               <div className='flex'>

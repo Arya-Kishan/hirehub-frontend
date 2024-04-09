@@ -38,7 +38,7 @@ const Application = () => {
 
   return (
     <>
-      <div className='w-full py-[70px] flex flex-col justify-start items-center gap-2'>
+      <div className='w-full h-dvh py-[70px] flex flex-col justify-start items-center gap-2'>
 
         <h1 className='w-full h-[5vh] uppercase text-4xl text-center font-bold'>Application</h1>
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux'
 import { addApplicationAsync } from '../../Application/applicationSlice';
-import { selectUserId } from '../../User/userSlice';
+import { selectLoggedInUser, selectUserId } from '../../User/userSlice';
 import { toast } from 'react-toastify';
 import { selectJobDetail } from '../../Job/jobSlice';
 
@@ -11,11 +11,13 @@ const ApplicationForm = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm()
 
   const dispatch = useDispatch();
   const userId = useSelector(selectUserId);
+  const loggedInUser = useSelector(selectLoggedInUser);
   const jobDetail = useSelector(selectJobDetail);
 
   const handleForm = (data) => {
@@ -49,6 +51,12 @@ const ApplicationForm = () => {
   }
 
   useEffect(() => {
+
+    if (jobDetail) {
+      setValue("name", loggedInUser.name)
+      setValue("email", loggedInUser.email)
+      setValue("phone", loggedInUser.phone)
+  }
 
   }, [])
 
