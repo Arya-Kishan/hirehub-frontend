@@ -55,7 +55,7 @@ const CommentDrawer = () => {
 
 
     return (
-        <div className={`w-full h-dvh fixed ${toggle} transition-all duration-500 left-0 flex flex-col items-start justify-end pt-[60px] pb-[46px]`} onClick={handleHideDrawer}
+        <div className={`w-full h-dvh fixed ${toggle} transition-all duration-500 left-0 flex flex-col items-start justify-end pt-[60px] pb-[46px] md:pb-0`} onClick={handleHideDrawer}
         >
 
             {/* DOWN ARROW ICON */}
@@ -90,7 +90,7 @@ const CommentDrawer = () => {
             {/* INPUT BOX FOR COMMENTING ON POST */}
             <div onClick={e => e.stopPropagation()} className='w-full flex items-center justify-start bg-teal-500 border-2 border-white'>
 
-                <input ref={commentInputRef} className='w-[98%] outline-none border-none' type="text" name="" id="" />
+                <input ref={commentInputRef} className='w-[98%] outline-none border-none bg-white h-full' placeholder='Comment...' type="text" name="" id="" />
                 
                 <img onClick={handleAddComment} className='w-[40px] p-1 bg-white' src={send2} alt="" srcSet="" />
 

@@ -54,7 +54,7 @@ const Login = () => {
     <div className='w-full min-h-dvh flex flex-wrap'>
       {user && <Navigate to='/' />}
 
-      <div className='w-[100vw] h-[100vh] lg:w-[50vw] lg:h-[100vh] bg-teal-800 flex flex-col gap-5 justify-center items-center relative'>
+      <div className='w-[100vw] h-dvh lg:w-[50vw] bg-teal-800 flex flex-col gap-5 justify-center items-center relative'>
 
         <div>
           <img src={logo} alt="" srcSet="" />
@@ -230,7 +230,7 @@ const Login = () => {
 
       </div>
 
-      <div className='hidden w-[100vw] lg:w-[50vw] lg:h-[100vh] bg-teal-800 lg:flex justify-center items-center'>
+      <div className='hidden w-[100vw] lg:w-[50vw] lg:h-dvh bg-teal-800 lg:flex justify-center items-center'>
         <svg className='w-[70%]' viewBox="0 0 610 515" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g id="authImg">
             <g id="Blob">

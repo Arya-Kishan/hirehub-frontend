@@ -111,7 +111,7 @@ const UpdateProfileForm = () => {
 
 
     return (
-        <div className='w-full min-h-[100vh] px-2 py-[70px] mt-[60px] flex justify-center bg-gradient-to-r from-teal-500 to-teal-800'>
+        <div className='w-full min-h-[100vh] px-2 py-[70px] mt-[60px] flex justify-center bg-gradient-to-r from-teal-500 to-teal-800 text-white'>
 
             <form onSubmit={handleSubmit(handleForm)} className='w-[80%] min-h-[50vh] flex flex-col justify-start items-center gap-10' >
 

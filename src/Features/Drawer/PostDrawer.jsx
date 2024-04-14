@@ -163,7 +163,7 @@ const PostDrawer = () => {
                             {/* INPUT */}
                             <div className='absolute bottom-[106px] md:bottom-0 left-0 w-full flex items-center justify-start border-2 border-gray-300'>
 
-                                <input ref={commentInputRef} className='w-[95%] bg-white' type="text" />
+                                <input ref={commentInputRef} className='w-[95%] bg-white' placeholder='Comment...' type="text" />
 
                                 <img onClick={handleAddComment} className='w-[30px] cursor-pointer' src={send} alt="" srcSet="" />
 

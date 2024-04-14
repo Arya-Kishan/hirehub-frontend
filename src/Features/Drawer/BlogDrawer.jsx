@@ -14,14 +14,13 @@ const BlogDrawer = () => {
     const BlogDrawer = useSelector(selectBlogDrawer)
     const addingBlogLoader = useSelector(selectAddingBlogLoader)
 
-    console.log(BlogDrawer)
+    // console.log(BlogDrawer)
     console.log(addingBlogLoader)
 
 
     const addBlog = () => {
         console.log(textareaRef.current.value);
         dispatch(addBlogAsync({ userId: loggedInUserId, description: textareaRef.current.value }));
-        dispatch(setBlogDrawer({ show: false, data: "" }))
         textareaRef.current.value = ""
     }
 
@@ -45,10 +44,6 @@ const BlogDrawer = () => {
         if (addingBlogLoader.result == "success") {
             dispatch(setBlogDrawer({ show: false, data: "" }))
             textareaRef.current.value = ""
-
-            setTimeout(() => {
-                dispatch(setAddingBlogLoader({ result: null, loader: "idle" }))
-            }, 500);
         }
     }, [addingBlogLoader])
 
@@ -59,7 +54,14 @@ const BlogDrawer = () => {
 
                 <textarea ref={textareaRef} name="" id="" className='w-full h-[90%] p-2' placeholder='Write Your Blog...'></textarea>
 
-                {addingBlogLoader.loader == "loading" ? <div className='w-full h-[10%] flex items-center justify-center bg-teal-800'><img className='w-[30px]' src={loader} alt="" srcset="" /></div> : <button className='w-full h-[10%] flex items-center justify-center bg-teal-500 hover:bg-teal-600'>{BlogDrawer.data ? <p onClick={updateBlog}>Update</p> : <p onClick={addBlog}>Add</p>}</button>}
+                {addingBlogLoader.loader == "loading" ?
+                    <div className='w-full h-[10%] flex items-center justify-center bg-teal-800'><img className='w-[30px]' src={loader} alt="" srcset="" /></div>
+                    :
+                    <button className='w-full h-[10%] flex items-center justify-center bg-teal-500 hover:bg-teal-600'>{BlogDrawer.data
+                        ?
+                        <p onClick={updateBlog} className='w-full'>Update</p>
+                        :
+                        <p onClick={addBlog} className='w-full'>Add</p>}</button>}
 
             </div>
 

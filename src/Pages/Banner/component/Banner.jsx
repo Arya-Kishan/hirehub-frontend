@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react'
 import debounce from "lodash.debounce"
 import bannerImg from "../../../assets/bannerImg.svg"
 import search from "../../../assets/search.svg"
+import blob4 from "../../../assets/blob4.svg"
 import Search from '../../Search/component/Search'
 
 const Banner = () => {
@@ -18,11 +19,11 @@ const Banner = () => {
     }, 1000)
 
     return (
-        <div className='flex flex-wrap overflow-hidden'>
+        <div className='flex flex-wrap overflow-hidden relative'>
 
             <div className='w-[100vw] h-[50vh] lg:w-[50%] lg:h-[100vh] flex flex-col justify-center items-center '>
 
-                <div className='w-[60%] flex flex-col gap-10'>
+                <div className='w-[60%] flex flex-col gap-10 z-20'>
 
                     <h1 className='text-2xl md:text-3xl lg:text-5xl text-start font-bold'>Find your <span className='text-teal-500'>dream job</span> here easily and quickly</h1>
 
@@ -38,7 +39,7 @@ const Banner = () => {
 
             </div>
 
-            <div className='relative w-[100vw] h-[50vh] lg:w-[50%] lg:h-[100vh] flex justify-center items-center '>
+            <div className='relative w-[100vw] h-[50vh] lg:w-[50%] lg:h-[100vh] flex justify-center items-center z-20'>
 
                 <div className='w-[40vh] h-[40vh] lg:w-[700px] lg:h-[700px] bg-white lg:bg-teal-500 rounded-full flex justify-center items-center z-1 lg:absolute -bottom-[140px] -right-[140px]'>
 
@@ -52,6 +53,8 @@ const Banner = () => {
             </div>
 
             {showSearch && <Search type='job' hide={setShowSearch} />}
+
+            <img className='absolute -top-[10%] -left-[100px] w-[500px] h-[500px] z-1 rotate-90' src={blob4} alt="" srcset="" />
 
         </div>
     )

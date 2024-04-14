@@ -100,7 +100,7 @@ export const blogSlice = createSlice({
             .addCase(addBlogAsync.fulfilled, (state, action) => {
                 state.status = 'idle';
                 state.addingBlogLoader = { result: "success", loader: "idle" };
-                state.myBlogs.push(action.payload);
+                state.myBlogs?.push(action.payload);
             })
             .addCase(addBlogAsync.rejected, (state, action) => {
                 state.status = 'idle';
