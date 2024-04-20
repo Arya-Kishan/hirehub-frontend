@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { loginGuestUserAsync, loginUserAsync, registerUserAsync, selectLoggedInUser, selectLoginLoader, selectStatus } from '../userSlice';
+import { loginGuestUserAsync, loginUserAsync, registerUserAsync, selectLoggedInUser, selectLoginLoader } from '../userSlice';
 import "../../../App.css"
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, useNavigate } from 'react-router-dom'
@@ -9,7 +9,6 @@ import email from '../../../assets/email.svg'
 import lock from '../../../assets/lock.svg'
 import phone from '../../../assets/phone.svg'
 import pencil from '../../../assets/pencil.svg'
-import authImg from '../../../assets/authImg.svg'
 import logo from '../../../assets/logo.svg'
 import show from '../../../assets/show.svg'
 import hide from '../../../assets/hide.svg'
@@ -40,15 +39,16 @@ const Login = () => {
   }
 
   const handleForm = (data) => {
-    console.log(data);
-    if (data.email && data.name) {
-      console.log("register");
+    if (data.email && data.name && loginLoader != "loading") {
       dispatch(registerUserAsync(data))
-    } else {
-      console.log("login");
+    } else if (loginLoader != "loading") {
       dispatch(loginUserAsync(data))
+    } else {
+      console.log("PLS EITHER DO LOGIN OR REGISTER");
     }
   }
+
+  console.log(loginLoader);
 
   return (
     <div className='w-full min-h-dvh flex flex-wrap'>
@@ -214,11 +214,11 @@ const Login = () => {
             :
             <>
 
-              <button type='submit' disabled={loginLoader == "loading" ? true : false} className='w-[100%] h-[30px] text-white bg-teal-500 rounded-lg'>Login</button>
+              <button type='submit' className='w-[100%] h-[30px] text-white bg-teal-500 rounded-lg'>Login</button>
 
               <h1 className='text-center text-white'>OR</h1>
 
-              <button type='button' disabled={loginLoader == "loading" ? true : false} onClick={() => setToggle(true)} className='w-[100%] h-[30px] text-white border-solid border-2 border-white rounded-lg'>Register</button>
+              <button type='button' onClick={() => setToggle(true)} className='w-[100%] h-[30px] text-white border-solid border-2 border-white rounded-lg'>Register</button>
 
             </>}
 

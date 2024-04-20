@@ -13,8 +13,8 @@ export const axiosPost = ({ data, endPoint, errorMessage, successMessage }) => {
             }
 
             const res = await axios.post(`/${endPoint}`, data, { headers: config })
-            console.log(res.headers);
-            console.log(res.headers?.["x-jwt-routes"]);
+            // console.log(res.headers);
+            // console.log(res.headers?.["x-jwt-routes"]);
             localStorage.setItem("x-jwt-routes", res.headers?.["x-jwt-routes"])
             toast(`${successMessage}`)
             resolve({ data: res.data })

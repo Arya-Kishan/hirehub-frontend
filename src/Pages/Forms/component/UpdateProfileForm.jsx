@@ -84,6 +84,19 @@ const UpdateProfileForm = () => {
 
     }
 
+    const handleRemove = (e) => {
+        console.log(e);
+
+        // interestArr2.splice(1,1)
+
+        let newArr = interestArr2.filter((elem) => elem !== e)
+        console.log(newArr);
+
+        // setinterestArr2(newArr)
+        setinterestArr2((prev)=>[...newArr])
+
+    }
+
     const addInterest = (interest) => {
         setinterestArr2([...interestArr2, interest])
     }
@@ -106,7 +119,7 @@ const UpdateProfileForm = () => {
 
     }, [])
 
-    // console.log(loggedInUser);
+    console.log(interestArr2);
 
 
 
@@ -150,9 +163,9 @@ const UpdateProfileForm = () => {
                 <div className='w-full flex flex-col items-start justify-start'>
 
                     <div className='w-full flex flex-wrap gap-2 text-[14px] p-2' style={{ borderBottom: '2px solid black' }}>
-                        {interestArr2?.length > 0 ? interestArr2.map((e, i) => (
+                        {interestArr2?.length > 0 ? interestArr2?.map((e, i) => (
 
-                            <input key={e} value={e} {...register(`interest.${i}`)} className='w-fit bg-yellow-500 rounded-lg p-1'></input>
+                            <input onClick={() => handleRemove(e)} key={e} value={e} {...register(`interest.${i}`)} className='w-fit bg-yellow-500 rounded-lg p-1'></input>
 
                         )) : <span className='text-gray-400'>Choose Interest</span>}
                     </div>
