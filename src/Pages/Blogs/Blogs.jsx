@@ -19,7 +19,7 @@ const Blogs = () => {
     return (
         <div className='w-full pt-[70px] flex flex-col gap-4 p-4'
         >
-            <h1 className='text-2xl'>BLOGS</h1>
+            <h1 className='text-2xl font-bold'>BLOGS</h1>
 
             <div className='w-full flex flex-col md:flex-row items-center md:items-start flex-wrap gap-5 overflow-hidden'>
                 {blogs?.map((blog) => (

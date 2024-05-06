@@ -60,20 +60,20 @@ const Card = ({ card }) => {
 
             <img onClick={() => dispatch(setPostDrawer({ data: card, show: true }))} loading='lazy' className='w-full md:w-full h-[250px] md:h-[200px] bg-teal-500' src={card.picUrl} alt="" srcSet="" draggable="false" />
 
-            <div className='w-full flex items-center justify-between'>
+            {card.userId && <div className='w-full flex items-center justify-between'>
 
                 <div onClick={() => handleNavigateToOtherProfile(card.userId._id)} className='flex gap-1 items-center justify-start cursor-pointer'>
-                    <img className='w-[30px] h-[30px] rounded-full' src={card.userId.profilePic} alt="" srcSet="" />
+                    <img className='w-[30px] h-[30px] rounded-full' src={card.userId?.profilePic} alt="" srcSet="" />
                     <p className='text-[14px]'>{card?.userId?.name}</p>
                 </div>
 
                 <div className='flex items-center justify-between gap-2 cursor-pointer'>
 
-                    {showLiked ? <img onClick={() => handleAddLike(card.userId._id, card._id)} className='w-[18px]' src={heart1} alt="" srcSet="" /> : <img onClick={() => handleRemoveLike(card.userId._id, card._id)} className='w-[18px]' src={heart2} alt="" srcSet="" />}
+                    {showLiked ? <img onClick={() => handleAddLike(card.userId?._id, card._id)} className='w-[18px]' src={heart1} alt="" srcSet="" /> : <img onClick={() => handleRemoveLike(card.userId?._id, card._id)} className='w-[18px]' src={heart2} alt="" srcSet="" />}
 
                     <p onClick={handleShowLikes} className='text-[14px]'>{card.likes.length}</p>
 
-                    <div onClick={() => handleShowComments(card.userId._id, card._id)} className='flex items-center justify-start'>
+                    <div onClick={() => handleShowComments(card.userId?._id, card._id)} className='flex items-center justify-start'>
                         <img className='w-[18px]' src={comment} alt="" srcSet="" />
 
                         <p className='text-[14px]'>{card.comments.length}</p>
@@ -81,7 +81,7 @@ const Card = ({ card }) => {
 
                 </div>
 
-            </div>
+            </div>}
 
             <p className='hidden md:block mt-2 text-teal-600'>{card.hashtags?.map((hashtag, i) => <span key={i}>{hashtag}</span>)}</p>
 
