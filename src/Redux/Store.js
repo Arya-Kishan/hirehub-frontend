@@ -5,6 +5,7 @@ import formReducer from '../Pages/Forms/formsSlice'
 import communityReducer from '../Pages/Community/communitySlice'
 import searchReducer from '../Pages/Search/searchSlice'
 import blogReducer from '../Pages/Blogs/blogsSlice'
+import chatReducer from '../Pages/Chat/chatSlice'
 import applicationReducer from '../Pages/Application/applicationSlice'
 
 export const store = configureStore({
@@ -16,5 +17,6 @@ export const store = configureStore({
         search: searchReducer,
         community: communityReducer,
         application: applicationReducer,
+        chat: chatReducer,
     },
 })

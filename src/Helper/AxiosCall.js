@@ -37,7 +37,7 @@ export function axiosGetAll({ endPoint, query }) {
     return new Promise(async (resolve, reject) => {
         try {
             const res = await axios.get(`/${endPoint}?${query}`)
-            console.log(res.headers?.["x-total-count"]);
+            // console.log(res.headers?.["x-total-count"]);
             if (res.headers?.["x-total-count"]) {
                 localStorage.setItem("x-total-count", res.headers?.["x-total-count"])
             }

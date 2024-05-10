@@ -2,6 +2,7 @@ import { Suspense, lazy, useEffect, useState } from 'react'
 import './App.css'
 import axios from "axios"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
+import io from "socket.io-client"
 
 const HomePage = lazy(() => import("./Pages/HomePage"))
 const Profile = lazy(() => import('./Pages/Profile/component/Profile'))
@@ -33,6 +34,11 @@ import ForgotPassword from './Pages/User/component/ForgotPassword'
 import ChangePassword from './Pages/User/component/ChangePassword'
 import Blogs from './Pages/Blogs/Blogs'
 import PaymentSuccess from './Pages/User/component/PaymentSuccess'
+import Chat from './Pages/Chat/component/Chat'
+import NotFoundPage from './Pages/NotFoundPage'
+import { setOnlineUsers, setSelectedUser } from './Pages/Chat/chatSlice'
+
+export let globalSocket;
 
 function App() {
 
@@ -49,6 +55,37 @@ function App() {
   useEffect(() => {
     dispatch(checkUserWithJwtAsync(localStorage.getItem("x-jwt-routes")))
   }, [])
+
+  // useEffect(() => {
+
+  //   if (loggedInUser) {
+
+  //     globalSocket = io("http://localhost:8000", {
+  //       query: {
+  //         userId: loggedInUser._id,
+  //       }
+
+  //     });
+
+  //     globalSocket?.on('onlineUsers', (onlineUsers) => {
+  //       dispatch(setOnlineUsers(onlineUsers))
+  //       // console.log(onlineUsers);
+  //     });
+
+  //     // globalSocket?.on('is-typing', (typingObj) => {
+  //     //   console.log(typingObj);
+  //     //   dispatch(setTypingLoader(typingObj))
+  //     // });
+
+  //     return () => {
+  //       globalSocket.close();
+  //       dispatch(setSelectedUser(null))
+  //     }
+
+  //   }
+
+  // }, [loggedInUser])
+
 
 
   return (
@@ -76,6 +113,8 @@ function App() {
               <Route path='/communityHome' element={<Protected><CommunityHome /></Protected>} />
               <Route path='/application' element={<Protected><Application /></Protected>} />
               <Route path='/success' element={<Protected><PaymentSuccess /></Protected>} />
+              <Route path='/chat' element={<Protected><Chat /></Protected>} />
+              <Route path='*' element={<NotFoundPage />} />
             </Routes>
           </Suspense>
           {loggedInUser && <>

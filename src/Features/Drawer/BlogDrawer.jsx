@@ -15,17 +15,17 @@ const BlogDrawer = () => {
     const addingBlogLoader = useSelector(selectAddingBlogLoader)
 
     // console.log(BlogDrawer)
-    console.log(addingBlogLoader)
+    // console.log(addingBlogLoader)
 
 
     const addBlog = () => {
-        console.log(textareaRef.current.value);
+        // console.log(textareaRef.current.value);
         dispatch(addBlogAsync({ userId: loggedInUserId, description: textareaRef.current.value }));
         textareaRef.current.value = ""
     }
 
     const updateBlog = () => {
-        console.log(textareaRef.current.value);
+        // console.log(textareaRef.current.value);
         dispatch(updateBlogAsync({ data: { description: textareaRef.current.value }, blogId: BlogDrawer?.data._id }));
         dispatch(setBlogDrawer({ show: false, data: "" }))
         textareaRef.current.value = ""

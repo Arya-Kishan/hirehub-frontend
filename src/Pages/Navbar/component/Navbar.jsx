@@ -9,6 +9,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { logoutUser, selectUserId } from '../../User/userSlice'
 import { getNotificationsAsync, handleRequestAsync, selectMyNotification } from '../../Community/communitySlice'
+import { globalSocket } from '../../../App'
 
 const Navbar = () => {
 
@@ -25,6 +26,8 @@ const Navbar = () => {
   const handleLogout = () => {
     localStorage.setItem("x-jwt-routes", null)
     dispatch(logoutUser())
+    globalSocket.close()
+    dispatch(setSelectedUser(null))
   }
 
   const handleNotification = () => {
@@ -63,18 +66,18 @@ const Navbar = () => {
 
         <div onClick={e => e.stopPropagation()} className='w-[200px] md:w-[300px] h-[100%] flex flex-col justify-start items-start gap-5 bg-teal-500'>
 
-          <h1 className='w-full text-center text-2xl'>Notification :</h1>
+          <h1 className='w-full text-center text-2xl text-white bg-teal-900 p-2'>Notification</h1>
 
           {myNotifications?.length > 0 ? myNotifications?.map((e, i) => (
             <div key={i}>
               {e.senderId.name && <div className='flex flex-col items-start justify-start gap-2 pl-5'>
 
-                <p className='text-1xl text-white'> * {e.senderId.name} send friend request</p>
+                <p className='text-1xl text-white font-bold text-[14px] md:text-xl'>{e.senderId.name} send friend request</p>
 
                 <div className='w-full flex justify-center md:justify-end items-center gap-2'>
 
-                  <button onClick={() => handleFriendRequest("accept", e._id)} className='bg-white text-1xl px-2 py-1'>Accept</button>
-                  <button onClick={() => handleFriendRequest("reject", e._id)} className='bg-white text-1xl px-2 py-1'>Reject</button>
+                  <button onClick={() => handleFriendRequest("accept", e._id)} className='bg-white text-[12px] md:text-1xl px-2 py-1'>Accept</button>
+                  <button onClick={() => handleFriendRequest("reject", e._id)} className='bg-white text-[12px] md:text-1xl px-2 py-1'>Reject</button>
 
                 </div>
 
@@ -93,6 +96,7 @@ const Navbar = () => {
         <Link to={'/job'} className='list cursor-pointer hover:bg-teal-500 p-2 rounded-lg'>All Jobs</Link>
         <Link to={'/application'} className='list cursor-pointer hover:bg-teal-500 p-2 rounded-lg'>My Applications</Link>
         <Link to={'/community'} className='list cursor-pointer hover:bg-teal-500 p-2 rounded-lg'>Community</Link>
+        {/* <Link to={'/chat'} className='list cursor-pointer hover:bg-teal-500 p-2 rounded-lg'>Chat</Link> */}
         <span className='cursor-pointer'><img onClick={() => setToggle1(!toggle1)} className='w-[30px]' src={profile} alt="" /></span>
       </ul>
 

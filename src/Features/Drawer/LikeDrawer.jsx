@@ -33,7 +33,7 @@ const LikeDrawer = () => {
 
     }, [likeDrawer])
 
-    console.log(likeDrawer?.data);
+    // console.log(likeDrawer?.data);
 
     return (
         <div className={`transition-all duration-500 w-full h-[100vh] fixed top-0 ${toggle} flex items-center justify-end pt-[60px] z-[60]`} onClick={handleHideDrawer}>

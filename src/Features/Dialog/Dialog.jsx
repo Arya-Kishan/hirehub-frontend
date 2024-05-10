@@ -10,7 +10,7 @@ const Dialog = () => {
     const dispatch = useDispatch()
     const dialog = useSelector(selectDialog)
     const loggedInUser = useSelector(selectLoggedInUser)
-    console.log(dialog);
+    // console.log(dialog);
 
     const hideDialog = () => {
         dispatch(setDialog({ show: false, type: "", id: 0 }))

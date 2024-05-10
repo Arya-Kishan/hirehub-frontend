@@ -16,7 +16,7 @@ const PostDrawer = () => {
     const loggedInUserId = useSelector(selectUserId)
     const commentInputRef = useRef(null)
     const param = window.location.search
-    console.log(param);
+    // console.log(param);
 
     // USED TO BRING POST PAGE ABOVE 
     const [toggle, setToggle] = useState(false)
@@ -27,7 +27,7 @@ const PostDrawer = () => {
     // USED IN TRANSITION THE INCOMG POST PAGE WHEN WE CLICK ON POST IMAGE
     const handleTransition = useCallback(() => {
 
-        console.log("SHOWING TANSITION");
+        // console.log("SHOWING TANSITION");
 
         setToggle2("block opacity-[0.2] fixed top-[50vh] left-0")
 
@@ -38,7 +38,7 @@ const PostDrawer = () => {
         history.pushState({}, "", "")
         document.body.style.overflow = "hidden"
 
-        console.log("ADDING ONE STATE IN HISTORY STACK -------");
+        // console.log("ADDING ONE STATE IN HISTORY STACK -------");
 
     }, [])
 
@@ -100,7 +100,7 @@ const PostDrawer = () => {
 
     }, [postDrawer])
 
-    console.log(postDrawer);
+    // console.log(postDrawer);
 
 
 
@@ -150,7 +150,7 @@ const PostDrawer = () => {
 
                                         <div className='flex items-center text-xl cursor-pointer'>
                                             <img className='w-[35px]' src={dp} alt="" srcSet="" />
-                                            <p onClick={() => handleNavigate(e.userId._id)}>{e.userId.name}</p>
+                                            <p onClick={() => handleNavigate(e.userId._id)}>{e.userId?.name}</p>
                                         </div>
 
                                         <p className='text-teal-500 text-1xl pl-10'>{e.comment}</p>

@@ -54,7 +54,7 @@ const Banner = () => {
 
             {showSearch && <Search type='job' hide={setShowSearch} />}
 
-            <img className='absolute -top-[10%] -left-[100px] w-[500px] h-[500px] z-1 rotate-90' src={blob4} alt="" srcset="" />
+            <img className='absolute -top-[10%] -left-[100px] w-[500px] h-[500px] z-1 rotate-90' src={blob4} alt="" srcSet="" />
 
         </div>
     )
