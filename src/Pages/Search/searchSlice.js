@@ -6,8 +6,8 @@ import { axiosGetById, axiosPost, axiosSearch } from '../../Helper/AxiosCall';
 
 const initialState = {
   status: 'idle',
-  jobSearchResult: null,
-  userSearchResult: null,
+  jobSearchResult: [],
+  userSearchResult: [],
   searchLoader: { message: '', loader: "idle" },
 };
 

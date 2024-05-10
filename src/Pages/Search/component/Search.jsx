@@ -2,8 +2,9 @@ import React, { useEffect, useRef } from 'react'
 import search from "../../../assets/search.svg"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { searchJobAsync, searchUserAsync, selectJobSearchResult, selectUserSearchResult, setJobSearchResult, setUserSearchResult } from '../searchSlice'
+import { searchJobAsync, searchUserAsync, selectJobSearchResult, selectSearchLoader, selectUserSearchResult, setJobSearchResult, setUserSearchResult } from '../searchSlice'
 import debounce from "lodash.debounce"
+import Loader from '../../../Features/Loader'
 
 const Search = ({ type = "user", hide }) => {
 
@@ -11,6 +12,7 @@ const Search = ({ type = "user", hide }) => {
 
     const userSearchResult = useSelector(selectUserSearchResult)
     const jobSearchResult = useSelector(selectJobSearchResult)
+    const searchLoader = useSelector(selectSearchLoader)
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -39,6 +41,7 @@ const Search = ({ type = "user", hide }) => {
 
     console.log(jobSearchResult);
     console.log(userSearchResult);
+    console.log(searchLoader);
 
 
     return (
@@ -54,18 +57,24 @@ const Search = ({ type = "user", hide }) => {
                 <div className='w-full h-full overflow-y-scroll bg-slate-200 p-2 rounded-xl border-2 border-teal-400 shadow-2xl shadow-black'>
 
 
-                    {userSearchResult || jobSearchResult ? <>
+                    {searchLoader.loader == "loading"
+                        ?
+                        <div className='w-full h-full flex items-center justify-center'><Loader /></div> : userSearchResult.length > 0 || jobSearchResult.length > 0
+                            ?
+                            <>
 
-                        {type == "user" && userSearchResult?.map((e) => (
-                            <p onClick={() => handleNavigate(e?._id)} key={e._id} className='w-full p-1 border-b-2 border-solid border-white hover:bg-teal-500 cursor-pointer'>{e?.title || e?.name}</p>
-                        ))}
+                                {type == "user" && userSearchResult?.map((e) => (
+                                    <p onClick={() => handleNavigate(e?._id)} key={e._id} className='w-full p-1 border-b-2 border-solid border-white hover:bg-teal-500 cursor-pointer'>{e?.title || e?.name}</p>
+                                ))}
 
 
-                        {type == "job" && jobSearchResult?.map((e) => (
-                            <p onClick={() => handleNavigate(e?._id)} key={e._id} className='w-full p-1 border-b-2 border-solid border-white hover:bg-teal-500 cursor-pointer'>{e?.title || e?.name}</p>
-                        ))}
+                                {type == "job" && jobSearchResult?.map((e) => (
+                                    <p onClick={() => handleNavigate(e?._id)} key={e._id} className='w-full p-1 border-b-2 border-solid border-white hover:bg-teal-500 cursor-pointer'>{e?.title || e?.name}</p>
+                                ))}
 
-                    </> : <div className='w-full h-full flex justify-center items-center'>NO RECORDS</div>}
+                            </>
+                            :
+                            <div className='w-full h-full flex justify-center items-center'>NO RECORDS FOR '{inputRef.current?.value}'</div>}
 
 
                 </div>
