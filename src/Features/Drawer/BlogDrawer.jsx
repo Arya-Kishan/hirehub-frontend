@@ -55,7 +55,7 @@ const BlogDrawer = () => {
                 <textarea ref={textareaRef} name="" id="" className='w-full h-[90%] p-2' placeholder='Write Your Blog...'></textarea>
 
                 {addingBlogLoader.loader == "loading" ?
-                    <div className='w-full h-[10%] flex items-center justify-center bg-teal-800'><img className='w-[30px]' src={loader} alt="" srcset="" /></div>
+                    <div className='w-full h-[10%] flex items-center justify-center bg-teal-800'><img loading='lazy' className='w-[30px]' src={loader} alt="" srcset="" /></div>
                     :
                     <button className='w-full h-[10%] flex items-center justify-center bg-teal-500 hover:bg-teal-600'>{BlogDrawer.data
                         ?

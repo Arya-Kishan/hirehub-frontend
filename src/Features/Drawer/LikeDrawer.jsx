@@ -47,7 +47,7 @@ const LikeDrawer = () => {
                     {likeDrawer?.data?.likes.map((e) => (
                         <div onClick={()=>handleNavigateProfile(e._id)} className='flex justify-start items-center'>
 
-                            <img src={dp} alt="" srcSet="" />
+                            <img loading='lazy' src={dp} alt="" srcSet="" />
                             <p>{e.name}</p>
 
                         </div>

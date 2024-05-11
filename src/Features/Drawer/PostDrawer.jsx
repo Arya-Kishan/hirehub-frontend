@@ -113,7 +113,7 @@ const PostDrawer = () => {
 
                     {/* POST PIC */}
                     <div className='w-full 2xl:w-[50%] h-fit md:h-[50%] 2xl:h-full bg-transparent flex items-center justify-center'>
-                        <img onClick={e => e.stopPropagation()} className='w-full md:w-[550px] 2xl:w-[90%]' src={postDrawer.data.picUrl} alt="" srcSet="" />
+                        <img loading='lazy' onClick={e => e.stopPropagation()} className='w-full md:w-[550px] 2xl:w-[90%]' src={postDrawer.data.picUrl} alt="" srcSet="" />
                     </div>
 
                     {/* COMMENTS */}
@@ -126,7 +126,7 @@ const PostDrawer = () => {
 
                                 <div className='flex items-center gap-1'>
 
-                                    <img className='w-[50px] h-[50px] rounded-full' src={postDrawer.data.userId.profilePic} alt="" srcSet="" />
+                                    <img loading='lazy' className='w-[50px] h-[50px] rounded-full' src={postDrawer.data.userId.profilePic} alt="" srcSet="" />
 
                                     <div className='flex flex-col items-start justify-start cursor-pointer'>
 
@@ -138,7 +138,7 @@ const PostDrawer = () => {
 
                                 </div>
 
-                                <img className='cursor-pointer' onClick={handleShowLikes} src={heart} alt="" srcSet="" />
+                                <img loading='lazy' className='cursor-pointer' onClick={handleShowLikes} src={heart} alt="" srcSet="" />
 
                             </div>
 
@@ -149,7 +149,7 @@ const PostDrawer = () => {
                                     <div key={e._id} className='flex flex-col gap-1'>
 
                                         <div className='flex items-center text-xl cursor-pointer'>
-                                            <img className='w-[35px]' src={dp} alt="" srcSet="" />
+                                            <img loading='lazy' className='w-[35px]' src={dp} alt="" srcSet="" />
                                             <p onClick={() => handleNavigate(e.userId._id)}>{e.userId?.name}</p>
                                         </div>
 
@@ -165,7 +165,7 @@ const PostDrawer = () => {
 
                                 <input ref={commentInputRef} className='w-[95%] bg-white' placeholder='Comment...' type="text" />
 
-                                <img onClick={handleAddComment} className='w-[30px] cursor-pointer' src={send} alt="" srcSet="" />
+                                <img loading='lazy' onClick={handleAddComment} className='w-[30px] cursor-pointer' src={send} alt="" srcSet="" />
 
                             </div>
 

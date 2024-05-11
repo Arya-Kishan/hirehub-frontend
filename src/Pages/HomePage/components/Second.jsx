@@ -38,7 +38,7 @@ const Second = () => {
     <div className='w-full min-h-[90vh] flex flex-col md:flex-row items-center justify-center bg-white px-2 py-6 gap-4'>
 
       <div className='w-full md:w-[50%] flex justify-center items-center'>
-        <img className='w-[300px] md:w-[450px] opacity-1' src={group2} alt="" srcSet="" />
+        <img loading='lazy' className='w-[300px] md:w-[450px] opacity-1' src={group2} alt="" srcSet="" />
       </div>
 
       <div className='w-full md:w-[50%] flex flex-col gap-8 justify-center items-start p-2'>
@@ -48,7 +48,7 @@ const Second = () => {
         {arr.map((e, i) => (
           <div key={i} className='flex items-center justify-start gap-5'>
 
-            <img className={`w-[50px] md:w-[70px] bg-${e.color}-500 p-3 rounded-full`} src={e.pic} alt="" srcSet="" />
+            <img loading='lazy' className={`w-[50px] md:w-[70px] bg-${e.color}-500 p-3 rounded-full`} src={e.pic} alt="" srcSet="" />
 
             <p className='flex flex-col'>
               <span className='text-xl md:text-2xl font-semibold'>{e.title}</span>

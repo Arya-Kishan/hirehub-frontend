@@ -44,7 +44,7 @@ const JobCard = ({ job }) => {
                     <div className='w-full flex items-center justify-between gap-1'>
 
                         <div className='flex gap-2'>
-                            <div className='w-[30px] md:w-[40px] h-[30px] md:h-[40px] rounded-full bg-white'><img className='w-[50px]' src={add} alt="" srcSet="" /></div>
+                            <div className='w-[30px] md:w-[40px] h-[30px] md:h-[40px] rounded-full bg-white'><img loading='lazy' className='w-[50px]' src={add} alt="" srcSet="" /></div>
 
                             <div>
                                 <p className='text-[16px] md:text-xl font-semibold'>{job.title}</p>
@@ -55,7 +55,7 @@ const JobCard = ({ job }) => {
                             </div>
                         </div>
 
-                        {!window.location.href.includes("/savedJob/saved") ? <div onClick={e => e.stopPropagation()} className='self-start'><img onClick={() => handleJobSaved(job._id)} className='w-[20px] h-[20px] p-1 rounded-full bg-black' src={bookmark} alt="" srcSet="" /></div> : <div onClick={e => e.stopPropagation()} className='self-start'><img className='w-[30px] h-[30px] p-1 rounded-full bg-black' src={remove} alt="" srcSet="" /></div>}
+                        {!window.location.href.includes("/savedJob/saved") ? <div onClick={e => e.stopPropagation()} className='self-start'><img loading='lazy' onClick={() => handleJobSaved(job._id)} className='w-[20px] h-[20px] p-1 rounded-full bg-black' src={bookmark} alt="" srcSet="" /></div> : <div onClick={e => e.stopPropagation()} className='self-start'><img loading='lazy' className='w-[30px] h-[30px] p-1 rounded-full bg-black' src={remove} alt="" srcSet="" /></div>}
 
                     </div>
 

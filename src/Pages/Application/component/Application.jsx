@@ -56,11 +56,11 @@ const Application = () => {
             </div>
 
             <div className='flex items-center justify-center bg-teal-600'>
-              <img onClick={() => showBigImage(e.resume)} className='w-[200px]' src={e.resume} alt="" srcSet="" />
+              <img loading='lazy' onClick={() => showBigImage(e.resume)} className='w-[200px]' src={e.resume} alt="" srcSet="" />
             </div>
 
             {bigImg.show && <div onClick={hideBigImage} className='fixed top-0 left-0 w-full h-full bg-gradient-to-r from-black'>
-              <img className='absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] w-[100px] lg:w-[350px]' src={bigImg.pic} alt="" srcSet="" />
+              <img loading='lazy' className='absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] w-[100px] lg:w-[350px]' src={bigImg.pic} alt="" srcSet="" />
             </div>}
 
           </div>

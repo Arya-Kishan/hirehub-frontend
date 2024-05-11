@@ -93,7 +93,7 @@ const SendMessage = () => {
       {selectedUser && <div className='w-full flex p-2 gap-2'>
         <input onKeyUp={handleEnter} ref={inputRef} className='w-full bg-white rounded-lg text-xl' type="text" placeholder='Message...' />
 
-        <img className='w-[40px] h-[40px] bg-teal-800 rounded-full p-1' onClick={handleSendMeesage}  src={send1} alt="" srcSet="" />
+        <img loading='lazy' className='w-[40px] h-[40px] bg-teal-800 rounded-full p-1' onClick={handleSendMeesage}  src={send1} alt="" srcSet="" />
 
       </div>}
     </>

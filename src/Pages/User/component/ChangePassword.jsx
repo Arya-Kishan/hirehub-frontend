@@ -58,7 +58,7 @@ const ChangePassword = () => {
     return (
         <div className='w-full h-[100vh] bg-teal-800 flex flex-col justify-start items-center gap-5 pt-20 text-white'>
 
-            <img src={logo} alt="" srcSet="" />
+            <img loading='lazy' src={logo} alt="" srcSet="" />
 
             <h1 className='text-xl font-bold'>CHANGE PASSWORD</h1>
 
@@ -78,7 +78,7 @@ const ChangePassword = () => {
                         })}
                         className='bg-white w-full rounded-lg text-black' />
 
-                    {show1 ? <img onClick={() => setShow1(!show1)} className='w-[20px]' src={show} alt="" srcSet="" /> : <img onClick={() => setShow1(!show1)} className='w-[20px]' src={hide} alt="" srcSet="" />}
+                    {show1 ? <img loading='lazy' onClick={() => setShow1(!show1)} className='w-[20px]' src={show} alt="" srcSet="" /> : <img loading='lazy' onClick={() => setShow1(!show1)} className='w-[20px]' src={hide} alt="" srcSet="" />}
 
                 </div>
 
@@ -98,7 +98,7 @@ const ChangePassword = () => {
                         })}
                         className='bg-white w-full rounded-lg text-black' />
 
-                    {show2 ? <img onClick={() => setShow2(!show2)} className='w-[20px]' src={show} alt="" srcSet="" /> : <img onClick={() => setShow2(!show2)} className='w-[20px]' src={hide} alt="" srcSet="" />}
+                    {show2 ? <img loading='lazy' onClick={() => setShow2(!show2)} className='w-[20px]' src={show} alt="" srcSet="" /> : <img loading='lazy' onClick={() => setShow2(!show2)} className='w-[20px]' src={hide} alt="" srcSet="" />}
 
                 </div>
 
@@ -110,7 +110,7 @@ const ChangePassword = () => {
 
 
 
-            {changePasswordLoader == "loading" && <img className='w-[50px] fixed bottom-20 left-[50%] -translate-x-[50%]' src={loader} alt="" srcset="" />}
+            {changePasswordLoader == "loading" && <img loading='lazy' className='w-[50px] fixed bottom-20 left-[50%] -translate-x-[50%]' src={loader} alt="" srcset="" />}
 
 
 

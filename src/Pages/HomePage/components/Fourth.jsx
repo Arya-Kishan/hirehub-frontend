@@ -39,7 +39,7 @@ const Fourth = () => {
         <div className='w-full min-h-[100vh] flex flex-col md:flex-row justify-center items-center'>
 
             <div className='w-full md:w-[50%] flex justify-center items-center p-2'>
-                <img className='w-[250px] md:w-[400px]' src={bigImg3} alt="" srcSet="" />
+                <img loading='lazy' className='w-[250px] md:w-[400px]' src={bigImg3} alt="" srcSet="" />
             </div>
 
             <div className='w-full md:w-[50%] flex flex-col gap-8 justify-center items- px-4 py-2'>
@@ -49,7 +49,7 @@ const Fourth = () => {
                 {arr.map((e,i) => (
                     <div key={i} className='flex items-center justify-start gap-5'>
 
-                        <img className={`w-[50px] md:w-[70px] bg-${e.color}-500 p-3 rounded-full`} src={e.pic} alt="" srcSet="" />
+                        <img loading='lazy' className={`w-[50px] md:w-[70px] bg-${e.color}-500 p-3 rounded-full`} src={e.pic} alt="" srcSet="" />
 
                         <p className='flex flex-col'>
                             <span className='text-xl md:text-2xl font-semibold'>{e.title}</span>

@@ -59,7 +59,7 @@ const CommentDrawer = () => {
         >
 
             {/* DOWN ARROW ICON */}
-            <div onClick={handleHideDrawer} className='w-full h-[7vh] flex justify-center items-center rotate-90'><img className='w-[40px] p-1 bg-teal-500 rounded-lg' src={arrow} alt="" srcSet="" /></div>
+            <div onClick={handleHideDrawer} className='w-full h-[7vh] flex justify-center items-center rotate-90'><img loading='lazy' className='w-[40px] p-1 bg-teal-500 rounded-lg' src={arrow} alt="" srcSet="" /></div>
 
             {/* COMMENTS DATA TO MAP */}
             {commentDrawer?.data?.comments.length > 0 ? <div onClick={e => e.stopPropagation()} className='w-full h-[40vh] overflow-y-scroll bg-teal-500 pb-[10px]'>
@@ -71,12 +71,12 @@ const CommentDrawer = () => {
 
                             <div onClick={() => handleNavigateProfile(e.userId._id)} className='flex items-center justify-start gap-2'>
 
-                                <img className='w-[50px]' src={dp} alt="" srcSet="" />
-                                <p className='text-xl'>{e.userId.name}</p>
+                                <img loading='lazy' className='w-[50px]' src={dp} alt="" srcSet="" />
+                                <p className='text-xl'>{e.userId?.name}</p>
 
                             </div>
 
-                            <img onClick={() => handleDeleteComment(e.comment)} className='w-[20px]' src={remove} alt="" srcSet="" />
+                            <img loading='lazy' onClick={() => handleDeleteComment(e.comment)} className='w-[20px]' src={remove} alt="" srcSet="" />
 
                         </div>
 
@@ -92,7 +92,7 @@ const CommentDrawer = () => {
 
                 <input ref={commentInputRef} className='w-[98%] outline-none border-none bg-white h-full' placeholder='Comment...' type="text" name="" id="" />
                 
-                <img onClick={handleAddComment} className='w-[40px] p-1 bg-white' src={send2} alt="" srcSet="" />
+                <img loading='lazy' onClick={handleAddComment} className='w-[40px] p-1 bg-white' src={send2} alt="" srcSet="" />
 
             </div>
 

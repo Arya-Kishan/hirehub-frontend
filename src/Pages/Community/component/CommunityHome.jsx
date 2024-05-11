@@ -53,7 +53,7 @@ const CommunityHome = () => {
                 <h1 className='text-3xl font-bold text-teal-500'>Community</h1>
                 <div className='flex items-center justify-start lg:border-2 lg:border-solid lg:border-black rounded-lg'>
                     <input onFocus={() => setShowSearch(true)} className='hidden lg:block w-full rounded-lg' type="text" placeholder='Search Friends...' />
-                    <img onClick={() => setShowSearch(true)} className='w-[25px] cursor-pointer' src={search} alt="" srcSet="" />
+                    <img loading='lazy' onClick={() => setShowSearch(true)} className='w-[25px] cursor-pointer' src={search} alt="" srcSet="" />
                 </div>
             </div>
 
@@ -91,7 +91,7 @@ const CommunityHome = () => {
 
             {/* button to create user new post */}
             <button onClick={() => navigate("/postForm")} className='fixed bottom-[60px] right-2 z-2'>
-                <img className='w-[40px] bg-teal-400 p-1 rounded-lg' src={add} alt="" srcSet="" />
+                <img loading='lazy' className='w-[40px] bg-teal-400 p-1 rounded-lg' src={add} alt="" srcSet="" />
             </button>
 
         </div>

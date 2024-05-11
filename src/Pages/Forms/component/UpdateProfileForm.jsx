@@ -192,7 +192,7 @@ const UpdateProfileForm = () => {
 
                 </div>
 
-                <img src={image1} alt="" srcSet="" />
+                <img loading='lazy' src={image1} alt="" srcSet="" />
 
                 {/* bannerImg */}
                 <div className='w-full flex flex-col items-start justify-start'>
@@ -207,7 +207,7 @@ const UpdateProfileForm = () => {
 
                 </div>
 
-                <img src={image2} alt="" srcSet="" />
+                <img loading='lazy' src={image2} alt="" srcSet="" />
 
 
                 {/* profilePic */}

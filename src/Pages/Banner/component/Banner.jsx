@@ -31,7 +31,7 @@ const Banner = () => {
 
                         <input ref={inputRef} className='w-[85%] rounded-lg' type="text" placeholder='Search...' onFocus={() => setShowSearch(true)} onChange={handleDebounceJobSearch} />
 
-                        <img onClick={handleSearchJob} className='w-[15%] bg-teal-500 p-1' src={search} alt="" srcSet="" />
+                        <img loading='lazy' onClick={handleSearchJob} className='w-[15%] bg-teal-500 p-1' src={search} alt="" srcSet="" />
 
                     </div>
 
@@ -44,7 +44,7 @@ const Banner = () => {
                 <div className='w-[40vh] h-[40vh] lg:w-[700px] lg:h-[700px] bg-white lg:bg-teal-500 rounded-full flex justify-center items-center z-1 lg:absolute -bottom-[140px] -right-[140px]'>
 
                     <div className='w-[90%] h-[90%] bg-white rounded-full flex justify-center items-center'>
-                        <img className='w-[90%] lg:w-[70%]' src={bannerImg} alt="bannerImg" srcSet="" />
+                        <img loading='lazy' className='w-[90%] lg:w-[70%]' src={bannerImg} alt="bannerImg" srcSet="" />
                     </div>
 
                 </div>
@@ -54,7 +54,7 @@ const Banner = () => {
 
             {showSearch && <Search type='job' hide={setShowSearch} />}
 
-            <img className='absolute -top-[10%] -left-[100px] w-[500px] h-[500px] z-1 rotate-90' src={blob4} alt="" srcSet="" />
+            <img loading='lazy' className='absolute -top-[10%] -left-[100px] w-[500px] h-[500px] z-1 rotate-90' src={blob4} alt="" srcSet="" />
 
         </div>
     )

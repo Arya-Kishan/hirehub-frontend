@@ -39,11 +39,11 @@ const Footer = () => {
                 <h2 className='text-2xl text-black font-semibold hover:text-teal-500 cursor-pointer'>Follow Us</h2>
 
                 <div className='flex items-center justify-evenly gap-1'>
-                    <img className='w-[30px] bg-black p-1 rounded-lg' src={fb} alt="" />
-                    <img className='w-[30px] bg-black p-1 rounded-lg' src={gmail} alt="" />
-                    <img className='w-[30px] bg-black p-1 rounded-lg' src={linkedIn} alt="" />
-                    <img className='w-[30px] bg-black p-1 rounded-lg' src={whats} alt="" />
-                    <img className='w-[30px] bg-black p-1 rounded-lg' src={twitter} alt="" />
+                    <img loading='lazy' className='w-[30px] bg-black p-1 rounded-lg' src={fb} alt="" />
+                    <img loading='lazy' className='w-[30px] bg-black p-1 rounded-lg' src={gmail} alt="" />
+                    <img loading='lazy' className='w-[30px] bg-black p-1 rounded-lg' src={linkedIn} alt="" />
+                    <img loading='lazy' className='w-[30px] bg-black p-1 rounded-lg' src={whats} alt="" />
+                    <img loading='lazy' className='w-[30px] bg-black p-1 rounded-lg' src={twitter} alt="" />
                 </div>
 
             </div>

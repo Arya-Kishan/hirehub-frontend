@@ -59,7 +59,7 @@ const Navbar = () => {
     <div className='w-full h-[60px] flex items-center justify-between px-4 fixed top-0 left-0 z-[100] bg-white'>
 
       <div className='flex gap-2 justify-center items-center'>
-        <img className='w-[40px]' src={logo} alt="" srcSet="" />
+        <img loading='lazy' className='w-[40px]' src={logo} alt="" srcSet="" />
         <h1 className='text-3xl font-bold'>HireHub</h1>
       </div>
 
@@ -99,17 +99,17 @@ const Navbar = () => {
         <Link to={'/application'} className='list cursor-pointer hover:bg-teal-500 p-2 rounded-lg'>My Applications</Link>
         <Link to={'/community'} className='list cursor-pointer hover:bg-teal-500 p-2 rounded-lg'>Community</Link>
         <Link to={'/chat'} className='list cursor-pointer hover:bg-teal-500 p-2 rounded-lg'>Chat</Link>
-        <span className='cursor-pointer'><img onClick={() => setToggle1(!toggle1)} className='w-[30px]' src={profile} alt="" /></span>
+        <span className='cursor-pointer'><img loading='lazy' onClick={() => setToggle1(!toggle1)} className='w-[30px]' src={profile} alt="" /></span>
       </ul>
 
       {/* FOR MOBILE DEVICE */}
       <div
         className='w-full flex justify-evenly md:hidden fixed bottom-0 right-0 bg-teal-500 p-2 z-[90]'>
-        <Link to={'/job'} className='list cursor-pointer'><img className='w-[25px]' src={job} alt="" srcSet="" /></Link>
-        <Link to={'/chat'} className='list cursor-pointer'><img className='w-[25px]' src={chat} alt="" srcSet="" /></Link>
-        <Link to={'/'} className='list cursor-pointer'><img className='w-[25px]' src={home} alt="" srcSet="" /></Link>
-        <Link to={'/community'} className='list cursor-pointer'><img className='w-[25px]' src={community} alt="" srcSet="" /></Link>
-        <span className='cursor-pointer'><img onClick={() => setToggle1(!toggle1)} className='w-[30px]' src={profile} alt="" /></span>
+        <Link to={'/job'} className='list cursor-pointer'><img loading='lazy' className='w-[25px]' src={job} alt="" srcSet="" /></Link>
+        <Link to={'/chat'} className='list cursor-pointer'><img loading='lazy' className='w-[25px]' src={chat} alt="" srcSet="" /></Link>
+        <Link to={'/'} className='list cursor-pointer'><img loading='lazy' className='w-[25px]' src={home} alt="" srcSet="" /></Link>
+        <Link to={'/community'} className='list cursor-pointer'><img loading='lazy' className='w-[25px]' src={community} alt="" srcSet="" /></Link>
+        <span className='cursor-pointer'><img loading='lazy' onClick={() => setToggle1(!toggle1)} className='w-[30px]' src={profile} alt="" /></span>
       </div>
 
       {/* BELOW DIV USED FOR SHOWING PROFILE BAR OPTIONS */}

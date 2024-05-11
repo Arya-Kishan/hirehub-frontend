@@ -20,7 +20,7 @@ const Fifth = () => {
                     <button  onClick={() => navigate("/job")} className='bg-teal-500 hover:bg-teal-900 px-4 py-2'>Search</button>
                 </div>
 
-                <div className='w-full flex justify-end items-end'><img src={bigImg4} alt="" srcSet="" /></div>
+                <div className='w-full flex justify-end items-end'><img loading='lazy' src={bigImg4} alt="" srcSet="" /></div>
 
             </div>
 
@@ -32,7 +32,7 @@ const Fifth = () => {
                     <button  onClick={() => navigate("/community")} className='bg-teal-500 px-4 py-2 hover:bg-teal-300'>Search</button>
                 </div>
 
-                <div className='w-full flex justify-end items-end'><img src={bigImg5} alt="" srcSet="" /></div>
+                <div className='w-full flex justify-end items-end'><img loading='lazy' src={bigImg5} alt="" srcSet="" /></div>
 
             </div>
 

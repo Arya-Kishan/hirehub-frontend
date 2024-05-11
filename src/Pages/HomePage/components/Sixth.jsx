@@ -38,16 +38,16 @@ const Sixth = () => {
                 {arr.map((e,i) => (
                     <div key={i} className='w-[300px] md:w-[400px] h-[200px] md:h-[300px] flex flex-col justify-center items-center gap-3 shadow-lg border-2 border-gray-200 shadow-black rounded-lg p-2 relative'>
 
-                        <img className='w-[40px] absolute -bottom-[5px] left-[50%] -translate-x-[50%]' src={dp} alt="" srcSet="" />
+                        <img loading='lazy' className='w-[40px] absolute -bottom-[5px] left-[50%] -translate-x-[50%]' src={dp} alt="" srcSet="" />
 
                         <div className='hidden md:block text-gray-500 px-10'>{e.desc}</div>
 
                         <div className='block md:hidden text-gray-500 px-10'>{e.shortDesc}</div>
 
 
-                        <img className='absolute top-[60px] left-[10px] w-[30px] rotate-180' src={quote} alt="" srcSet="" />
+                        <img loading='lazy' className='absolute top-[60px] left-[10px] w-[30px] rotate-180' src={quote} alt="" srcSet="" />
 
-                        <img className='absolute bottom-[60px] right-[10px] w-[30px]' src={quote} alt="" srcSet="" />
+                        <img loading='lazy' className='absolute bottom-[60px] right-[10px] w-[30px]' src={quote} alt="" srcSet="" />
 
                     </div>
                 ))}

@@ -23,19 +23,21 @@ import CommentDrawer from "./Features/Drawer/CommentDrawer"
 
 import { useDispatch, useSelector } from 'react-redux'
 import { checkUserWithJwtAsync, selectLoggedInUser, selectPreCheckUser } from './Pages/User/userSlice'
+
 import Loader from './Features/Loader'
-import PostDrawer from './Features/Drawer/PostDrawer'
-import Dialog from './Features/Dialog/Dialog'
-import BlogDrawer from './Features/Drawer/BlogDrawer'
-import UpdateProfileForm from './Pages/Forms/component/UpdateProfileForm'
-import Community from './Pages/Community/component/Community'
-import SavedJobs from './Pages/Job/component/SavedJobs'
-import ForgotPassword from './Pages/User/component/ForgotPassword'
-import ChangePassword from './Pages/User/component/ChangePassword'
-import Blogs from './Pages/Blogs/Blogs'
-import PaymentSuccess from './Pages/User/component/PaymentSuccess'
-import Chat from './Pages/Chat/component/Chat'
-import NotFoundPage from './Pages/NotFoundPage'
+const PostDrawer = lazy(() => import("./Features/Drawer/PostDrawer"))
+const Dialog = lazy(() => import("./Features/Dialog/Dialog"))
+const BlogDrawer = lazy(() => import("./Features/Drawer/BlogDrawer"))
+const UpdateProfileForm = lazy(() => import("./Pages/Forms/component/UpdateProfileForm"))
+const Community = lazy(() => import("./Pages/Community/component/Community"))
+const SavedJobs = lazy(() => import("./Pages/Job/component/SavedJobs"))
+const ForgotPassword = lazy(() => import("./Pages/User/component/ForgotPassword"))
+const ChangePassword = lazy(() => import("./Pages/User/component/ChangePassword"))
+const Blogs = lazy(() => import("./Pages/Blogs/Blogs"))
+const PaymentSuccess = lazy(() => import("./Pages/User/component/PaymentSuccess"))
+const Chat = lazy(() => import("./Pages/Chat/component/Chat"))
+const NotFoundPage = lazy(() => import("./Pages/NotFoundPage"))
+
 import { setOnlineUsers, setSelectedUser } from './Pages/Chat/chatSlice'
 
 export let globalSocket;
@@ -79,7 +81,7 @@ function App() {
     }
 
   }, [loggedInUser])
-  
+
 
 
 
@@ -111,14 +113,12 @@ function App() {
               <Route path='/chat' element={<Protected><Chat /></Protected>} />
               <Route path='*' element={<NotFoundPage />} />
             </Routes>
-          </Suspense>
-          {loggedInUser && <>
             <LikeDrawer />
             <CommentDrawer />
             <PostDrawer />
             <Dialog />
             <BlogDrawer />
-          </>}
+          </Suspense>
         </BrowserRouter> : <div className='w-full h-dvh flex justify-center items-center'><Loader /></div>
       }
     </>

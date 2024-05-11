@@ -30,7 +30,7 @@ const ForgotPassword = () => {
     return (
         <div className='w-full h-[100vh] bg-teal-800 flex flex-col justify-start items-center gap-6 pt-20 text-white'>
 
-            <img src={logo} alt="" srcSet="" />
+            <img loading='lazy' src={logo} alt="" srcSet="" />
 
             <h1 className='text-xl font-bold'>FORGOT PASSWORD</h1>
 
@@ -61,7 +61,7 @@ const ForgotPassword = () => {
             </form>
 
 
-            {forgotPasswordLoader == "loading" && <img className='w-[50px] fixed bottom-20 left-[50%] -translate-x-[50%]' src={loader} alt="" srcset="" />}
+            {forgotPasswordLoader == "loading" && <img loading='lazy' className='w-[50px] fixed bottom-20 left-[50%] -translate-x-[50%]' src={loader} alt="" srcset="" />}
 
         </div>
     )

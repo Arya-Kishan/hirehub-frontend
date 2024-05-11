@@ -200,7 +200,7 @@ const JobForm = () => {
         </div>
 
 
-        {jobLoader == "idle" ? !jobDetail ? <button type='submit' className='w-full bg-teal-500 px-6 py-2'>Create</button> : <button type='submit' className='w-full bg-teal-500 px-6 py-2'>Update</button> : <img className='w-[50px]' src={loader} alt="" srcset="" />}
+        {jobLoader == "idle" ? !jobDetail ? <button type='submit' className='w-full bg-teal-500 px-6 py-2'>Create</button> : <button type='submit' className='w-full bg-teal-500 px-6 py-2'>Update</button> : <img loading='lazy' className='w-[50px]' src={loader} alt="" srcset="" />}
 
       </form>
 

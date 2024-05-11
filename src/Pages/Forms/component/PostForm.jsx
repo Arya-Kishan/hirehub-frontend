@@ -77,7 +77,7 @@ const PostForm = () => {
       <h1 className='w-full h-[10vh] text-center'>POST FORM</h1>
 
       <div className='w-full h-[40vh] bg-gray-300 flex items-center justify-center'>
-        {image && <img ref={imageRef} className='object-contain h-[40vh]' src={image} alt="" />}
+        {image && <img loading='lazy' ref={imageRef} className='object-contain h-[40vh]' src={image} alt="" />}
       </div>
 
       <form onSubmit={handleSubmit(handleForm)} className='w-[60%] min-h-[50vh] flex flex-col justify-start items-center gap-10' >
@@ -123,7 +123,7 @@ const PostForm = () => {
 
         </div>
 
-        {addingPostLoader.loader == "loading" ? <div className='w-full bg-teal-500 px-6 py-2'><img className='w-[30px]' src={loader} alt="" srcSet="" /></div> : <button type='submit' className='w-full bg-teal-500 px-6 py-2 cursor-pointer hover:bg-teal-600'>Post</button>}
+        {addingPostLoader.loader == "loading" ? <div className='w-full bg-teal-500 px-6 py-2'><img loading='lazy' className='w-[30px]' src={loader} alt="" srcSet="" /></div> : <button type='submit' className='w-full bg-teal-500 px-6 py-2 cursor-pointer hover:bg-teal-600'>Post</button>}
 
       </form>
 

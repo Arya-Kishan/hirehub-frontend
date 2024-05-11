@@ -91,27 +91,27 @@ const Community = () => {
       <div className='w-full flex flex-col justify-start items-start gap-4'>
 
         <div onClick={() => navigate(`/profile/${loggedInUserId}`)} className='w-full flex gap-2 justify-start items-center p-2 cursor-pointer hover:bg-teal-400'>
-          <img className='w-[35px] md:w-[50px] rounded-full bg-teal-400 p-2' src={profile} alt="" srcSet="" />
+          <img loading='lazy' className='w-[35px] md:w-[50px] rounded-full bg-teal-400 p-2' src={profile} alt="" srcSet="" />
           <p className='text-1xl md:text-xl text-white'>Profile</p>
         </div>
 
         <div onClick={() => navigate("/blogs")} className='w-full flex gap-2 justify-start items-center p-2 cursor-pointer hover:bg-teal-400'>
-          <img className='w-[35px] md:w-[50px] rounded-full bg-teal-400 p-2' src={setting} alt="" srcSet="" />
+          <img loading='lazy' className='w-[35px] md:w-[50px] rounded-full bg-teal-400 p-2' src={setting} alt="" srcSet="" />
           <p className='text-1xl md:text-xl text-white'>Blogs</p>
         </div>
 
         <div onClick={() => navigate(`/postForm`)} className='w-full flex gap-2 justify-start items-center p-2 cursor-pointer hover:bg-teal-400'>
-          <img className='w-[35px] md:w-[50px] rounded-full bg-teal-400 p-2' src={post} alt="" srcSet="" />
+          <img loading='lazy' className='w-[35px] md:w-[50px] rounded-full bg-teal-400 p-2' src={post} alt="" srcSet="" />
           <p className='text-1xl md:text-xl text-white'>Create Post</p>
         </div>
 
         <div onClick={() => dispatch(setBlogDrawer({ show: true, data: "" }))} className='w-full flex gap-2 justify-start items-center p-2 cursor-pointer hover:bg-teal-400'>
-          <img className='w-[35px] md:w-[50px] rounded-full bg-teal-400 p-2' src={blog} alt="" srcSet="" />
+          <img loading='lazy' className='w-[35px] md:w-[50px] rounded-full bg-teal-400 p-2' src={blog} alt="" srcSet="" />
           <p className='text-1xl md:text-xl text-white'>Create Blog</p>
         </div>
 
         <div onClick={() => navigate("/profileForm")} className='w-full flex gap-2 justify-start items-center p-2 cursor-pointer hover:bg-teal-400'>
-          <img className='w-[35px] md:w-[50px] rounded-full bg-teal-400 p-2' src={pencil} alt="" srcSet="" />
+          <img loading='lazy' className='w-[35px] md:w-[50px] rounded-full bg-teal-400 p-2' src={pencil} alt="" srcSet="" />
           <p className='text-1xl md:text-xl text-white'>Edit</p>
         </div>
 
@@ -120,7 +120,7 @@ const Community = () => {
       {/* UPGRADE PRO FEATURE */}
       <div className='w-full flex flex-col justify-end items-center gap-2 px-5 pb-2'>
 
-        <img className='w-[100px]' src={pc} alt="" srcSet="" />
+        <img loading='lazy' className='w-[100px]' src={pc} alt="" srcSet="" />
 
         <b className='w-full text-center capitalize'>Upgrade to Pro for more features</b>
 
@@ -164,14 +164,14 @@ const Community = () => {
 
             <h2 className='font-bold text-3xl md:text-4xl'>Community</h2>
 
-            <img onClick={() => setToggle("left-[0vw]")} className='w-[35px] h-[35px] block md:hidden bg-teal-500 p-2 rounded-full' src={menu} alt="" srcSet="" />
+            <img loading='lazy' onClick={() => setToggle("left-[0vw]")} className='w-[35px] h-[35px] block md:hidden bg-teal-500 p-2 rounded-full' src={menu} alt="" srcSet="" />
 
           </div>
 
           {/* SEARCH */}
           <div className='w-full flex border-2 border-teal-500 rounded-2xl'>
 
-            <img className='w-[30px] p-1' src={search} alt="" srcSet="" />
+            <img loading='lazy' className='w-[30px] p-1' src={search} alt="" srcSet="" />
 
             <input onFocus={() => setShowSearch(true)} className='w-full' placeholder='Search Friend...' type="text" />
 
@@ -188,7 +188,7 @@ const Community = () => {
             <p onClick={() => dispatch(setBlogDrawer({ show: true, data: "" }))} className='w-[100px] md:w-[200px] bg-black rounded-lg p-1 text-center text-white mt-4 cursor-pointer hover:bg-teal-400'>Add</p>
           </div>
 
-          <div className='absolute right-3 bottom-0 flex justify-end'><img className='w-[100px] md:w-[200px]' src={bigImg6} alt="" /></div>
+          <div className='absolute right-3 bottom-0 flex justify-end'><img loading='lazy' className='w-[100px] md:w-[200px]' src={bigImg6} alt="" /></div>
 
         </div>
 

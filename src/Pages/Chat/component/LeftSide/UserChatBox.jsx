@@ -94,7 +94,7 @@ const UserChatBox = () => {
             <div className='w-full h-[70px] flex justify-around items-center px-4 gap-2 text-white text-xl'>
                 <div className='w-full flex gap-2 bg-white rounded-lg px-2'>
                     <input onChange={handleSearchDebounce} ref={inputRef} className='w-full bg-white border-none outline-none rounded-lg text-black p-1 text-xl' type="text" />
-                    <img className='w-[30px]' src={search} alt="" srcSet="" />
+                    <img loading='lazy' className='w-[30px]' src={search} alt="" srcSet="" />
                 </div>
             </div>
 
@@ -102,7 +102,7 @@ const UserChatBox = () => {
                 <div key={e._id} onClick={() => handleClickUserBox(e)} className={`flex items-center justify-start gap-2 ${selectedUser?._id == e._id ? "bg-teal-700" : "bg-transparent"} p-2 cursor-pointer hover:bg-teal-700 text-white`}>
 
                     <div className='w-[50px] h-[50px] flex relative'>
-                        <img className='w-[50px] h-[50px] rounded-full bg-teal-500' src={e.profilePic} alt="" srcSet="" />
+                        <img loading='lazy' className='w-[50px] h-[50px] rounded-full bg-teal-500' src={e.profilePic} alt="" srcSet="" />
                         {onlineUsers.includes(e._id) && <p className='w-[10px] h-[10px] rounded-full bg-green-600 absolute top-0 right-0'></p>}
                     </div>
 

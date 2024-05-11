@@ -57,7 +57,7 @@ const Login = () => {
       <div className='w-[100vw] h-dvh lg:w-[50vw] bg-teal-800 flex flex-col gap-5 justify-center items-center relative'>
 
         <div>
-          <img src={logo} alt="" srcSet="" />
+          <img loading='lazy' src={logo} alt="" srcSet="" />
         </div>
 
         <h1 className='text-1xl text-white'>{toggle ? "Create a new Account" : "Login to your Account"}</h1>
@@ -76,7 +76,7 @@ const Login = () => {
                     <option value="employer">Employer</option>
                   </select>
 
-                  <img className='w-[10%] bg-teal-500 p-[2px] rounded-r-lg' src={customer} alt="" srcSet="" />
+                  <img loading='lazy' className='w-[10%] bg-teal-500 p-[2px] rounded-r-lg' src={customer} alt="" srcSet="" />
 
                 </div>
 
@@ -100,7 +100,7 @@ const Login = () => {
                     className='w-[90%] rounded-lg outline-none border-none'
                   />
 
-                  <img className='w-[10%] bg-teal-500 p-[2px] rounded-r-lg' src={pencil} alt="" srcSet="" />
+                  <img loading='lazy' className='w-[10%] bg-teal-500 p-[2px] rounded-r-lg' src={pencil} alt="" srcSet="" />
 
                 </div>
 
@@ -130,7 +130,7 @@ const Login = () => {
                     className='w-[90%] rounded-lg outline-none border-none'
                   />
 
-                  <img className='w-[10%] bg-teal-500 p-[2px] rounded-r-lg' src={phone} alt="" srcSet="" />
+                  <img loading='lazy' className='w-[10%] bg-teal-500 p-[2px] rounded-r-lg' src={phone} alt="" srcSet="" />
 
                 </div>
 
@@ -162,7 +162,7 @@ const Login = () => {
                 className='w-[90%] rounded-lg outline-none border-none'
               />
 
-              <img className='w-[10%] bg-teal-500 p-[2px] rounded-r-lg' src={email} alt="" srcSet="" />
+              <img loading='lazy' className='w-[10%] bg-teal-500 p-[2px] rounded-r-lg' src={email} alt="" srcSet="" />
 
             </div>
 
@@ -191,9 +191,9 @@ const Login = () => {
                 className='w-[90%] rounded-lg outline-none border-none'
               />
 
-              {showPassword ? <img onClick={() => SetShowPassword(false)} className='w-[15px]' src={show} alt="" srcSet="" /> : <img onClick={() => SetShowPassword(true)} className='w-[15px]' src={hide} alt="" srcSet="" />}
+              {showPassword ? <img loading='lazy' onClick={() => SetShowPassword(false)} className='w-[15px]' src={show} alt="" srcSet="" /> : <img loading='lazy' onClick={() => SetShowPassword(true)} className='w-[15px]' src={hide} alt="" srcSet="" />}
 
-              <img className='w-[10%] bg-teal-500 p-[2px] rounded-r-lg' src={lock} alt="" srcSet="" />
+              <img loading='lazy' className='w-[10%] bg-teal-500 p-[2px] rounded-r-lg' src={lock} alt="" srcSet="" />
 
             </div>
 
@@ -364,7 +364,7 @@ const Login = () => {
 
       </div>
 
-      {loginLoader == "loading" ? <img className='w-[50px] fixed top-[10%] left-[50%] -translate-x-[50%]' src={loader} alt="" srcSet="" /> : ""}
+      {loginLoader == "loading" ? <img loading='lazy' className='w-[50px] fixed top-[10%] left-[50%] -translate-x-[50%]' src={loader} alt="" srcSet="" /> : ""}
 
     </div>
   )

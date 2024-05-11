@@ -207,7 +207,7 @@ const Job = () => {
 
       <div onClick={() => navigate(`/savedJob/saved`)} className='w-[100px] md:w-[150px] h-[100px] md:h-[150px] bg-white p-2 flex flex-col justify-center items-center gap-1 rounded-lg text-[14px] hover:bg-gray-400 hover:text-white text-teal-500 cursor-pointer'>
 
-        <img className='w-[40px] md:w-[60px] bg-teal-500 p-2 rounded-full' src={bookmark} alt="" srcSet="" />
+        <img loading='lazy' className='w-[40px] md:w-[60px] bg-teal-500 p-2 rounded-full' src={bookmark} alt="" srcSet="" />
 
         <p className=' md:text-xl'>Saved</p>
 
@@ -216,13 +216,13 @@ const Job = () => {
 
       {loggedInUser.role == "applicant" ? <div onClick={() => navigate(`/savedJob/applied`)} className='w-[100px] md:w-[150px] h-[100px] md:h-[150px] bg-white p-2 flex flex-col justify-center items-center gap-1 rounded-lg text-[14px] hover:bg-gray-400 hover:text-white text-teal-500 cursor-pointer'>
 
-        <img className='w-[40px] md:w-[60px] bg-teal-500 p-2 rounded-full' src={accepted} alt="" srcSet="" />
+        <img loading='lazy' className='w-[40px] md:w-[60px] bg-teal-500 p-2 rounded-full' src={accepted} alt="" srcSet="" />
 
         <p className=' md:text-xl'>Applied</p>
 
       </div> : <div onClick={() => navigate(`/savedJob/posted`)} className='w-[100px] md:w-[150px] h-[100px] md:h-[150px] bg-white p-2 flex flex-col justify-center items-center gap-1 rounded-lg text-[14px] hover:bg-gray-400 hover:text-white text-teal-500 cursor-pointer'>
 
-        <img className='w-[40px] md:w-[60px] bg-teal-500 p-2 rounded-full' src={accepted} alt="" srcSet="" />
+        <img loading='lazy' className='w-[40px] md:w-[60px] bg-teal-500 p-2 rounded-full' src={accepted} alt="" srcSet="" />
 
         <p className=' md:text-xl'>Posted</p>
 
@@ -231,7 +231,7 @@ const Job = () => {
 
       <div onClick={() => navigate(`/application`)} className='w-[100px] md:w-[150px] h-[100px] md:h-[150px] bg-white p-2 flex flex-col justify-center items-center gap-1 rounded-lg text-[14px] hover:bg-gray-400 hover:text-white text-teal-500 cursor-pointer'>
 
-        <img className='w-[40px] md:w-[60px] bg-teal-500 p-2 rounded-full' src={rejected} alt="" srcSet="" />
+        <img loading='lazy' className='w-[40px] md:w-[60px] bg-teal-500 p-2 rounded-full' src={rejected} alt="" srcSet="" />
 
         <p className=' md:text-xl'>Application</p>
 
@@ -239,7 +239,7 @@ const Job = () => {
 
       {loggedInUser.role == "employer" && <div onClick={() => navigate(`/jobForm`)} className='w-[100px] md:w-[150px] h-[100px] md:h-[150px] bg-white p-2 flex flex-col justify-center items-center gap-1 rounded-lg text-[14px] hover:bg-gray-400 hover:text-white text-teal-500 cursor-pointer'>
 
-        <img className='w-[40px] md:w-[60px] bg-teal-500 p-2 rounded-full' src={create} alt="" srcSet="" />
+        <img loading='lazy' className='w-[40px] md:w-[60px] bg-teal-500 p-2 rounded-full' src={create} alt="" srcSet="" />
 
         <p className=' md:text-xl'>Create</p>
 
@@ -290,7 +290,7 @@ const Job = () => {
 
         <div className='flex items-center bg-white rounded-2xl gap-1 p-1 md:py-2 md:px-2'>
 
-          <img className="w-[25px]" src={search} alt="" srcSet="" />
+          <img loading='lazy' className="w-[25px]" src={search} alt="" srcSet="" />
 
           <input onFocus={() => setShowSearch(true)} className='w-full' type="text" placeholder='Job title or keyword' />
 
@@ -323,8 +323,8 @@ const Job = () => {
 
             <h2 className='font-bold text-xl'>Jobs - <span className='text-gray-500'>{(localStorage.getItem("x-total-count"))}</span></h2>
             <div className='flex gap-2'>
-              <img onClick={() => setToggle("top-0")} className='block md:hidden w-[25px] cursor-pointer' src={filter} alt="" srcSet="" />
-              <img onClick={() => setToggle3(true)} className='hidden md:block w-[25px] cursor-pointer' src={menu} alt="" srcSet="" />
+              <img loading='lazy' onClick={() => setToggle("top-0")} className='block md:hidden w-[25px] cursor-pointer' src={filter} alt="" srcSet="" />
+              <img loading='lazy' onClick={() => setToggle3(true)} className='hidden md:block w-[25px] cursor-pointer' src={menu} alt="" srcSet="" />
             </div>
 
           </div>

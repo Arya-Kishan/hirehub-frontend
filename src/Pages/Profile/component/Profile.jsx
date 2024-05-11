@@ -131,7 +131,7 @@ const Profile = () => {
               {/* PROFILE PIC, NAME, BIO */}
               <div className='w-full flex flex-col items-center justify-center gap-1 z-[8]'>
 
-                <img className='w-[200px] h-[200px] rounded-full' src={paramUserIdDetails.profilePic} alt="" srcSet="" />
+                <img loading='lazy' className='w-[200px] h-[200px] rounded-full' src={paramUserIdDetails.profilePic} alt="" srcSet="" />
 
                 <div className='w-full flex flex-col justify-center items-center md:items-start gap-2'>
 
@@ -175,7 +175,7 @@ const Profile = () => {
               <div className={`w-full h-[50%] absolute ${toggle3} left-0 bg-teal-500 rounded-lg flex flex-col justify-start items-center transition-all duration-700 z-30`}>
 
                 <div className='w-full flex justify-end p-2'>
-                  <img className='w-[30px]' onClick={() => setToggle3("-bottom-[50%]")} src={cross} alt="" srcSet="" />
+                  <img loading='lazy' className='w-[30px]' onClick={() => setToggle3("-bottom-[50%]")} src={cross} alt="" srcSet="" />
                 </div>
 
                 {paramUserIdDetails.friends.map((e) => (
@@ -183,7 +183,7 @@ const Profile = () => {
                     navigate(`/profile/${e._id}`)
                     setToggle3("-bottom-[50%]")
                   }} className='w-full flex items-center text-white justify-start mt-1 overflow-scroll'>
-                    <img className='w-[40px]' src={dp} alt="" srcSet="" />
+                    <img loading='lazy' className='w-[40px]' src={dp} alt="" srcSet="" />
                     <p>{e.name}</p>
                   </div>
                 ))}
@@ -245,7 +245,7 @@ const Profile = () => {
                           </div>
 
                           <div onClick={() => navigate("/application")} className='flex items-center justify-center bg-teal-600'>
-                            <img className='w-[200px]' src={e.resume} alt="" srcSet="" />
+                            <img loading='lazy' className='w-[200px]' src={e.resume} alt="" srcSet="" />
                           </div>
 
                         </div>
@@ -268,7 +268,7 @@ const Profile = () => {
 
 
         {/* FIXED POSTION : THREE DOT BUTTON */}
-        <div onClick={() => setToggle("right-[0]")} className='fixed top-[80px] right-2 rotate-90 cursor-pointer z-[8]'><img className='w-[20px]' src={threeDot1} alt="" srcSet="" /></div>
+        <div onClick={() => setToggle("right-[0]")} className='fixed top-[80px] right-2 rotate-90 cursor-pointer z-[8]'><img loading='lazy' className='w-[20px]' src={threeDot1} alt="" srcSet="" /></div>
 
 
 
@@ -280,22 +280,22 @@ const Profile = () => {
             {loggedInUserId == paramUserId && <>
               <div onClick={() => navigate(`/postForm`)} className='text-xl font-semibold p-2 flex items-center gap-1 w-[200px] justify-between'>
                 <span className='hover:text-white'>Create Post</span>
-                <img className='w-[20px]' src={add} alt="" srcSet="" />
+                <img loading='lazy' className='w-[20px]' src={add} alt="" srcSet="" />
               </div>
 
               <div onClick={() => dispatch(setBlogDrawer({ show: true, data: "" }))} className='text-xl font-semibold p-2 flex items-center gap-1 w-[200px] justify-between'>
                 <span className='hover:text-white'>Create Blog</span>
-                <img className='w-[20px]' src={add} alt="" srcSet="" />
+                <img loading='lazy' className='w-[20px]' src={add} alt="" srcSet="" />
               </div>
 
               <div onClick={() => navigate("/profileForm")} className='text-xl font-semibold p-2 flex items-center gap-1 w-[200px] justify-between'>
                 <span className='hover:text-white'>Update Profile</span>
-                <img className='w-[20px]' src={pencil} alt="" srcSet="" />
+                <img loading='lazy' className='w-[20px]' src={pencil} alt="" srcSet="" />
               </div>
 
               <div onClick={handleDeleteAccount} className='text-xl font-semibold p-2 flex items-center gap-1 w-[200px] justify-between'>
                 <span className='hover:text-white'>Delete Account</span>
-                <img className='w-[20px]' src={remove} alt="" srcSet="" />
+                <img loading='lazy' className='w-[20px]' src={remove} alt="" srcSet="" />
               </div>
             </>}
 
@@ -304,7 +304,7 @@ const Profile = () => {
               setToggle("-right-[100vw]")
             }} className='text-xl font-semibold p-2 flex items-center gap-1 w-[200px] justify-between'>
               <span className='hover:text-white'>More Detail</span>
-              <img className='w-[20px]' src={remove} alt="" srcSet="" />
+              <img loading='lazy' className='w-[20px]' src={remove} alt="" srcSet="" />
             </div>
 
           </div>
@@ -317,7 +317,7 @@ const Profile = () => {
 
             <div onClick={e => e.stopPropagation()} className='w-[300px] h-[50vh] bg-white flex flex-col justify-start items-center gap-4'>
 
-              <img src={paramUserIdDetails.bannerImg} alt="" srcSet="" />
+              <img loading='lazy' src={paramUserIdDetails.bannerImg} alt="" srcSet="" />
 
               <p>Email : {paramUserIdDetails.email}</p>
 
@@ -331,9 +331,9 @@ const Profile = () => {
               </div>
 
               <div className='flex'>
-                <a href={`${paramUserIdDetails?.socials[0]?.instagram}`}><img className='w-[40px]' src={instagram} alt="" srcSet="" /></a>
-                <a href={`${paramUserIdDetails?.socials[1]?.linkedIn}`}><img className='w-[40px]' src={linkedIn} alt="" srcSet="" /></a>
-                <a href={`${paramUserIdDetails?.socials[2]?.twitter}`}><img className='w-[40px]' src={twitter} alt="" srcSet="" /></a>
+                <a href={`${paramUserIdDetails?.socials[0]?.instagram}`}><img loading='lazy' className='w-[40px]' src={instagram} alt="" srcSet="" /></a>
+                <a href={`${paramUserIdDetails?.socials[1]?.linkedIn}`}><img loading='lazy' className='w-[40px]' src={linkedIn} alt="" srcSet="" /></a>
+                <a href={`${paramUserIdDetails?.socials[2]?.twitter}`}><img loading='lazy' className='w-[40px]' src={twitter} alt="" srcSet="" /></a>
               </div>
 
             </div>

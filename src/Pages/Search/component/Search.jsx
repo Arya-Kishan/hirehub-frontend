@@ -51,7 +51,7 @@ const Search = ({ type = "user", hide }) => {
 
                 <div className='w-full flex items-center justify-start bg-slate-200 rounded-xl p-1 border-2 border-teal-400 shadow-2xl shadow-black'>
                     <input onChange={handleDebounce} ref={inputRef} className='w-[96%]' type="text" placeholder='Search...' />
-                    <img className='w-[30px] bg-teal-400 p-1 rounded-full' src={search} alt="seae" srcSet="" />
+                    <img loading='lazy' className='w-[30px] bg-teal-400 p-1 rounded-full' src={search} alt="seae" srcSet="" />
                 </div>
 
                 <div className='w-full h-full overflow-y-scroll bg-slate-200 p-2 rounded-xl border-2 border-teal-400 shadow-2xl shadow-black'>
