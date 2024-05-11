@@ -1,23 +1,30 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectLoggedInUser, selectUserId } from '../../../User/userSlice'
-import { selectFriends, selectOnlineUsers, selectSelectedUser, selectUnseenMessages, setSelectedUser, setUnseenMessages } from '../../chatSlice'
+import { getUserFriendsAsync, selectFriends, selectOnlineUsers, selectSelectedUser, selectUnseenMessages, setMessages, setRightSideSlide, setSelectedUser, setUnseenMessages } from '../../chatSlice'
 import dayjs from "dayjs"
 import axios from 'axios'
+import search from '../../../../assets/search.svg'
+import debounce from 'lodash.debounce'
 
 const UserChatBox = () => {
 
     const dispatch = useDispatch()
     const friends = useSelector(selectFriends)
-    const loggedInUser = useSelector(selectLoggedInUser)
     const loggedInUserId = useSelector(selectUserId)
     const selectedUser = useSelector(selectSelectedUser)
     const onlineUsers = useSelector(selectOnlineUsers)
     const unseenMessages = useSelector(selectUnseenMessages)
 
+    const [friendData, setFriendData] = useState([])
+
+    const inputRef = useRef(null)
+
 
     const handleClickUserBox = (user) => {
+
         dispatch(setSelectedUser(user))
+        dispatch(setMessages({ loader: false, data: [] }))
 
         let notificationToDeleteFromBackend_Arr = unseenMessages?.filter((elem) => (elem.senderId == user._id))
         dispatch(setUnseenMessages(unseenMessages?.filter((elem) => (elem.senderId != user._id))))
@@ -32,6 +39,12 @@ const UserChatBox = () => {
 
         deleteUnseenMessages()
 
+        // used to bring right side chat on left(screen) and push a state in histiry stack
+        if (window.innerWidth <= 768) {
+            dispatch(setRightSideSlide('left-0'))
+            history.pushState({}, "slide")
+        }
+
     }
 
     async function getUnseenMessages() {
@@ -41,10 +54,10 @@ const UserChatBox = () => {
             receiverId: loggedInUserId,
         })
 
-        console.log(res.data?.data);
+        // console.log(res.data?.data);
 
         if (res.status == 200) {
-            dispatch(setUnseenMessages([...unseenMessages, res.data?.data]))
+            dispatch(setUnseenMessages(res.data?.data))
         }
 
     }
@@ -55,15 +68,38 @@ const UserChatBox = () => {
     }
 
     useEffect(() => {
+        dispatch(getUserFriendsAsync({ query: `userId=${loggedInUserId}` }))
         getUnseenMessages()
     }, [])
+
+    useEffect(() => {
+        setFriendData(friends)
+    }, [friends])
+
+    const handleSearchDebounce = debounce(()=>{
+
+        console.log(inputRef.current.value);
+
+        let a = friends.filter((e)=>(e.name.startsWith(inputRef.current.value)))
+        console.log(a);
+        setFriendData(a)
+
+    },500)
 
     // console.log(selectedUser);
 
     return (
         <>
-            {friends?.map((e) => (
-                <div key={e._id} onClick={() => handleClickUserBox(e)} className={`flex items-center justify-start gap-2 ${selectedUser?._id == e._id ? "bg-teal-700" : "bg-yellow-900"} p-2 cursor-pointer hover:bg-teal-700`}>
+
+            <div className='w-full h-[70px] flex justify-around items-center px-4 gap-2 text-white text-xl'>
+                <div className='w-full flex gap-2 bg-white rounded-lg px-2'>
+                    <input onChange={handleSearchDebounce} ref={inputRef} className='w-full bg-white border-none outline-none rounded-lg text-black p-1 text-xl' type="text" />
+                    <img className='w-[30px]' src={search} alt="" srcSet="" />
+                </div>
+            </div>
+
+            {friendData?.map((e) => (
+                <div key={e._id} onClick={() => handleClickUserBox(e)} className={`flex items-center justify-start gap-2 ${selectedUser?._id == e._id ? "bg-teal-700" : "bg-transparent"} p-2 cursor-pointer hover:bg-teal-700 text-white`}>
 
                     <div className='w-[50px] h-[50px] flex relative'>
                         <img className='w-[50px] h-[50px] rounded-full bg-teal-500' src={e.profilePic} alt="" srcSet="" />
@@ -76,7 +112,7 @@ const UserChatBox = () => {
                     </div>
 
                     <div className='w-[20%] flex flex-col items-end justify-start gap-1'>
-                        <p className='text-[12px]'>{dayjs(e.active).format("hh mm a")}</p>
+                        <p className='text-[9px]'>{dayjs(e.active).format("hh:mm a")}</p>
                         {getUnseenMessagesCount(e) == 0 ? "" : <p className='w-[20px] h-[20px] text-[10px] rounded-full bg-teal-500 flex justify-center items-center'>{unseenMessages.filter((elem) => (elem.senderId == e._id)).length}</p>}
                     </div>
 

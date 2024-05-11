@@ -9,9 +9,10 @@ const initialState = {
   status: 'idle',
   friends: [],
   selectedUser: null,
-  messages: [],
+  messages: { loader: false, data: [] },
   onlineUsers: [],
-  unseenMessages:[],
+  unseenMessages: [],
+  rightSideSlide: 'left-full'
 };
 
 
@@ -60,10 +61,13 @@ export const socketSlice = createSlice({
       state.onlineUsers = action.payload;
     },
     setMessages: (state, action) => {
-      state.messages = (action.payload);
+      state.messages = { loader: false, data: action.payload };
     },
     setUnseenMessages: (state, action) => {
       state.unseenMessages = (action.payload);
+    },
+    setRightSideSlide: (state, action) => {
+      state.rightSideSlide = (action.payload);
     },
   },
 
@@ -83,19 +87,20 @@ export const socketSlice = createSlice({
       // GETTING CHAT MESSAGES
       .addCase(getMessagesAsync.pending, (state) => {
         state.status = 'loading';
+        state.messages = { loader: true, data: [] };
       })
       .addCase(getMessagesAsync.fulfilled, (state, action) => {
         state.status = 'idle';
-        state.messages = action.payload;
+        state.messages = { loader: false, data: action.payload };
       })
       .addCase(getMessagesAsync.rejected, (state, action) => {
         state.status = 'idle'
-        state.messages = []
+        state.messages = { loader: false, data: [] };
       })
   },
 });
 
-export const { setStatus, setSelectedUser, setOnlineUsers, setMessages, setUnseenMessages } = socketSlice.actions;
+export const { setStatus, setSelectedUser, setOnlineUsers, setMessages, setUnseenMessages, setRightSideSlide } = socketSlice.actions;
 
 export const selectStatus = (state) => state.chat.status;
 export const selectFriends = (state) => state.chat.friends;
@@ -103,6 +108,7 @@ export const selectOnlineUsers = (state) => state.chat.onlineUsers;
 export const selectMessages = (state) => state.chat.messages;
 export const selectUnseenMessages = (state) => state.chat.unseenMessages;
 export const selectSelectedUser = (state) => state.chat.selectedUser;
+export const selectRightSideSlide = (state) => state.chat.rightSideSlide;
 
 export default socketSlice.reducer;
 

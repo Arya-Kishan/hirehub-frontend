@@ -4,6 +4,8 @@ import { selectMessages, selectOnlineUsers, selectSelectedUser, selectUnseenMess
 import { selectUserId } from '../../../User/userSlice';
 import { globalSocket } from '../../../../App';
 import axios from 'axios';
+import send1 from '../../../../assets/send1.svg'
+import send2 from '../../../../assets/send2.svg'
 
 const SendMessage = () => {
 
@@ -30,7 +32,7 @@ const SendMessage = () => {
 
     console.log(res.data.data);
 
-    dispatch(setMessages([...messages, res?.data?.data]))
+    dispatch(setMessages([...messages.data, res?.data?.data]))
 
     // IF USER IS OFFLINE SAVING THE MESSAGE IN BACKEND FOR UNSEEN MESSAGE NOTIFICATION AND IF ONLINE THEN NOT SAVING IN BACKEND
     if (onlineUsers?.includes(selectedUser._id)) {
@@ -63,25 +65,35 @@ const SendMessage = () => {
 
       console.log("receive message", message);
       console.log(selectedUser);
+
+
       if (selectedUser?._id == message?.senderId) {
         console.log("ADDING NEW MESSAGE");
-        dispatch(setMessages([...messages, message]))
+        dispatch(setMessages([...messages.data, message]))
       } else {
         console.log("ADDING NEW MESSAGE TO UNSEEN");
+        console.log(unseenMessages);
+        console.log(message);
         dispatch(setUnseenMessages([...unseenMessages, message]))
       }
-      // dispatch(pushMessage(message))
+
 
     })
 
-  }, [messages])
+
+    return () => {
+      globalSocket.off('receiveMessage')
+    }
+
+  }, [messages.data, unseenMessages])
+
 
   return (
     <>
-      {selectedUser && <div className='w-full flex p-2 pb-[100px] md:pb-0'>
-        <input onKeyUp={handleEnter} ref={inputRef} className='w-[90%] bg-white rounded-lg' type="text" />
+      {selectedUser && <div className='w-full flex p-2 gap-2'>
+        <input onKeyUp={handleEnter} ref={inputRef} className='w-full bg-white rounded-lg text-xl' type="text" placeholder='Message...' />
 
-        <p onClick={handleSendMeesage} >Send</p>
+        <img className='w-[40px] h-[40px] bg-teal-800 rounded-full p-1' onClick={handleSendMeesage}  src={send1} alt="" srcSet="" />
 
       </div>}
     </>

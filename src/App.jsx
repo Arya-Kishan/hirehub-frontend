@@ -56,35 +56,30 @@ function App() {
     dispatch(checkUserWithJwtAsync(localStorage.getItem("x-jwt-routes")))
   }, [])
 
-  // useEffect(() => {
+  useEffect(() => {
 
-  //   if (loggedInUser) {
+    if (loggedInUser) {
 
-  //     globalSocket = io("http://localhost:8000", {
-  //       query: {
-  //         userId: loggedInUser._id,
-  //       }
+      globalSocket = io("https://hirehub-socket.onrender.com", {
+        query: {
+          userId: loggedInUser._id,
+        }
 
-  //     });
+      });
 
-  //     globalSocket?.on('onlineUsers', (onlineUsers) => {
-  //       dispatch(setOnlineUsers(onlineUsers))
-  //       // console.log(onlineUsers);
-  //     });
+      globalSocket?.on('onlineUsers', (onlineUsers) => {
+        dispatch(setOnlineUsers(onlineUsers))
+      });
 
-  //     // globalSocket?.on('is-typing', (typingObj) => {
-  //     //   console.log(typingObj);
-  //     //   dispatch(setTypingLoader(typingObj))
-  //     // });
+      return () => {
+        globalSocket.close();
+        dispatch(setSelectedUser(null))
+      }
 
-  //     return () => {
-  //       globalSocket.close();
-  //       dispatch(setSelectedUser(null))
-  //     }
+    }
 
-  //   }
-
-  // }, [loggedInUser])
+  }, [loggedInUser])
+  
 
 
 

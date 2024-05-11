@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import profile from "../../../assets/profile.svg"
 import logo from "../../../assets/logo.svg"
 import home from "../../../assets/home.svg"
+import chat from "../../../assets/chat.svg"
 import job from "../../../assets/job.svg"
 import community from "../../../assets/community.svg"
 import add from "../../../assets/application.svg"
@@ -10,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { logoutUser, selectUserId } from '../../User/userSlice'
 import { getNotificationsAsync, handleRequestAsync, selectMyNotification } from '../../Community/communitySlice'
 import { globalSocket } from '../../../App'
+import { setSelectedUser } from '../../Chat/chatSlice'
 
 const Navbar = () => {
 
@@ -96,7 +98,7 @@ const Navbar = () => {
         <Link to={'/job'} className='list cursor-pointer hover:bg-teal-500 p-2 rounded-lg'>All Jobs</Link>
         <Link to={'/application'} className='list cursor-pointer hover:bg-teal-500 p-2 rounded-lg'>My Applications</Link>
         <Link to={'/community'} className='list cursor-pointer hover:bg-teal-500 p-2 rounded-lg'>Community</Link>
-        {/* <Link to={'/chat'} className='list cursor-pointer hover:bg-teal-500 p-2 rounded-lg'>Chat</Link> */}
+        <Link to={'/chat'} className='list cursor-pointer hover:bg-teal-500 p-2 rounded-lg'>Chat</Link>
         <span className='cursor-pointer'><img onClick={() => setToggle1(!toggle1)} className='w-[30px]' src={profile} alt="" /></span>
       </ul>
 
@@ -104,7 +106,7 @@ const Navbar = () => {
       <div
         className='w-full flex justify-evenly md:hidden fixed bottom-0 right-0 bg-teal-500 p-2 z-[90]'>
         <Link to={'/job'} className='list cursor-pointer'><img className='w-[25px]' src={job} alt="" srcSet="" /></Link>
-        <Link to={'/application'} className='list cursor-pointer'><img className='w-[25px]' src={add} alt="" srcSet="" /></Link>
+        <Link to={'/chat'} className='list cursor-pointer'><img className='w-[25px]' src={chat} alt="" srcSet="" /></Link>
         <Link to={'/'} className='list cursor-pointer'><img className='w-[25px]' src={home} alt="" srcSet="" /></Link>
         <Link to={'/community'} className='list cursor-pointer'><img className='w-[25px]' src={community} alt="" srcSet="" /></Link>
         <span className='cursor-pointer'><img onClick={() => setToggle1(!toggle1)} className='w-[30px]' src={profile} alt="" /></span>
