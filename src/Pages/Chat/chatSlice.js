@@ -8,6 +8,7 @@ import { globalSocket } from '../../App';
 const initialState = {
   status: 'idle',
   friends: [],
+  friendLoader: false,
   selectedUser: null,
   messages: { loader: false, data: [] },
   onlineUsers: [],
@@ -75,14 +76,17 @@ export const socketSlice = createSlice({
     builder
       .addCase(getUserFriendsAsync.pending, (state) => {
         state.status = 'loading';
+        state.friendLoader = true;
       })
       .addCase(getUserFriendsAsync.fulfilled, (state, action) => {
         state.status = 'idle';
-        state.friends = action.payload
+        state.friends = action.payload;
+        state.friendLoader = false;
       })
       .addCase(getUserFriendsAsync.rejected, (state, action) => {
         state.status = 'idle';
-        state.friends = []
+        state.friends = [];
+        state.friendLoader = false;
       })
       // GETTING CHAT MESSAGES
       .addCase(getMessagesAsync.pending, (state) => {
@@ -104,6 +108,7 @@ export const { setStatus, setSelectedUser, setOnlineUsers, setMessages, setUnsee
 
 export const selectStatus = (state) => state.chat.status;
 export const selectFriends = (state) => state.chat.friends;
+export const selectFriendLoader = (state) => state.chat.friendLoader;
 export const selectOnlineUsers = (state) => state.chat.onlineUsers;
 export const selectMessages = (state) => state.chat.messages;
 export const selectUnseenMessages = (state) => state.chat.unseenMessages;

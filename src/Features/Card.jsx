@@ -64,7 +64,7 @@ const Card = ({ card }) => {
 
                 <div onClick={() => handleNavigateToOtherProfile(card.userId._id)} className='flex gap-1 items-center justify-start cursor-pointer'>
                    <img loading='lazy' className='w-[30px] h-[30px] rounded-full' src={card.userId?.profilePic} alt="" srcSet="" />
-                    <p className='text-[14px]'>{card?.userId?.name}</p>
+                    <p className='text-[14px] font-semibold'>{card?.userId?.name}</p>
                 </div>
 
                 <div className='flex items-center justify-between gap-2 cursor-pointer'>

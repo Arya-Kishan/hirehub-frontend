@@ -49,9 +49,7 @@ const JobDetails = () => {
                         <p className='flex flex-col items-start justify-start gap-1'><b className='text-xl'>Title</b>{jobDetail.title}</p>
                         <p className='flex flex-col items-start justify-start gap-1'><b className='text-xl'>Country</b>{jobDetail.country}</p>
                         <p className='flex flex-col items-start justify-start gap-1'><b className='text-xl'>City</b>{jobDetail.city}</p>
-                        <p className='flex flex-col items-start justify-start gap-1'><b className='text-xl'>Category</b>{jobDetail.category}</p>
                         <p className='flex flex-col items-start justify-start gap-1'><b className='text-xl'>Salary</b>{jobDetail.fixedSalary}</p>
-                        <p className='flex flex-col items-start justify-start gap-1'><b className='text-xl'>Expired</b>{jobDetail.expired}</p>
                     </div>
 
                     <div className='w-full lg:w-[60%] flex flex-col items-start justify-start gap-2'>

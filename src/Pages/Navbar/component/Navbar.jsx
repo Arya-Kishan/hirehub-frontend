@@ -5,8 +5,7 @@ import home from "../../../assets/home.svg"
 import chat from "../../../assets/chat.svg"
 import job from "../../../assets/job.svg"
 import community from "../../../assets/community.svg"
-import add from "../../../assets/application.svg"
-import { Link, useNavigate } from 'react-router-dom'
+import { Link} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { logoutUser, selectUserId } from '../../User/userSlice'
 import { getNotificationsAsync, handleRequestAsync, selectMyNotification } from '../../Community/communitySlice'

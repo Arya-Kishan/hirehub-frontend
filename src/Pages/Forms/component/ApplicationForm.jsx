@@ -22,10 +22,15 @@ const ApplicationForm = () => {
 
   const handleForm = (data) => {
 
+    if (data.resume[0] == undefined) {
+      toast("PLEASE UPLOAD RESUME")
+      return 0;
+    } 
+
     let formData = new FormData();
 
     if (data.resume[0].size / 1024 > 50) {
-      toast("UPLOAD IMAGE BELOW 50KB")
+      toast("UPLOAD RESUME IMAGE BELOW 50KB")
       return 0;
     } else {
 
@@ -115,13 +120,16 @@ const ApplicationForm = () => {
         {/* Choose File or Resume */}
         <div className='w-full flex flex-col items-start justify-start'>
 
+          <span className='font-bold capitalize'>Upload Resume</span>
+
           <input type="file" {...register("resume")} placeholder='Your Name' className='w-full' style={{ borderBottom: '2px solid black' }} />
 
           {errors?.resume && <p className='text-red'>{errors.resume?.message}</p>}
 
+
         </div>
 
-        <button type='submit' className='w-full bg-teal-500 px-6 py-2'>Submit</button>
+        <button type='submit' className='w-full bg-teal-500 px-6 py-2 hover:bg-teal-600 cursor-pointer'>Submit</button>
 
       </form>
 

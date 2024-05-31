@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux"
 import { getApplicationAsync, selectApplications } from '../applicationSlice';
 import { selectLoggedInUser, selectUserId } from '../../User/userSlice';
 import Loader from '../../../Features/Loader';
-import Navbar from '../../Navbar/component/Navbar';
 
 const Application = () => {
 

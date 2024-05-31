@@ -82,7 +82,7 @@ const SendMessage = () => {
 
 
     return () => {
-      globalSocket.off('receiveMessage')
+      globalSocket?.off('receiveMessage')
     }
 
   }, [messages.data, unseenMessages])

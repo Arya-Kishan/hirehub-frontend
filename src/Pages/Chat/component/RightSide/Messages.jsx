@@ -38,25 +38,27 @@ const Messages = () => {
             {selectedUser
                 ?
                 <div className='flex h-full flex-col gap-2 p-4 overflow-auto'>
-                    {messages.loader ? <div className='w-full h-full flex justify-center items-center'>
-                        <p className='capitalize text-[12px] text-gray-800 opacity-[0.5]'>Getting Messages...</p>
-                    </div> : messages.data?.length > 0
+                    {messages.loader
                         ?
-                        messages.data?.map((e) => (
-                            <div key={e._id} className={`w-full flex flex-col ${e.senderId == loggedInUserId ? "items-end" : "items-start"}`}>
-                                <div ref={lastDivRef} className={`w-[45%] bg-teal-400 p-2 rounded-xl ${e.senderId == loggedInUserId ? "rounded-br-none" : "rounded-bl-none"}`}>
-                                    <p>{e.message}</p>
-                                    <p className='text-end text-[10px]'>{dayjs(e?.createdAt).format("hh mm a")}</p>
-                                </div>
-                            </div>
-                        ))
-                        :
                         <div className='w-full h-full flex justify-center items-center'>
-                            <p>NO MESSAGES</p>
-                        </div>}
+                            <p className='capitalize text-[15px] text-gray-700'>Getting Messages...</p>
+                        </div> : messages.data?.length > 0
+                            ?
+                            messages.data?.map((e) => (
+                                <div key={e._id} className={`w-full flex flex-col ${e.senderId == loggedInUserId ? "items-end" : "items-start"}`}>
+                                    <div ref={lastDivRef} className={`w-[45%] bg-teal-400 p-2 rounded-xl ${e.senderId == loggedInUserId ? "rounded-br-none" : "rounded-bl-none"}`}>
+                                        <p>{e.message}</p>
+                                        <p className='text-end text-[10px]'>{dayjs(e?.createdAt).format("hh mm a")}</p>
+                                    </div>
+                                </div>
+                            ))
+                            :
+                            <div className='w-full h-full flex justify-center items-center text-gray-700'>
+                                <p>NO MESSAGES</p>
+                            </div>}
                 </div>
                 :
-                <div className='w-full h-full flex justify-center items-center'>CHOOSE CHAT</div>}
+                <div className='w-full h-full flex justify-center items-center text-white'>CHOOSE CHAT</div>}
         </>
     )
 }

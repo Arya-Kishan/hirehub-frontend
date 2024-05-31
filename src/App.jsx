@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect, useState } from 'react'
+import { Suspense, lazy, useEffect } from 'react'
 import './App.css'
 import axios from "axios"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
@@ -18,8 +18,10 @@ const CommunityHome = lazy(() => import('./Pages/Community/component/CommunityHo
 const Application = lazy(() => import('./Pages/Application/component/Application'))
 
 import Navbar from "./Pages/Navbar/component/Navbar"
-import LikeDrawer from "./Features/Drawer/LikeDrawer"
-import CommentDrawer from "./Features/Drawer/CommentDrawer"
+
+const LikeDrawer = lazy(() => import('./Features/Drawer/LikeDrawer'))
+const CommentDrawer = lazy(() => import('./Features/Drawer/CommentDrawer'))
+
 
 import { useDispatch, useSelector } from 'react-redux'
 import { checkUserWithJwtAsync, selectLoggedInUser, selectPreCheckUser } from './Pages/User/userSlice'
@@ -62,6 +64,7 @@ function App() {
 
     if (loggedInUser) {
 
+      // https://hirehub-socket.onrender.com
       globalSocket = io("https://hirehub-socket.onrender.com", {
         query: {
           userId: loggedInUser._id,

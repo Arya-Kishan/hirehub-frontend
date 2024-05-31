@@ -1,11 +1,10 @@
 import React, { memo, useCallback, useEffect, useRef, useState } from 'react'
 import { selectUserId } from '../../Pages/User/userSlice'
-import { selectPostDrawer, setLikeDrawer } from '../../Pages/Community/communitySlice'
+import { selectPostDrawer, setLikeDrawer, addRemoveCommentAsync } from '../../Pages/Community/communitySlice'
 import { useDispatch, useSelector } from 'react-redux'
 import dp from "../../assets/dp.svg"
 import heart from "../../assets/heart.svg"
 import send from "../../assets/send2.svg"
-import { addRemoveCommentAsync } from '../../Pages/Community/communitySlice'
 import dayjs from "dayjs"
 import { useNavigate } from 'react-router-dom'
 
@@ -60,7 +59,7 @@ const PostDrawer = () => {
     }
 
     const handleShowLikes = () => {
-        dispatch(setLikeDrawer({show:true,data:postDrawer?.data}))
+        dispatch(setLikeDrawer({ show: true, data: postDrawer?.data }))
     }
 
     const handleDeleteComment = (comment) => {
@@ -74,7 +73,7 @@ const PostDrawer = () => {
         setTimeout(() => {
             navigate(`/profile/${userId}`)
         }, 100);
-        
+
     }
 
     // USED BELOW EVENT LISTENER TO REMOVE DRAWER WHEN EVER USER PRESS BACK BUTTON IN BROWSER
@@ -169,7 +168,7 @@ const PostDrawer = () => {
 
                             </div>
 
-                        </div>  
+                        </div>
 
                     </div>
 

@@ -39,8 +39,6 @@ const Search = ({ type = "user", hide }) => {
 
     }, 500)
 
-    console.log(jobSearchResult);
-    console.log(userSearchResult);
     console.log(searchLoader);
 
 
@@ -56,10 +54,12 @@ const Search = ({ type = "user", hide }) => {
 
                 <div className='w-full h-full overflow-y-scroll bg-slate-200 p-2 rounded-xl border-2 border-teal-400 shadow-2xl shadow-black'>
 
-
+                    {console.log(searchLoader.loader)}
                     {searchLoader.loader == "loading"
                         ?
-                        <div className='w-full h-full flex items-center justify-center'><Loader /></div> : userSearchResult.length > 0 || jobSearchResult.length > 0
+                        <div className='w-full h-full flex items-center justify-center'>Loading...</div>
+                        :
+                        userSearchResult.length > 0 || jobSearchResult.length > 0
                             ?
                             <>
 

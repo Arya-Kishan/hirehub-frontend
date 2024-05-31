@@ -315,7 +315,7 @@ const Profile = () => {
         {paramUserIdDetails &&
           <div onClick={() => setToggle2("-right-[100vw]")} className={`fixed top-0 ${toggle2} w-full h-[100vh] flex justify-end items-end transition-all duration-700`}>
 
-            <div onClick={e => e.stopPropagation()} className='w-[300px] h-[50vh] bg-white flex flex-col justify-start items-center gap-4'>
+            <div onClick={e => e.stopPropagation()} className='w-[300px] h-[50vh] bg-white flex flex-col justify-start items-center gap-4 overflow-hidden'>
 
               <img loading='lazy' src={paramUserIdDetails.bannerImg} alt="" srcSet="" />
 
@@ -327,7 +327,7 @@ const Profile = () => {
                 : {paramUserIdDetails.location}</p>
 
               <div className='flex gap-4'>
-                {paramUserIdDetails.interest.map((e) => (<span key={e} className='px-4 py-1 bg-yellow-500 rounded-lg'>{e}</span>))}
+                {paramUserIdDetails.interest.slice(0,2).map((e) => (<span key={e} className='px-4 py-1 bg-yellow-500 rounded-lg'>{e}</span>))}
               </div>
 
               <div className='flex'>
