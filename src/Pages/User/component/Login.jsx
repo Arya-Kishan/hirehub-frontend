@@ -12,7 +12,7 @@ import pencil from '../../../assets/pencil.svg'
 import logo from '../../../assets/logo.svg'
 import show from '../../../assets/show.svg'
 import hide from '../../../assets/hide.svg'
-import loader from '../../../assets/loader.svg'
+import Loader from '../../../Features/Loader';
 
 const Login = () => {
 
@@ -364,7 +364,7 @@ const Login = () => {
 
       </div>
 
-      {loginLoader == "loading" ? <img loading='lazy' className='w-[50px] fixed top-[10%] left-[50%] -translate-x-[50%]' src={loader} alt="" srcSet="" /> : ""}
+      {loginLoader == "loading" ? <div className='w-[50px] fixed top-[10%] left-[50%] -translate-x-[50%]'><Loader /></div> : ""}
 
     </div>
   )

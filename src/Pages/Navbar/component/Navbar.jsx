@@ -5,7 +5,7 @@ import home from "../../../assets/home.svg"
 import chat from "../../../assets/chat.svg"
 import job from "../../../assets/job.svg"
 import community from "../../../assets/community.svg"
-import { Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { logoutUser, selectUserId } from '../../User/userSlice'
 import { getNotificationsAsync, handleRequestAsync, selectMyNotification } from '../../Community/communitySlice'
@@ -23,6 +23,8 @@ const Navbar = () => {
 
   // BELOW STATE USED FOR HANDLING THE NOTIFICATION DRAWER
   const [toggle2, setToggle2] = useState(false)
+
+  const [shadow, setShadow] = useState(false)
 
   const handleLogout = () => {
     localStorage.setItem("x-jwt-routes", null)
@@ -52,10 +54,27 @@ const Navbar = () => {
     dispatch(getNotificationsAsync(loggedInUserId))
   }, [])
 
+  const handleNavbarShadow = (e) => {
+    if (window.scrollY > 20) {
+      console.log("arya");
+      setShadow(true)
+    }
+    if (window.scrollY < 20) {
+      console.log("arya");
+      setShadow(false)
+    }
+
+  }
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleNavbarShadow)
+    return () => window.removeEventListener("scroll", handleNavbarShadow)
+  }, [])
+
 
 
   return (
-    <div className='w-full h-[60px] flex items-center justify-between px-4 fixed top-0 left-0 z-[100] bg-white'>
+    <div className={`w-full h-[60px] flex items-center justify-between px-4 fixed top-0 left-0 z-[100] bg-white ${shadow ? "shadow-lg shadow-black" : ""}`}>
 
       <div className='flex gap-2 justify-center items-center'>
         <img loading='lazy' className='w-[40px]' src={logo} alt="" srcSet="" />
@@ -93,17 +112,16 @@ const Navbar = () => {
 
       {/* FOR LARGE DEVICE */}
       <ul className='hidden md:flex gap-6 justify-center items-center relative'>
-        <Link to={'/'} className='list cursor-pointer hover:bg-teal-500 p-2 rounded-lg'>Home</Link>
-        <Link to={'/job'} className='list cursor-pointer hover:bg-teal-500 p-2 rounded-lg'>All Jobs</Link>
-        <Link to={'/application'} className='list cursor-pointer hover:bg-teal-500 p-2 rounded-lg'>My Applications</Link>
-        <Link to={'/community'} className='list cursor-pointer hover:bg-teal-500 p-2 rounded-lg'>Community</Link>
-        <Link to={'/chat'} className='list cursor-pointer hover:bg-teal-500 p-2 rounded-lg'>Chat</Link>
+        <Link to={'/'} className='font-semibold list cursor-pointer hover:bg-teal-500 p-2 rounded-lg'>Home</Link>
+        <Link to={'/job'} className='font-semibold list cursor-pointer hover:bg-teal-500 p-2 rounded-lg'>All Jobs</Link>
+        <Link to={'/application'} className='font-semibold list cursor-pointer hover:bg-teal-500 p-2 rounded-lg'>My Applications</Link>
+        <Link to={'/community'} className='font-semibold list cursor-pointer hover:bg-teal-500 p-2 rounded-lg'>Community</Link>
+        <Link to={'/chat'} className='font-semibold list cursor-pointer hover:bg-teal-500 p-2 rounded-lg'>Chat</Link>
         <span className='cursor-pointer'><img loading='lazy' onClick={() => setToggle1(!toggle1)} className='w-[30px]' src={profile} alt="" /></span>
       </ul>
 
       {/* FOR MOBILE DEVICE */}
-      <div
-        className='w-full flex justify-evenly md:hidden fixed bottom-0 right-0 bg-teal-500 p-2 z-[90]'>
+      <div className='w-full flex justify-evenly md:hidden fixed bottom-0 right-0 bg-teal-500 p-2 z-[90]'>
         <Link to={'/job'} className='list cursor-pointer'><img loading='lazy' className='w-[25px]' src={job} alt="" srcSet="" /></Link>
         <Link to={'/chat'} className='list cursor-pointer'><img loading='lazy' className='w-[25px]' src={chat} alt="" srcSet="" /></Link>
         <Link to={'/'} className='list cursor-pointer'><img loading='lazy' className='w-[25px]' src={home} alt="" srcSet="" /></Link>

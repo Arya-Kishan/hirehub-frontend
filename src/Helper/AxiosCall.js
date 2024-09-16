@@ -23,6 +23,7 @@ export const axiosPost = ({ data, endPoint, errorMessage, successMessage }) => {
 
             console.log(error);
             toast(`${errorMessage}`)
+            toast(`${error?.response?.data}`)
             reject({ data: null })
 
         }

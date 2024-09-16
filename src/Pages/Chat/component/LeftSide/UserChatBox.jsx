@@ -101,13 +101,13 @@ const UserChatBox = () => {
                         <div key={e._id} onClick={() => handleClickUserBox(e)} className={`flex items-center justify-start gap-2 ${selectedUser?._id == e._id ? "bg-teal-700" : "bg-transparent"} p-2 cursor-pointer hover:bg-teal-700 text-white`}>
 
                             <div className='w-[50px] h-[50px] flex relative'>
-                                <img loading='lazy' className='w-[50px] h-[50px] rounded-full bg-teal-500' src={e.profilePic} alt="" srcSet="" />
+                                <img loading='lazy' className='w-[50px] h-[50px] rounded-full bg-teal-500' src={e.profilePic ? e.profilePic : `https://api.multiavatar.com/${e.name}.svg`} alt="" srcSet="" />
                                 {onlineUsers.includes(e._id) && <p className='w-[10px] h-[10px] rounded-full bg-green-600 absolute top-0 right-0'></p>}
                             </div>
 
                             <div className='w-[70%] flex flex-col gap-1'>
                                 <p className='font-bold'>{e.name}</p>
-                                <p className='text-[10px]'>Ther  was a time of peoples</p>
+                                <p className='text-[10px]'></p>
                             </div>
 
                             <div className='w-[20%] flex flex-col items-end justify-start gap-1'>

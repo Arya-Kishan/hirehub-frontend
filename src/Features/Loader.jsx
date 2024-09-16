@@ -1,10 +1,16 @@
 import React, { memo } from 'react'
-import loader from "../assets/loader.svg"
+import ClipLoader from "react-spinners/ClipLoader";
 
 const Loader = () => {
     return (
         <div className='w-full h-full flex justify-center items-center'>
-            <img loading='lazy' className='w-[100px] h-[100px]' src={loader} alt="Loader" srcSet="" />
+            <ClipLoader
+                color={"#14B8A6"}
+                loading={true}
+                size={80}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+            />
         </div>
     )
 }

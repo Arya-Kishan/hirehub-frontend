@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import { addBlogAsync, selectAddingBlogLoader, selectBlogDrawer, setAddingBlogLoader, setBlogDrawer, updateBlogAsync } from '../../Pages/Blogs/blogsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUserId } from '../../Pages/User/userSlice';
-import loader from "../../assets/loader.svg"
+import Loader from '../Loader';
 
 const BlogDrawer = () => {
 
@@ -55,7 +55,7 @@ const BlogDrawer = () => {
                 <textarea ref={textareaRef} name="" id="" className='w-full h-[90%] p-2' placeholder='Write Your Blog...'></textarea>
 
                 {addingBlogLoader.loader == "loading" ?
-                    <div className='w-full h-[10%] flex items-center justify-center bg-teal-800'><img loading='lazy' className='w-[30px]' src={loader} alt="" srcset="" /></div>
+                    <div className='w-full h-[10%] flex items-center justify-center bg-teal-800'><Loader /></div>
                     :
                     <button className='w-full h-[10%] flex items-center justify-center bg-teal-500 hover:bg-teal-600'>{BlogDrawer.data
                         ?

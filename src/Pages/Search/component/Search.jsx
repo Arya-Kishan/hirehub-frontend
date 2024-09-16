@@ -48,7 +48,7 @@ const Search = ({ type = "user", hide }) => {
             <div onClick={e => e.stopPropagation()} className='w-[70%] h-[70%] flex flex-col justify-start items-center gap-2 p-1'>
 
                 <div className='w-full flex items-center justify-start bg-slate-200 rounded-xl p-1 border-2 border-teal-400 shadow-2xl shadow-black'>
-                    <input onChange={handleDebounce} ref={inputRef} className='w-[96%]' type="text" placeholder='Search...' />
+                    <input onChange={handleDebounce} ref={inputRef} autoFocus className='w-[96%]' type="text" placeholder='Search...' />
                     <img loading='lazy' className='w-[30px] bg-teal-400 p-1 rounded-full' src={search} alt="seae" srcSet="" />
                 </div>
 
@@ -59,7 +59,7 @@ const Search = ({ type = "user", hide }) => {
                         ?
                         <div className='w-full h-full flex items-center justify-center'>Loading...</div>
                         :
-                        userSearchResult.length > 0 || jobSearchResult.length > 0
+                        userSearchResult?.length > 0 || jobSearchResult?.length > 0
                             ?
                             <>
 

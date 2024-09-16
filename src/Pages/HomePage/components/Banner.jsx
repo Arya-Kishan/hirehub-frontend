@@ -44,7 +44,7 @@ const Banner = () => {
         <div className='w-[40vh] h-[40vh] lg:w-[700px] lg:h-[700px] bg-white lg:bg-teal-500 rounded-full flex justify-center items-center z-1 lg:absolute -bottom-[140px] -right-[140px]'>
 
           <div className='w-[90%] h-[90%] bg-white rounded-full flex justify-center items-center'>
-            <img fetchPriority='high' className='w-[90%] lg:w-[70%]' src={bannerImg} alt="bannerImg" srcSet="" />
+            <img className='w-[90%] lg:w-[70%]' src={bannerImg} alt="bannerImg" srcSet="" />
           </div>
 
         </div>

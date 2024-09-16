@@ -110,7 +110,7 @@ const ChangePassword = () => {
 
 
 
-            {changePasswordLoader == "loading" && <img loading='lazy' className='w-[50px] fixed bottom-20 left-[50%] -translate-x-[50%]' src={loader} alt="" srcset="" />}
+            {changePasswordLoader == "loading" && <img loading='lazy' className='w-[50px] fixed bottom-20 left-[50%] -translate-x-[50%]' src={loader} alt="" srcSet="" />}
 
 
 

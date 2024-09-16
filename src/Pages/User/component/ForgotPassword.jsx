@@ -1,22 +1,18 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
 import logo from '../../../assets/logo.svg'
-import loader from '../../../assets/loader.svg'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
-import { forgotPasswordAsync, selectForgotPasswordLoader, selectLoggedInUser } from '../userSlice'
+import { forgotPasswordAsync, selectForgotPasswordLoader } from '../userSlice'
+import Loader from '../../../Features/Loader'
 
 const ForgotPassword = () => {
 
-    const navigate = useNavigate()
     const dispatch = useDispatch()
-    const loggedInUser = useSelector(selectLoggedInUser)
     const forgotPasswordLoader = useSelector(selectForgotPasswordLoader)
 
     const {
         register,
         handleSubmit,
-        watch,
         formState: { errors },
     } = useForm()
 
@@ -61,7 +57,7 @@ const ForgotPassword = () => {
             </form>
 
 
-            {forgotPasswordLoader == "loading" && <img loading='lazy' className='w-[50px] fixed bottom-20 left-[50%] -translate-x-[50%]' src={loader} alt="" srcset="" />}
+            {forgotPasswordLoader == "loading" && <div className='w-[50px] fixed bottom-20 left-[50%] -translate-x-[50%]'><Loader /></div>}
 
         </div>
     )
