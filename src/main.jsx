@@ -8,8 +8,7 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 
-// axios.defaults.baseURL = ("https://mern-aryagram.vercel.app/")
-axios.defaults.baseURL = ("http://localhost:8080")
+axios.defaults.baseURL = (import.meta.env.VITE_VERCEL_URL)
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

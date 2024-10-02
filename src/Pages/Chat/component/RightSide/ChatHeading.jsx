@@ -18,7 +18,6 @@ const ChatHeading = () => {
             return `${dayjs().from(dayjs(selectedUser.active)).split(" ").slice(1).join(" ")} ago`
         }
 
-
     }
 
     return (
