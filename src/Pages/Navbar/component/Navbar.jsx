@@ -8,7 +8,7 @@ import community from "../../../assets/community.svg"
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { logoutUser, selectUserId } from '../../User/userSlice'
-import { getNotificationsAsync, handleRequestAsync, selectMyNotification } from '../../Community/communitySlice'
+import { getNotificationsAsync, handleRequestAsync, selectMyNotification, setPostDrawer } from '../../Community/communitySlice'
 import { globalSocket } from '../../../App'
 import { setSelectedUser } from '../../Chat/chatSlice'
 
@@ -48,6 +48,10 @@ const Navbar = () => {
       dispatch(handleRequestAsync({ query: `requestResult=reject&notificationId`, notificationId: notificationId }))
 
     }
+  }
+
+  const handleMobileNavbarClick = () => {
+    dispatch(setPostDrawer({ data: null, show: false }))
   }
 
   useEffect(() => {
@@ -121,7 +125,7 @@ const Navbar = () => {
       </ul>
 
       {/* FOR MOBILE DEVICE */}
-      <div className='w-full flex justify-evenly md:hidden fixed bottom-0 right-0 bg-teal-500 p-2 z-[90]'>
+      <div onClick={handleMobileNavbarClick} className='w-full flex justify-evenly md:hidden fixed bottom-0 right-0 bg-teal-500 p-2 z-[90]'>
         <Link to={'/job'} className='list cursor-pointer'><img loading='lazy' className='w-[25px]' src={job} alt="" srcSet="" /></Link>
         <Link to={'/chat'} className='list cursor-pointer'><img loading='lazy' className='w-[25px]' src={chat} alt="" srcSet="" /></Link>
         <Link to={'/'} className='list cursor-pointer'><img loading='lazy' className='w-[25px]' src={home} alt="" srcSet="" /></Link>

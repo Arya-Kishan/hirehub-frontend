@@ -2,10 +2,9 @@ import React, { memo, useState } from 'react'
 import heart1 from '../assets/heart.svg'
 import heart2 from '../assets/heart2.svg'
 import comment from '../assets/comment.svg'
-import dp from '../assets/dp.svg'
 import remove from '../assets/delete.svg'
 import { useDispatch, useSelector } from "react-redux"
-import { addRemoveLikeAsync, handleDeletePostAsync, setCommentDrawer, setDialog, setLikeDrawer, setMyPost, setPostDrawer } from '../Pages/Community/communitySlice'
+import { addRemoveLikeAsync, setCommentDrawer, setDialog, setLikeDrawer, setMyPost, setPostDrawer } from '../Pages/Community/communitySlice'
 import { selectUserId, setOtherUserDetail } from '../Pages/User/userSlice'
 import { useNavigate, useParams } from "react-router-dom"
 
@@ -51,9 +50,6 @@ const Card = ({ card }) => {
         }
 
     }
-
-    console.log("-------card-----");
-    console.log(card);
 
     return (
         <div className='w-full md:w-[25vw] bg-white shadow-2xl flex flex-col gap-1 p-3 relative border-2 border-gray-100 select-none rounded-2xl'>

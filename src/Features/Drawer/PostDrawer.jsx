@@ -14,8 +14,6 @@ const PostDrawer = () => {
     const postDrawer = useSelector(selectPostDrawer)
     const loggedInUserId = useSelector(selectUserId)
     const commentInputRef = useRef(null)
-    const param = window.location.search
-    // console.log(param);
 
     // USED TO BRING POST PAGE ABOVE 
     const [toggle, setToggle] = useState(false)

@@ -4,23 +4,18 @@ import bannerImg from "../../../assets/bannerImg.svg"
 import search from "../../../assets/search.svg"
 import blob4 from "../../../assets/blob4.svg"
 import Search from '../../Search/component/Search'
+import { useNavigate } from 'react-router-dom'
 
 const Banner = () => {
 
   const inputRef = useRef(null)
   const [showSearch, setShowSearch] = useState(null)
-
-  const handleSearchJob = () => {
-    console.log(inputRef.current.value);
-  }
-
-  const handleDebounceJobSearch = debounce(() => {
-    console.log("hii searching");
-  }, 1000)
+  const navigate = useNavigate();
 
   return (
     <div className='flex flex-wrap overflow-hidden relative'>
 
+      {/* LEFT */}
       <div className='w-[100vw] h-[50vh] lg:w-[50%] lg:h-[100vh] flex flex-col justify-center items-center '>
 
         <div className='w-[60%] flex flex-col gap-10 z-20'>
@@ -29,9 +24,9 @@ const Banner = () => {
 
           <div className='w-[100%] lg:w-[60%] flex bg-white rounded-lg border-4 border-solid border-teal-500'>
 
-            <input ref={inputRef} className='w-[85%] rounded-lg' type="text" placeholder='Search...' onFocus={() => setShowSearch(true)} onChange={handleDebounceJobSearch} />
+            <input ref={inputRef} className='w-[85%] rounded-lg' type="text" placeholder='Search...' onFocus={() => navigate("/job")} />
 
-            <img loading='lazy' onClick={handleSearchJob} className='w-[15%] bg-teal-500 p-1' src={search} alt="" srcSet="" />
+            <img loading='lazy' className='w-[15%] bg-teal-500 p-1' src={search} alt="" srcSet="" />
 
           </div>
 
@@ -39,6 +34,7 @@ const Banner = () => {
 
       </div>
 
+      {/* RIGHT */}
       <div className='relative w-[100vw] h-[50vh] lg:w-[50%] lg:h-[100vh] flex justify-center items-center z-20'>
 
         <div className='w-[40vh] h-[40vh] lg:w-[700px] lg:h-[700px] bg-white lg:bg-teal-500 rounded-full flex justify-center items-center z-1 lg:absolute -bottom-[140px] -right-[140px]'>

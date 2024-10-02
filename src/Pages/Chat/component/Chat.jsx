@@ -10,7 +10,6 @@ import { selectUserId } from '../../User/userSlice'
 const Chat = () => {
 
     const dispatch = useDispatch()
-    const loggedInUserId = useSelector(selectUserId)
     const rightSideSlide = useSelector(selectRightSideSlide)
 
 
@@ -20,14 +19,11 @@ const Chat = () => {
     }
 
     useEffect(() => {
-
         if (window.innerWidth <= 768) {
             window.addEventListener("popstate", listenPopstate)
 
             return () => window.removeEventListener("popstate", listenPopstate)
         }
-
-
     }, [])
 
     return (
@@ -35,21 +31,15 @@ const Chat = () => {
 
             {/* LEFT SIDE */}
             <div className='absolute top-0 left-0 pt-[60px] pb-[48px] md:pt-0 md:pb-0 w-full md:static md:w-[30%] h-full bg-teal-950'>
-
                 <UserChatBox />
-
             </div>
 
             {/* RIGHT SIDE */}
             <div className={`absolute top-0 ${rightSideSlide} pt-[60px] pb-[48px] md:pt-0 md:pb-0 w-full md:static md:w-[70%] flex flex-col h-full bg-teal transition-all duration-300 bg-teal-950`}>
-
                 <ChatHeading />
-
                 {/* MESSAGES */}
                 <Messages />
-
                 <SendMessage />
-
             </div>
 
         </div>

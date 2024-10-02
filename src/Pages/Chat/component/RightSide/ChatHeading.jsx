@@ -15,7 +15,7 @@ const ChatHeading = () => {
         if (onlineUsers.includes(selectedUser._id)) {
             return <span className='text-green-500'>Active Now</span>
         } else {
-            return `${ dayjs().from(dayjs(selectedUser.active)).split(" ").slice(1).join(" ") } ago`
+            return `${dayjs().from(dayjs(selectedUser.active)).split(" ").slice(1).join(" ")} ago`
         }
 
 
@@ -27,7 +27,7 @@ const ChatHeading = () => {
         <>
             {selectedUser ? <div className='w-full h-[70px] flex justify-between items-center gap-2 p-2 bg-teal-950'>
 
-                <img loading='lazy' className='w-[50px] h-[50px] rounded-full bg-teal-500' src={selectedUser.profilePic} alt="" srcSet="" />
+                <img loading='lazy' className='w-[50px] h-[50px] rounded-full bg-teal-500' src={selectedUser.profilePic.length > 1 ? selectedUser.profilePic : `https://api.multiavatar.com/${selectedUser.name}.svg`} alt="" srcSet="" />
 
                 <div className='w-full flex flex-col gap-1'>
                     <p className='text-white text-2xl'>{selectedUser.name}</p>
